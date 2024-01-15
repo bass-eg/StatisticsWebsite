@@ -27,6 +27,22 @@ export function filterBySecurityCode(arr, searchKey) {
     )
   );
 }
+export function filterByMultiSecurityCode(arr, searchKey) {
+  let filteredArr = [];
+  searchKey.forEach((element) => {
+    filteredArr.push(
+      arr.filter((obj) =>
+        Object.keys(obj).some(() =>
+          obj.securityCode
+            .toString()
+            .toLowerCase()
+            .includes(element.toLowerCase())
+        )
+      )
+    );
+  });
+  return filteredArr;
+}
 export function filterByNin(arr, searchKey) {
   return arr.filter((obj) =>
     Object.keys(obj).some(() =>
@@ -37,7 +53,10 @@ export function filterByNin(arr, searchKey) {
 export function filterBySecondNin(arr, searchKey) {
   return arr.filter((obj) =>
     Object.keys(obj).some(() =>
-      obj.secondViolator.toString().toLowerCase().includes(searchKey.toLowerCase())
+      obj.secondViolator
+        .toString()
+        .toLowerCase()
+        .includes(searchKey.toLowerCase())
     )
   );
 }
