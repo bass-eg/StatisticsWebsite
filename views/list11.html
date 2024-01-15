@@ -19,6 +19,31 @@
   <script src="./js/jspdf.min.js"></script>
   <script src="./js/html2canvas.min.js"></script>
   <script src="./js/dselect.js"></script>
+
+<style>
+      .date-picker-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 800px;
+      min-width: 300px;
+      align-items: center;
+    }
+
+    .date-picker-container label {
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .date-picker-container input {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+</style>
 </head>
 
 <body class="preload">
@@ -110,18 +135,27 @@
   </div>
 
   <div class="search-container" dir="rtl">
-    <div class="container">
+    <div class="container" style="align-items: center">
       <div class="ser form-outline">
         <select id="selectCompany" class="form-select" multiple="multiple">
           <option value="" selected disabled hidden>إختر شركة</option>
         </select>
+      </div>
+      <div class="ser form-outline form-row date-picker-container">
+        <div class="col-md-6">
+          <label for="startDate">تاريخ البدء</label>
+          <input type="date" id="startDate" name="startDate" >
+        </div>
+        <div class="col-md-6">
+          <label for="endDate">تاريخ الانتهاء</label>
+          <input type="date"  id="endDate" name="endDate">
+        </div>
       </div>
       <div class="ser form-outline">
         <button class="btn btn-primary" type="button" id="globalDownload">
           إستخراج إلي PDF
         </button>
       </div>
-
     </div>
   </div>
 
@@ -138,7 +172,6 @@
   <div class="loader-wrapper">
     <span class="loader"><span class="loader-inner"></span></span>
   </div>
-
   <script src="./../index.js" type="module"></script>
   <script src="./../pdfExport.js" type="module"></script>
 </body>

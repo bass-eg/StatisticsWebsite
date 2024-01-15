@@ -1,7 +1,7 @@
 import * as customFilter from "./filters.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects) {
+function drawCharts(Objects, startDate = null, endDate = null) {
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
@@ -13,15 +13,29 @@ function drawCharts(Objects) {
     data2 = [],
     data3 = [],
     data4 = [];
-  // var startDate = new Date("2015-10-01");
-  // var endDate = new Date("2015-10-10");
+
+  startDate = startDate ? new Date(startDate) : null;
+  endDate = endDate ? new Date(endDate) : null;
+
+  if (startDate && isNaN(startDate.getTime())) {
+    console.error("Invalid startDate");
+    return;
+  }
+
+  if (endDate && isNaN(endDate.getTime())) {
+    console.error("Invalid endDate");
+    return;
+  }
+
   Objects.map((ob) => {
     ob.map((inner) => {
       inner.details
-        // .filter((a) => {
-        //   var date = new Date(a.date);
-        //   return date >= startDate && date <= endDate;
-        // })
+        .filter((a) => {
+          var date = new Date(a.date);
+          return (
+            (!startDate || date >= startDate) && (!endDate || date <= endDate)
+          );
+        })
         .sort(
           (objA, objB) =>
             Number(new Date(objA.date)) - Number(new Date(objB.date))
@@ -75,6 +89,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart3", data3, { responsive: true });
   Plotly.newPlot("chart4", data4, { responsive: true });
 }
+
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
@@ -159,6 +174,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
         const emptyObj = [
           [
             {
+              details: [],
               securityCode: null,
               securityName: null,
               date: null,
@@ -184,7 +200,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
           });
         }
 
-        $("#selectCompany").on("change", function () {
+        $("#selectCompany, #startDate, #endDate").on("change", function () {
           if ($("#selectCompany").val()) {
             selectedCompanyObj = customFilter.filterByMultiSecurityCode(
               chartsData,
@@ -193,7 +209,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
             if (selectedCompanyObj.length === 0) {
               drawCharts(emptyObj);
             } else {
-              drawCharts(selectedCompanyObj);
+              drawCharts(
+                selectedCompanyObj,
+                $("#startDate").val(),
+                $("#endDate").val()
+              );
             }
           }
         });
