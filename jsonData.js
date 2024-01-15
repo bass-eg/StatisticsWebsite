@@ -11,7 +11,7 @@ export async function getChartsData() {
     }
     // CHANGE TO THE SERVER AND PORT REQUIRED, AND ADD /StatisticsWebservice AFTER THE PORT
     const response = await fetch(
-      `http://localhost:9090/api/documentationController/charts/${caseId}`
+      `https://riy-cho-asc2-t.int.cma.org.sa:9091/StatisticsWebservice/api/documentationController/charts/${caseId}`
     );
     //if (response.headers.get("content-length") == 0) {
     //return window.location.replace("`https://riy-cho-asc2-t.int.cma.org.sa:9091/StatisticsWebsite/views/error.html");
@@ -36,7 +36,7 @@ export async function getDatatableData() {
     }
     // CHANGE TO THE SERVER AND PORT REQUIRED, AND ADD /StatisticsWebservice AFTER THE PORT
     const response = await fetch(
-      `http://localhost:9090/api/documentationController/document/${caseId}`
+      `https://riy-cho-asc2-t.int.cma.org.sa:9091/StatisticsWebservice/api/documentationController/document/${caseId}`
     );
     if (response.headers.get("content-length") == 0) {
       window.location.replace("/StatisticsWebsite/views/error.html");
