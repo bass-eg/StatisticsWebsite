@@ -41,14 +41,14 @@ function drawCharts(Objects) {
       y: buyVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyVolume}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyVolume}<br>`,
     },
     {
       x: securityName,
       y: sellVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellVolume}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellVolume}<br>`,
     }
   );
   data2.push(
@@ -57,14 +57,14 @@ function drawCharts(Objects) {
       y: buyValue,
       name: name2[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyValue}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyValue}<br>`,
     },
     {
       x: securityName,
       y: sellValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellValue}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellValue}<br>`,
     }
   );
   data3.push(
@@ -73,14 +73,14 @@ function drawCharts(Objects) {
       y: nbMatchingTrades,
       name: name3[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbMatchingTrades}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbMatchingTrades}<br>`,
     },
     {
       x: securityName,
       y: nbNotMatchingTrades,
       name: name3[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbNotMatchingTrades}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbNotMatchingTrades}<br>`,
     }
   );
 
