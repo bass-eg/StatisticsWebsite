@@ -200,7 +200,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
-            );
+              );
             selectedCompanyObj = customFilter.filterBySecurityCode(
               selectedNinObj,
               $("#selectCompany").val()
@@ -215,17 +215,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");
-
+            
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
-            );
-            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
-            selectedNinObj.forEach(function (item) {
-              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-            });
-
-            var selectBoxElement = document.querySelector("#selectCompany");
+              );
+              selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+              selectedNinObj.forEach(function (item) {
+                selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+              });
+              
+              var selectBoxElement = document.querySelector("#selectCompany");
             dselect(selectBoxElement, {
               search: true,
             });

@@ -52,14 +52,14 @@ function drawCharts(Objects, startDate = null, endDate = null) {
         y: sectorClosingPrice,
         name:
           arabicTranslation[0].list11.sectorClosingPrice + inner.securityName,
-        type: "scatter",
+        type: "bar",
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorClosingPrice}<br>`,
       });
       data2.push({
         x: date,
         y: sectorHigh,
         name: arabicTranslation[0].list11.sectorHigh + inner.securityName,
-        type: "scatter",
+        type: "bar",
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorHigh}<br>`,
       });
       data3.push({
@@ -187,18 +187,44 @@ export function startTable(tableData, chartsData, lang, ninData) {
           ],
         ];
         let selectedCompanyObj;
+        let allSectors = [];
+        let selectSectorElement = document.getElementById("selectSector");
+        selectSectorElement.innerHTML = `<option value="" selected disabled hidden>إختر قطاع</option>`;
         let selectCompanyElement = document.getElementById("selectCompany");
         selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+        dselect(selectCompanyElement, {
+          search: true,
+        });
+
         if (chartsData) {
           chartsData.forEach(function (item) {
-            selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+            if (!allSectors.includes(item.sector)) {
+              allSectors.push(item.sector);
+            }
           });
+        }
 
-          var selectBoxElement = document.querySelector("#selectCompany");
-          dselect(selectBoxElement, {
+        if (allSectors) {
+          allSectors.forEach((item) => {
+            selectSectorElement.innerHTML += `<option value="${item}">${item}</option>`;
+          });
+          dselect(selectSectorElement, {
             search: true,
           });
         }
+        $("#selectSector").on("change", function () {
+          selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+
+          chartsData.forEach((item) => {
+            if (item.sector == $("#selectSector").val()) {
+              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+            }
+          });
+              drawCharts(emptyObj);
+          dselect(selectCompanyElement, {
+            search: true,
+          });
+        });
 
         $("#selectCompany, #startDate, #endDate").on("change", function () {
           if ($("#selectCompany").val()) {
