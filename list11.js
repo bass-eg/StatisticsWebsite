@@ -1,7 +1,13 @@
 import * as customFilter from "./filters.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects, startDate = null, endDate = null) {
+function drawCharts(
+  Objects,
+  startDate = null,
+  endDate = null,
+  selectedType = ""
+) {
+  console.log("selectedType is ", selectedType);
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
@@ -26,6 +32,12 @@ function drawCharts(Objects, startDate = null, endDate = null) {
     console.error("Invalid endDate");
     return;
   }
+
+  if (selectedType != "scatter" && selectedType != "bar") {
+    console.log("inside selectedType = ''");
+    selectedType = "scatter";
+  }
+  console.log("selectedType is ", selectedType);
 
   Objects.map((ob) => {
     ob.map((inner) => {
@@ -52,28 +64,28 @@ function drawCharts(Objects, startDate = null, endDate = null) {
         y: sectorClosingPrice,
         name:
           arabicTranslation[0].list11.sectorClosingPrice + inner.securityName,
-        type: "bar",
+        type: selectedType,
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorClosingPrice}<br>`,
       });
       data2.push({
         x: date,
         y: sectorHigh,
         name: arabicTranslation[0].list11.sectorHigh + inner.securityName,
-        type: "bar",
+        type: selectedType,
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorHigh}<br>`,
       });
       data3.push({
         x: date,
         y: sectorLow,
         name: arabicTranslation[0].list11.sectorLow + inner.securityName,
-        type: "scatter",
+        type: selectedType,
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorLow}<br>`,
       });
       data4.push({
         x: date,
         y: securityClosingPrice,
         name: arabicTranslation[0].list11.securityClosingPrice,
-        type: "scatter",
+        type: selectedType,
         hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.securityClosingPrice}<br>`,
       });
       date = [];
@@ -220,29 +232,46 @@ export function startTable(tableData, chartsData, lang, ninData) {
               selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
             }
           });
-              drawCharts(emptyObj);
+          if ($("#selectCompany").val()) {
+            $("#shape-selection").css({
+              display: "none",
+            });
+            drawCharts(emptyObj);
+          }
           dselect(selectCompanyElement, {
             search: true,
           });
         });
 
-        $("#selectCompany, #startDate, #endDate").on("change", function () {
-          if ($("#selectCompany").val()) {
-            selectedCompanyObj = customFilter.filterByMultiSecurityCode(
-              chartsData,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(
-                selectedCompanyObj,
-                $("#startDate").val(),
-                $("#endDate").val()
+        $("#selectedType,#selectCompany, #startDate, #endDate").on(
+          "change",
+          function () {
+            if ($("#selectCompany").val()) {
+              selectedCompanyObj = customFilter.filterByMultiSecurityCode(
+                chartsData,
+                $("#selectCompany").val()
               );
+              if (selectedCompanyObj.length === 0) {
+                $("#shape-selection").css({
+                  display: "none",
+                });
+                drawCharts(emptyObj);
+              } else {
+                $("#shape-selection").css({
+                  justifyContent: "right",
+                  display: "flex",
+                });
+
+                drawCharts(
+                  selectedCompanyObj,
+                  $("#startDate").val(),
+                  $("#endDate").val(),
+                  $("#selectedType").val()
+                );
+              }
             }
           }
-        });
+        );
         var api = this.api();
 
         // For each column

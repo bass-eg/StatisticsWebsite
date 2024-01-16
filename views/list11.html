@@ -22,7 +22,7 @@
 
 <style>
   @media(max-width:700px){
-    .container{
+    .bt-container{
       display: grid;
     }
   }
@@ -140,7 +140,7 @@
   </div>
 
   <div class="search-container" dir="rtl">
-    <div class="container" style="align-items: center">
+    <div class="bt-container container" style="align-items: center">
       <div class="ser form-outline">
         <select id="selectSector" class="form-select">
           <option value="" selected disabled hidden>إختر قطاع</option>
@@ -154,7 +154,10 @@
       <div class="ser form-outline form-row date-picker-container">
         <div class="col-md-6">
           <label for="startDate">تاريخ البدء</label>
-          <input type="date" id="startDate" name="startDate" >
+          <input type="date" id="startDate" name="startDate" 
+          placeholder="dd-mm-yyyy" value=""
+        min="1997-01-01" max="2030-12-31" >
+
         </div>
         <div class="col-md-6">
           <label for="endDate">تاريخ الانتهاء</label>
@@ -166,6 +169,15 @@
           إستخراج إلي PDF
         </button>
       </div>
+    </div>
+    <div class="container" id="shape-selection" style="display: none;" >
+            <div class="ser form-outline">
+              <select id="selectedType" class="form-select">
+                <option value="" selected disabled hidden>إختر شكل</option>
+                <option value="scatter">Scatter</option>
+                <option value="bar">Bar</option>
+              </select>
+            </div>
     </div>
   </div>
 
