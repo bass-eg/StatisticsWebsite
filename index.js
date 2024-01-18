@@ -309,6 +309,10 @@ const startProgram = async () => {
     }
     list11.startTable(
       datatableData[0].list11,
+      {
+        securities:chartsData[0].list11Securities,
+        sectors:chartsData[0].list11Sectors
+      },
       chartsData[0].list11,
       lang,
       datatableData[0].NINs

@@ -43,6 +43,24 @@ export function filterByMultiSecurityCode(arr, searchKey) {
   });
   return filteredArr;
 }
+
+export function filterByMultiSector(arr, searchKey) {
+  let filteredArr = [];
+  searchKey.forEach((element) => {
+    filteredArr.push(
+      arr.filter((obj) =>
+        Object.keys(obj).some(() =>
+          obj.sector
+            .toString()
+            .toLowerCase()
+            .includes(element.toLowerCase())
+        )
+      )
+    );
+  });
+  return filteredArr;
+}
+
 export function filterByNin(arr, searchKey) {
   return arr.filter((obj) =>
     Object.keys(obj).some(() =>

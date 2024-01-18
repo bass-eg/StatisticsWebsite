@@ -127,9 +127,13 @@
             <th class="date"></th>
             <th class="sector"></th>
             <th class="securityClosingPrice"></th>
+            <th class="securityVolumeTraded"></th>
+            <th class="securityValueTraded"></th>
+            <th class="securityNumberOfTrades"></th>
             <th class="sectorClosingPrice"></th>
-            <th class="sectorHigh"></th>
-            <th class="sectorLow"></th>
+            <th class="sectorVolumeTraded"></th>
+            <th class="sectorValueTraded"></th>
+            <th class="sectorNumberOfTrades"></th>
           </tr>
         <tbody class="doc-table-body" dir="rtl">
         </tbody>
@@ -142,7 +146,7 @@
   <div class="search-container" dir="rtl">
     <div class="bt-container container" style="align-items: center">
       <div class="ser form-outline">
-        <select id="selectSector" class="form-select">
+        <select id="selectSector" class="form-select"  multiple="multiple">
           <option value="" selected disabled hidden>إختر قطاع</option>
         </select>
       </div>
@@ -152,30 +156,34 @@
         </select>
       </div>
       <div class="ser form-outline form-row date-picker-container">
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label for="startDate">تاريخ البدء</label>
-          <input type="date" id="startDate" name="startDate" 
-          placeholder="dd-mm-yyyy" value=""
-        min="1997-01-01" max="2030-12-31" >
-
+          </div>
+          <div class="col-md-4">
+          <input type="date" id="startDate" name="startDate">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label for="endDate">تاريخ الانتهاء</label>
+          </div>
+          <div class="col-md-4">
           <input type="date"  id="endDate" name="endDate">
         </div>
       </div>
-      <div class="ser form-outline">
+      <div class="ser form-outline" style="justify-content: center; display: flex;">
         <button class="btn btn-primary" type="button" id="globalDownload">
           إستخراج إلي PDF
         </button>
       </div>
     </div>
     <div class="container" id="shape-selection" style="display: none;" >
-            <div class="ser form-outline">
+            <div class="ser form-outline" style="display: flex;">
+
+              <label for="selectedType">الرسم البياني</label>
+
               <select id="selectedType" class="form-select">
                 <option value="" selected disabled hidden>إختر شكل</option>
-                <option value="scatter">Scatter</option>
-                <option value="bar">Bar</option>
+                <option value="scatter" selected>Timeline</option>
+                <option value="bar">Bar Charts</option>
               </select>
             </div>
     </div>

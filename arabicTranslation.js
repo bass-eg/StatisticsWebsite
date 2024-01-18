@@ -253,7 +253,7 @@ export function getArabicTranslation() {
         cumulativePriceSell: "إجمالي متوسط سعت البيع",
       },
 
-      list11: {
+      list11Old: {
         securityCode: "رقم تعرفة الشركة",
         securityName: "إسم الشركة",
         date: "التاريخ",
@@ -262,7 +262,33 @@ export function getArabicTranslation() {
         sectorClosingPrice: "سعر الاغلاق للمؤشر",
         sectorHigh: "أعلى سعر للمؤشر",
         sectorLow: "أدنى سعر للمؤشر",
+
       },
+
+      list11: {
+        securityCode: "رقم تعرفة الشركة",
+        securityName: "إسم الشركة",
+        date: "التاريخ",
+        sector: "المؤشر",
+        securityClosingPrice:"سعر الاغلاق للشركة",
+        securityVolumeTraded:"كمية التداول للشركة",
+        securityValueTraded:"قيمة التداول للشركة",
+        securityNumberOfTrades:"عدد الأوامر للشركة",
+        sectorClosingPrice:"سعر الاغلاق للمؤشر",
+        sectorVolumeTraded:"كمية التداول للمؤشر",
+        sectorValueTraded:"قيمة التداول للمؤشر",
+        sectorNumberOfTrades:"عدد الأوامر للمؤشر",
+
+      },
+
+      list11ChartsLabels: {
+        ClosingPrice:"سعر الاغلاق",
+        VolumeTraded:"كمية التداول",
+        ValueTraded:"قيمة التداول",
+        NumberOfTrades:"عدد الأوامر",
+      },
+
+
     },
   ];
 }

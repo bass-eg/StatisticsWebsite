@@ -11,10 +11,14 @@ function drawCharts(
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
-    securityClosingPrice = [],
-    sectorClosingPrice = [],
-    sectorHigh = [],
-    sectorLow = [];
+    // securityClosingPrice = [],
+    // sectorClosingPrice = [],
+    // sectorHigh = [],
+    // sectorLow = []
+    closingPrice=[],
+    volumeTraded=[],
+    valueTraded=[],
+    numberOfTrades=[];
   let data1 = [],
     data2 = [],
     data3 = [],
@@ -54,45 +58,68 @@ function drawCharts(
         )
         .map((el) => {
           date.push(el.date);
-          securityClosingPrice.push(el.securityClosingPrice);
-          sectorClosingPrice.push(el.sectorClosingPrice);
-          sectorHigh.push(el.sectorHigh);
-          sectorLow.push(el.sectorLow);
+          closingPrice.push(inner.securityCode ? el.securityClosingPrice: el.sectorClosingPrice);
+          volumeTraded.push(inner.securityCode ? el.securityVolumeTraded: el.sectorVolumeTraded);
+          valueTraded.push(inner.securityCode ? el.securityValueTraded: el.sectorValueTraded);
+          numberOfTrades.push(inner.securityCode ? el.securityNumberOfTrades: el.sectorNumberOfTrades);
         });
       data1.push({
         x: date,
-        y: sectorClosingPrice,
-        name:
-          arabicTranslation[0].list11.sectorClosingPrice + inner.securityName,
+        y: closingPrice,
+        name: inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorClosingPrice}<br>`,
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
+          inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector
+        }<br>`,
       });
       data2.push({
         x: date,
-        y: sectorHigh,
-        name: arabicTranslation[0].list11.sectorHigh + inner.securityName,
+        y: volumeTraded,
+        name: inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector,       
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorHigh}<br>`,
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
+          inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector
+        }<br>`,
       });
       data3.push({
         x: date,
-        y: sectorLow,
-        name: arabicTranslation[0].list11.sectorLow + inner.securityName,
+        y: valueTraded,
+        name: inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ValueTraded +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector,  
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.sectorLow}<br>`,
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
+          inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ValueTraded +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector
+        }<br>`,
       });
       data4.push({
         x: date,
-        y: securityClosingPrice,
-        name: arabicTranslation[0].list11.securityClosingPrice,
+        y: numberOfTrades,
+        name: inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector,  
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${arabicTranslation[0].list11.securityClosingPrice}<br>`,
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
+          inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector
+        }<br>`,
       });
       date = [];
-      sectorHigh = [];
-      sectorLow = [];
-      sectorClosingPrice = [];
-      securityClosingPrice = [];
+      closingPrice=[];
+      volumeTraded=[];
+      valueTraded=[];
+      numberOfTrades=[];
     });
   });
 
@@ -170,9 +197,13 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "date" },
         { data: "sector" },
         { data: "securityClosingPrice" },
+        { data: "securityVolumeTraded" },
+        { data: "securityValueTraded" },
+        { data: "securityNumberOfTrades" },
         { data: "sectorClosingPrice" },
-        { data: "sectorHigh" },
-        { data: "sectorLow" },
+        { data: "sectorVolumeTraded" },
+        { data: "sectorValueTraded" },
+        { data: "sectorNumberOfTrades" },
       ],
       orderCellsTop: true,
 
@@ -192,14 +223,19 @@ export function startTable(tableData, chartsData, lang, ninData) {
               date: null,
               sector: null,
               securityClosingPrice: null,
+              securityVolumeTraded: null,
+              securityValueTraded: null,
+              securityNumberOfTrades: null,
               sectorClosingPrice: null,
-              sectorHigh: null,
-              sectorLow: null,
+              sectorVolumeTraded: null,
+              sectorValueTraded: null,
+              sectorNumberOfTrades: null,
             },
           ],
         ];
         let selectedCompanyObj;
         let allSectors = [];
+        let allSecurities = [];
         let selectSectorElement = document.getElementById("selectSector");
         selectSectorElement.innerHTML = `<option value="" selected disabled hidden>إختر قطاع</option>`;
         let selectCompanyElement = document.getElementById("selectCompany");
@@ -208,11 +244,31 @@ export function startTable(tableData, chartsData, lang, ninData) {
           search: true,
         });
 
-        if (chartsData) {
-          chartsData.forEach(function (item) {
+        if (chartsData.securities) {
+          chartsData.securities.forEach(function (item) {
+            let obj = {
+              name: item.securityName,
+              code: item.securityCode,
+            };
+            if (!allSecurities.includes(obj)) {
+              allSecurities.push(obj);
+            }
+          });
+        }
+        if (chartsData.sectors) {
+          chartsData.sectors.forEach(function (item) {
             if (!allSectors.includes(item.sector)) {
               allSectors.push(item.sector);
             }
+          });
+        }
+
+        if (allSecurities) {
+          allSecurities.forEach((item) => {
+            selectCompanyElement.innerHTML += `<option value="${item.code}">${item.code} - ${item.name}</option>`;
+          });
+          dselect(selectCompanyElement, {
+            search: true,
           });
         }
 
@@ -224,56 +280,67 @@ export function startTable(tableData, chartsData, lang, ninData) {
             search: true,
           });
         }
-        $("#selectSector").on("change", function () {
-          selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
 
-          chartsData.forEach((item) => {
-            if (item.sector == $("#selectSector").val()) {
-              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-            }
-          });
+        // $("#selectSector").on("change", function () {
+        //   selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+
+        //   chartsData.forEach((item) => {
+        //     if (item.sector == $("#selectSector").val()) {
+        //       selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+        //     }
+        //   });
+        //   if ($("#selectCompany").val()) {
+        //     $("#shape-selection").css({
+        //       display: "none",
+        //     });
+        //     drawCharts(emptyObj);
+        //   }
+        //   dselect(selectCompanyElement, {
+        //     search: true,
+        //   });
+        // });
+
+        $(
+          "#selectSector,#selectedType,#selectCompany, #startDate, #endDate"
+        ).on("change", function () {
+          selectedCompanyObj = [];
           if ($("#selectCompany").val()) {
+            let result = customFilter.filterByMultiSecurityCode(
+              chartsData.securities,
+              $("#selectCompany").val()
+            );
+            selectedCompanyObj.push(...result);
+          }
+          if ($("#selectSector").val()) {
+            let result = customFilter.filterByMultiSector(
+              chartsData.sectors,
+              $("#selectSector").val()
+            );
+            selectedCompanyObj.push(...result);
+          }
+          if (selectedCompanyObj.length === 0) {
             $("#shape-selection").css({
               display: "none",
             });
             drawCharts(emptyObj);
+          } else {
+            $("#shape-selection").css({
+              justifyContent: "center",
+              display: "flex",
+            });
+
+            drawCharts(
+              selectedCompanyObj,
+              $("#startDate").val(),
+              $("#endDate").val(),
+              $("#selectedType").val()
+            );
           }
-          dselect(selectCompanyElement, {
-            search: true,
-          });
         });
-
-        $("#selectedType,#selectCompany, #startDate, #endDate").on(
-          "change",
-          function () {
-            if ($("#selectCompany").val()) {
-              selectedCompanyObj = customFilter.filterByMultiSecurityCode(
-                chartsData,
-                $("#selectCompany").val()
-              );
-              if (selectedCompanyObj.length === 0) {
-                $("#shape-selection").css({
-                  display: "none",
-                });
-                drawCharts(emptyObj);
-              } else {
-                $("#shape-selection").css({
-                  justifyContent: "right",
-                  display: "flex",
-                });
-
-                drawCharts(
-                  selectedCompanyObj,
-                  $("#startDate").val(),
-                  $("#endDate").val(),
-                  $("#selectedType").val()
-                );
-              }
-            }
-          }
-        );
         var api = this.api();
 
+        // Columns Filters
+        //!!!! Don't TOUCH if you don't know what you are doing !!!!
         // For each column
         api
           .columns()
