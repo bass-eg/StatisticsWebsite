@@ -178,6 +178,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart3", data3, layout, { responsive: true });
   Plotly.newPlot("chart4", data4, layout, { responsive: true });
 }
+
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
