@@ -5,32 +5,23 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let securityName = [],
-    buyVolume = [],
-    sellVolume = [],
-    buyValue = [],
-    sellValue = [],
-    nbMatchingTrades = [],
-    nbNotMatchingTrades = [];
+    countMatching = [],
+    totalViolation = [],
+    percentage = [];
   let name1 = [
-    arabicTranslation[0].list1A.buyVolume,
-    arabicTranslation[0].list1A.sellVolume,
+    arabicTranslation[0].list1A.countMatching,
   ];
   let name2 = [
-    arabicTranslation[0].list1A.buyValue,
-    arabicTranslation[0].list1A.sellValue,
+    arabicTranslation[0].list1A.totalViolation,
   ];
   let name3 = [
-    arabicTranslation[0].list1A.nbMatchingTrades,
-    arabicTranslation[0].list1A.nbNotMatchingTrades,
+    arabicTranslation[0].list1A.percentage,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
-    buyVolume.push(el.buyVolume);
-    sellVolume.push(el.sellVolume);
-    buyValue.push(el.buyValue);
-    sellValue.push(el.sellValue);
-    nbMatchingTrades.push(el.nbMatchingTrades);
-    nbNotMatchingTrades.push(el.nbNotMatchingTrades);
+    countMatching.push(el.countMatching);
+    totalViolation.push(el.totalViolation);
+    percentage.push(el.percentage);
   });
   let data1 = [],
     data2 = [],
@@ -38,49 +29,28 @@ function drawCharts(Objects) {
   data1.push(
     {
       x: securityName,
-      y: buyVolume,
+      y: countMatching,
       name: name1[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyVolume}<br>`,
-    },
-    {
-      x: securityName,
-      y: sellVolume,
-      name: name1[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellVolume}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.countMatching}<br>`,
     }
   );
   data2.push(
     {
       x: securityName,
-      y: buyValue,
+      y: totalViolation,
       name: name2[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.buyValue}<br>`,
-    },
-    {
-      x: securityName,
-      y: sellValue,
-      name: name2[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.sellValue}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.totalViolation}<br>`,
     }
   );
   data3.push(
     {
       x: securityName,
-      y: nbMatchingTrades,
+      y: percentage,
       name: name3[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbMatchingTrades}<br>`,
-    },
-    {
-      x: securityName,
-      y: nbNotMatchingTrades,
-      name: name3[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.nbNotMatchingTrades}<br>`,
+      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.percentage}<br>`,
     }
   );
 
@@ -154,24 +124,12 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "securityName" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "buyVolume" },
-        { data: "buyValue" },
-        { data: "sellVolume" },
-        { data: "sellValue" },
-        { data: "nbNotMatchingTrades" },
-        { data: "nbMatchingTrades" },
+        { data: "countMatching" },
+        { data: "combination" },
+        { data: "violators" },
+        { data: "totalViolation" },
         {
-          data: "percentageSecuirtyCode",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageTotal",
+          data: "percentage",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -203,9 +161,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
             drawCharts(selectedNinObj[0].details);
           }
         });
-        var api = this.api();
 
+        // Columns Filters
+        //!!!! Don't TOUCH if you don't know what you are doing !!!!
         // For each column
+        var api = this.api();
         api
           .columns()
           .eq(0)

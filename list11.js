@@ -337,11 +337,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
             );
           }
         });
-        var api = this.api();
-
+        
         // Columns Filters
         //!!!! Don't TOUCH if you don't know what you are doing !!!!
         // For each column
+        var api = this.api();
         api
           .columns()
           .eq(0)
