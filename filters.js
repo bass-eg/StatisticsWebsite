@@ -71,7 +71,7 @@ export function filterByNin(arr, searchKey) {
 export function filterBySecondNin(arr, searchKey) {
   return arr.filter((obj) =>
     Object.keys(obj).some(() =>
-      obj.secondViolator
+      obj.secondNin
         .toString()
         .toLowerCase()
         .includes(searchKey.toLowerCase())

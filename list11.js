@@ -15,10 +15,10 @@ function drawCharts(
     // sectorClosingPrice = [],
     // sectorHigh = [],
     // sectorLow = []
-    closingPrice=[],
-    volumeTraded=[],
-    valueTraded=[],
-    numberOfTrades=[];
+    closingPrice = [],
+    volumeTraded = [],
+    valueTraded = [],
+    numberOfTrades = [];
   let data1 = [],
     data2 = [],
     data3 = [],
@@ -58,75 +58,72 @@ function drawCharts(
         )
         .map((el) => {
           date.push(el.date);
-          closingPrice.push(inner.securityCode ? el.securityClosingPrice: el.sectorClosingPrice);
-          volumeTraded.push(inner.securityCode ? el.securityVolumeTraded: el.sectorVolumeTraded);
-          valueTraded.push(inner.securityCode ? el.securityValueTraded: el.sectorValueTraded);
-          numberOfTrades.push(inner.securityCode ? el.securityNumberOfTrades: el.sectorNumberOfTrades);
+          closingPrice.push(inner.securityCode ? el.securityClosingPrice : el.sectorClosingPrice);
+          volumeTraded.push(inner.securityCode ? el.securityVolumeTraded : el.sectorVolumeTraded);
+          valueTraded.push(inner.securityCode ? el.securityValueTraded : el.sectorValueTraded);
+          numberOfTrades.push(inner.securityCode ? el.securityNumberOfTrades : el.sectorNumberOfTrades);
         });
       data1.push({
         x: date,
         y: closingPrice,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice +" " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.securityName :
           arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
-          inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice +" " + inner.securityName :
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.securityName :
           arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector
-        }<br>`,
+          }<br>`,
       });
       data2.push({
         x: date,
         y: volumeTraded,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded +" " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector,       
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
-          inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded +" " + inner.securityName :
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.securityName :
           arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector
-        }<br>`,
+          }<br>`,
       });
       data3.push({
         x: date,
         y: valueTraded,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ValueTraded +" " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector,  
+          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
-          inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ValueTraded +" " + inner.securityName :
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.securityName :
           arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector
-        }<br>`,
+          }<br>`,
       });
       data4.push({
         x: date,
         y: numberOfTrades,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades +" " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector,  
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.securityName :
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${
-          inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades +" " + inner.securityName :
+        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
+          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.securityName :
           arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector
-        }<br>`,
+          }<br>`,
       });
       date = [];
-      closingPrice=[];
-      volumeTraded=[];
-      valueTraded=[];
-      numberOfTrades=[];
+      closingPrice = [];
+      volumeTraded = [];
+      valueTraded = [];
+      numberOfTrades = [];
     });
   });
+  let layout1 = { barmode: "group", showlegend: true };
 
-  Plotly.newPlot("chart1", data1, { responsive: true });
-  Plotly.newPlot("chart2", data2, { responsive: true });
-  Plotly.newPlot("chart3", data3, { responsive: true });
-  Plotly.newPlot("chart4", data4, { responsive: true });
+  Plotly.newPlot("chart1", data1, layout1, { responsive: true });
+  Plotly.newPlot("chart2", data2, layout1, { responsive: true });
+  Plotly.newPlot("chart3", data3, layout1, { responsive: true });
+  Plotly.newPlot("chart4", data4, layout1, { responsive: true });
 }
 
 export function startTable(tableData, chartsData, lang, ninData) {
@@ -337,7 +334,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             );
           }
         });
-        
+
         // Columns Filters
         //!!!! Don't TOUCH if you don't know what you are doing !!!!
         // For each column

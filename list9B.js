@@ -6,59 +6,81 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
-    buyPriceAvg = [],
-    sellPriceAvg = [],
-    buyPriceAvgMarket = [],
-    sellPriceAvgMarket = [];
+    buyBeforePrice = [],
+    sellBeforePrice = [],
+    buyDuringPrice = [],
+    sellDuringPrice = [],
+    buyAfterPrice = [],
+    sellAfterPrice = [];
 
   let name1 = [
-    arabicTranslation[0].list9B.buyPriceAvg,
-    arabicTranslation[0].list9B.sellPriceAvg,
-    arabicTranslation[0].list9B.buyPriceAvgMarket,
-    arabicTranslation[0].list9B.sellPriceAvgMarket,
+    arabicTranslation[0].list9B.buyBeforePrice,
+    arabicTranslation[0].list9B.sellBeforePrice,
+    arabicTranslation[0].list9B.buyDuringPrice,
+    arabicTranslation[0].list9B.sellDuringPrice,
+    arabicTranslation[0].list9B.buyAfterPrice,
+    arabicTranslation[0].list9B.sellAfterPrice,
   ];
   Objects.map((el) => {
     date.push(el.date);
-    buyPriceAvg.push(el.buyPriceAvg);
-    sellPriceAvg.push(el.sellPriceAvg);
-    buyPriceAvgMarket.push(el.buyPriceAvgMarket);
-    sellPriceAvgMarket.push(el.sellPriceAvgMarket);
+    buyBeforePrice.push(el.buyBeforePrice);
+    sellBeforePrice.push(el.sellBeforePrice);
+    buyDuringPrice.push(el.buyDuringPrice);
+    sellDuringPrice.push(el.sellDuringPrice);
+    buyAfterPrice.push(el.buyAfterPrice);
+    sellAfterPrice.push(el.sellAfterPrice);
   });
   const { layout: layout1, config: config1 } = helperFunctions.getMinMax(
-    buyPriceAvg,
-    sellPriceAvg,
-    buyPriceAvgMarket,
-    sellPriceAvgMarket
+    buyBeforePrice,
+    sellBeforePrice,
+    buyDuringPrice,
+    sellDuringPrice,
+    buyAfterPrice,
+    sellAfterPrice
   );
   let data1 = [];
   data1.push(
     {
       x: date,
-      y: buyPriceAvg,
+      y: buyBeforePrice,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list4.date}<br>%{y} :${arabicTranslation[0].list4.buyPriceAvg}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyBeforePrice}<br>`,
     },
     {
       x: date,
-      y: sellPriceAvg,
+      y: sellBeforePrice,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list4.date}<br>%{y} :${arabicTranslation[0].list4.sellPriceAvg}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellBeforePrice}<br>`,
     },
     {
       x: date,
-      y: buyPriceAvgMarket,
+      y: buyDuringPrice,
       name: name1[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list4.date}<br>%{y} :${arabicTranslation[0].list4.buyPriceAvgMarket}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyDuringPrice}<br>`,
     },
     {
       x: date,
-      y: sellPriceAvgMarket,
+      y: sellDuringPrice,
       name: name1[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list4.date}<br>%{y} :${arabicTranslation[0].list4.sellPriceAvgMarket}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellDuringPrice}<br>`,
+    },
+    {
+      x: date,
+      y: buyAfterPrice,
+      name: name1[4],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyAfterPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellAfterPrice,
+      name: name1[5],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellAfterPrice}<br>`,
     }
   );
 
@@ -129,13 +151,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
+        { data: "date" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "date" },
-        { data: "buyPriceAvg" },
-        { data: "sellPriceAvg" },
-        { data: "buyPriceAvgMarket" },
-        { data: "sellPriceAvgMarket" },
+        { data: "buyBeforePrice" },
+        { data: "buyDuringPrice" },
+        { data: "buyAfterPrice" },
+        { data: "sellBeforePrice" },
+        { data: "sellDuringPrice" },
+        { data: "sellAfterPrice" },
+        { data: "allMarketAvgBuyPrice" },
+        { data: "allMarketAvgSellPrice" },
       ],
       orderCellsTop: true,
 

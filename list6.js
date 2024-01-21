@@ -6,21 +6,20 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let date = [],
     balance = [],
-    position = [],
+    percentageOwnership = [],
     closingPrice = [],
     valueOfPosition = [];
   let name1 = [
     arabicTranslation[0].list6.balance,
-    arabicTranslation[0].list6.position,
   ];
-  let name2 = [arabicTranslation[0].list6.closingPrice];
-  let name3 = [arabicTranslation[0].list6.valueOfPosition];
+  let name2 = [
+    arabicTranslation[0].list6.percentageOwnership,
+  ];
+
   Objects.map((el) => {
     date.push(el.date);
     balance.push(el.balance);
-    position.push(el.position);
-    closingPrice.push(el.closingPrice);
-    valueOfPosition.push(el.valueOfPosition);
+    percentageOwnership.push(el.percentageOwnership);
   });
   let data1 = [],
     data2 = [],
@@ -33,32 +32,18 @@ function drawCharts(Objects) {
       type: "bar",
       hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balance}<br>`,
     },
-    {
-      x: date,
-      y: position,
-      name: name1[1],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.position}<br>`,
-    }
   );
   data2.push({
     x: date,
-    y: closingPrice,
+    y: percentageOwnership,
     name: name2[0],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.closingPrice}<br>`,
-  });
-  data3.push({
-    x: date,
-    y: valueOfPosition,
-    name: name3[0],
-    type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.valueOfPosition}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.percentageOwnership}<br>`,
   });
   let layout = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout, { responsive: true });
+  // Plotly.newPlot("chart3", data3, layout, { responsive: true });
 
   // let values = [];
   // let totalValue;
@@ -151,9 +136,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "ninName" },
         { data: "date" },
         { data: "balance" },
-        { data: "position" },
-        { data: "closingPrice" },
-        { data: "valueOfPosition" },
+        { data: "balanceValue" },
+        {
+          data: "percentageOwnership",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
       ],
       orderCellsTop: true,
 

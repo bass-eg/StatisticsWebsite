@@ -42,7 +42,7 @@
                         <a class="nav-link" href="list1C.html">نشاط التداول</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="list2.html">نسبة الملكية</a>
+                        <a class="nav-link active" aria-current="page" href="list2.html">نسبة الملكية</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="list4.html">نسبة الأوامر</a>
@@ -66,7 +66,7 @@
                         <a class="nav-link" href="list9C.html">الأسعار قبل، بعد و خلال المخالفة</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="list9D.html">عدد الصفقات المتقابلة</a>
+                        <a class="nav-link" href="list9D.html">عدد الصفقات المتقابلة</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="list9E.html">نسبة الأسهم المتبقية/المدخلة</a>
@@ -94,15 +94,40 @@
 
     <div class="container table-container">
         <div class="row col-12 d-flex justify-content-center">
-            <table id="datatable12" class="table table-striped doc-table display" style="width:100%">
+            <table id="datatable4" class="table table-striped doc-table display" style="width:100%">
                 <thead class="doc-table-head" dir="rtl">
                     <tr>
-                        <th class="securityCode"></th>
-                        <th class="securityName"></th>
-                        <th class="date"></th>
-                        <th class="fillVolume"></th>
-                        <th class="totalVolume"></th>
-                        <th class="percentage"></th>
+                        <th class="ninName"></th>
+                        <th class="nin"></th>
+                        <th class="relation"></th>
+                        <th class="address"></th>
+                        <th class="wallets"></th>
+                        <th class="agencies"></th>
+                        <th class="tool"></th>
+                        <th class="phone"></th>
+                        <th class="nationality"></th>
+                        <th class="job"></th>
+                        <th class="otherNinName"></th>
+                        <th class="otherNin"></th>
+                        <th class="otherRelation"></th>
+                        <th class="otherAddress"></th>
+                        <th class="otherWallets"></th>
+                        <th class="otherAgencies"></th>
+                        <th class="otherTool"></th>
+                        <th class="otherPhone"></th>
+                        <th class="otherNationality"></th>
+                        <th class="otherJob"></th>
+                        <th class="family_relation"></th>
+                        <th class="address_relation"></th>
+                        <th class="job_relation"></th>
+                        <th class="wallets_relation"></th>
+                        <th class="ip_matching"></th>
+                        <th class="bank_statement"></th>
+                        <th class="agency_relation"></th>
+                        <th class="phone_calls"></th>
+                        <th class="verification_number"></th>
+                        <th class="wallet_opening_date"></th>
+                        <th class="other"></th>
                     </tr>
                 <tbody class="doc-table-body" dir="rtl">
                 </tbody>
@@ -114,14 +139,9 @@
 
     <div class="search-container" dir="rtl">
         <div class="container">
-            <!-- <div class="ser form-outline">
+            <div class="ser form-outline">
                 <select id="selectNin" class="form-select">
                     <option value="" selected disabled hidden>إختر المشتبه به</option>
-                </select>
-            </div> -->
-            <div class="ser form-outline">
-                <select id="selectCompany" class="form-select">
-                    <option value="" selected disabled hidden>إختر شركة</option>
                 </select>
             </div>
             <div class="ser form-outline">
@@ -135,8 +155,6 @@
 
     <div id="print-container">
         <div id="chart1" class="col-12">
-        </div>
-        <div id="chart2" class="col-12">
         </div>
     </div>
     <div class="loader-wrapper">

@@ -5,44 +5,50 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let name1 = [
-    arabicTranslation[0].list9D.transferValue,
-    arabicTranslation[0].list9D.totalTransaction,
+    arabicTranslation[0].list9D.fillVolume,
+    arabicTranslation[0].list9D.totalVolume,
   ];
-  let name2 = [arabicTranslation[0].list9D.countOfMatchingRecords];
+  let name2 = [
+    arabicTranslation[0].list9D.percentage,
+  ];
+
   let date = [],
-    countOfMatchingRecords = [],
-    transferValue = [],
-    totalTransaction = [];
+    fillVolume = [],
+    totalVolume = [],
+    percentage = [];
+
   Objects.map((el) => {
     date.push(el.date);
-    countOfMatchingRecords.push(el.countOfMatchingRecords);
-    transferValue.push(el.transferValue);
-    totalTransaction.push(el.totalTransaction);
+    fillVolume.push(el.fillVolume);
+    totalVolume.push(el.totalVolume);
+    percentage.push(el.percentage);
   });
-  let data1 = [],
-    data2 = [];
+
+  let data1 = [];
+  let data2 = [];
+
   data1.push(
     {
       x: date,
-      y: transferValue,
+      y: fillVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.transferValue}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.fillVolume}<br>`,
     },
     {
       x: date,
-      y: totalTransaction,
+      y: totalVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.totalTransaction}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.totalVolume}<br>`,
     }
   );
   data2.push({
     x: date,
-    y: countOfMatchingRecords,
+    y: percentage,
     name: name2[0],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.countOfMatchingRecords}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.percentage}<br>`,
   });
 
   let layout = { barmode: "group", showlegend: true };
@@ -115,14 +121,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
         { data: "date" },
-        { data: "countOfMatchingRecords" },
-        { data: "transferValue" },
-        { data: "totalTransaction" },
+        { data: "fillVolume" },
+        { data: "totalVolume" },
         {
-          data: "percentageOfTotalValue",
+          data: "percentage",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -141,9 +144,9 @@ export function startTable(tableData, chartsData, lang, ninData) {
       responsive: true,
       keys: true,
       initComplete: function () {
-        if (chartsData) {
-          helperFunctions.fillNinDropdownList(ninData);
-        }
+        // if (chartsData) {
+        // helperFunctions.fillNinDropdownList(ninData);
+        // }
         const emptyObj = [
           {
             date: null,
@@ -151,15 +154,40 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         ];
         let selectedCompanyObj;
-        let selectedNinObj;
+        let allSecurities = [];
+        if (chartsData) {
+          chartsData.forEach(function (item) {
+            let obj = {
+              name: item.securityName,
+              code: item.securityCode,
+            };
+            if (!allSecurities.includes(obj)) {
+              allSecurities.push(obj);
+            }
+          });
+        }
+        if (allSecurities) {
+
+          let selectCompanyElement = document.getElementById("selectCompany");
+          selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+
+
+          allSecurities.forEach((item) => {
+            selectCompanyElement.innerHTML += `<option value="${item.code}">${item.code} - ${item.name}</option>`;
+          });
+          dselect(selectCompanyElement, {
+            search: true,
+          });
+        }
+
         $("#selectCompany").on("change", function () {
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
+          if ($("#selectCompany").val()) {
+            // selectedNinObj = customFilter.filterByNin(
+            //   chartsData,
+            //   $("#selectNin").val()
+            // );
             selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
+              chartsData,
               $("#selectCompany").val()
             );
             if (selectedCompanyObj.length === 0) {
@@ -169,36 +197,36 @@ export function startTable(tableData, chartsData, lang, ninData) {
             }
           }
         });
-        $("#selectNin").on("change", function () {
-          if ($("#selectNin").val()) {
-            let selectCompanyElement = document.getElementById("selectCompany");
+        // $("#selectNin").on("change", function () {
+        //   if ($("#selectNin").val()) {
+        //     let selectCompanyElement = document.getElementById("selectCompany");
 
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
-            selectedNinObj.forEach(function (item) {
-              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-            });
+        //     selectedNinObj = customFilter.filterByNin(
+        //       chartsData,
+        //       $("#selectNin").val()
+        //     );
+        //     selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+        //     selectedNinObj.forEach(function (item) {
+        //       selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+        //     });
 
-            var selectBoxElement = document.querySelector("#selectCompany");
-            dselect(selectBoxElement, {
-              search: true,
-            });
-          }
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
-          }
-        });
+        //     var selectBoxElement = document.querySelector("#selectCompany");
+        //     dselect(selectBoxElement, {
+        //       search: true,
+        //     });
+        //   }
+        //   if ($("#selectCompany").val() && $("#selectNin").val()) {
+        //     selectedCompanyObj = customFilter.filterBySecurityCode(
+        //       selectedNinObj,
+        //       $("#selectCompany").val()
+        //     );
+        //     if (selectedCompanyObj.length === 0) {
+        //       drawCharts(emptyObj);
+        //     } else {
+        //       drawCharts(selectedCompanyObj[0].details);
+        //     }
+        //   }
+        // });
         var api = this.api();
 
         // For each column

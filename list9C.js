@@ -6,156 +6,302 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
-    firstPrice = [],
-    lastPrice = [],
-    maxPrice = [],
-    minPrice = [],
-    beforeViolationFirstPrice = [],
-    beforeViolationLastPrice = [],
-    beforeViolationMaxPrice = [],
-    beforeViolationMinPrice = [],
-    afterViolationFirstPrice = [],
-    afterViolationLastPrice = [],
-    afterViolationMaxPrice = [],
-    afterViolationMinPrice = [];
+    buyBeforeFirstPrice = [],
+    buyBeforeLastPrice = [],
+    buyBeforeMinPrice = [],
+    buyBeforeMaxPrice = [],
+    buyDuringFirstPrice = [],
+    buyDuringLastPrice = [],
+    buyDuringMinPrice = [],
+    buyDuringMaxPrice = [],
+    buyAfterFirstPrice = [],
+    buyAfterLastPrice = [],
+    buyAfterMinPrice = [],
+    buyAfterMaxPrice = [],
+    sellBeforeFirstPrice = [],
+    sellBeforeLastPrice = [],
+    sellBeforeMinPrice = [],
+    sellBeforeMaxPrice = [],
+    sellDuringFirstPrice = [],
+    sellDuringLastPrice = [],
+    sellDuringMinPrice = [],
+    sellDuringMaxPrice = [],
+    sellAfterFirstPrice = [],
+    sellAfterLastPrice = [],
+    sellAfterMinPrice = [],
+    sellAfterMaxPrice = [];
   let name1 = [
-    arabicTranslation[0].list9C.firstPrice,
-    arabicTranslation[0].list9C.lastPrice,
-    arabicTranslation[0].list9C.maxPrice,
-    arabicTranslation[0].list9C.minPrice,
-    arabicTranslation[0].list9C.beforeViolationFirstPrice,
-    arabicTranslation[0].list9C.beforeViolationLastPrice,
-    arabicTranslation[0].list9C.beforeViolationMaxPrice,
-    arabicTranslation[0].list9C.beforeViolationMinPrice,
-    arabicTranslation[0].list9C.afterViolationFirstPrice,
-    arabicTranslation[0].list9C.afterViolationLastPrice,
-    arabicTranslation[0].list9C.afterViolationMaxPrice,
-    arabicTranslation[0].list9C.afterViolationMinPrice,
+    arabicTranslation[0].list9C.buyBeforeFirstPrice,
+    arabicTranslation[0].list9C.buyBeforeLastPrice,
+    arabicTranslation[0].list9C.buyBeforeMinPrice,
+    arabicTranslation[0].list9C.buyBeforeMaxPrice,
+    arabicTranslation[0].list9C.buyDuringFirstPrice,
+    arabicTranslation[0].list9C.buyDuringLastPrice,
+    arabicTranslation[0].list9C.buyDuringMinPrice,
+    arabicTranslation[0].list9C.buyDuringMaxPrice,
+    arabicTranslation[0].list9C.buyAfterFirstPrice,
+    arabicTranslation[0].list9C.buyAfterLastPrice,
+    arabicTranslation[0].list9C.buyAfterMinPrice,
+    arabicTranslation[0].list9C.buyAfterMaxPrice,
+  ];
+  let name2 = [
+    arabicTranslation[0].list9C.sellBeforeLastPrice,
+    arabicTranslation[0].list9C.sellBeforeFirstPrice,
+    arabicTranslation[0].list9C.sellBeforeMinPrice,
+    arabicTranslation[0].list9C.sellBeforeMaxPrice,
+    arabicTranslation[0].list9C.sellDuringFirstPrice,
+    arabicTranslation[0].list9C.sellDuringLastPrice,
+    arabicTranslation[0].list9C.sellDuringMinPrice,
+    arabicTranslation[0].list9C.sellDuringMaxPrice,
+    arabicTranslation[0].list9C.sellAfterFirstPrice,
+    arabicTranslation[0].list9C.sellAfterLastPrice,
+    arabicTranslation[0].list9C.sellAfterMinPrice,
+    arabicTranslation[0].list9C.sellAfterMaxPrice,
   ];
   Objects.map((el) => {
     date.push(el.date);
-    firstPrice.push(el.firstPrice);
-    lastPrice.push(el.lastPrice);
-    maxPrice.push(el.maxPrice);
-    minPrice.push(el.minPrice);
-    beforeViolationFirstPrice.push(el.beforeViolationFirstPrice);
-    beforeViolationLastPrice.push(el.beforeViolationLastPrice);
-    beforeViolationMaxPrice.push(el.beforeViolationMaxPrice);
-    beforeViolationMinPrice.push(el.beforeViolationMinPrice);
-    afterViolationFirstPrice.push(el.afterViolationFirstPrice);
-    afterViolationLastPrice.push(el.afterViolationLastPrice);
-    afterViolationMaxPrice.push(el.afterViolationMaxPrice);
-    afterViolationMinPrice.push(el.afterViolationMinPrice);
+    buyBeforeFirstPrice.push(el.buyBeforeFirstPrice);
+    buyBeforeLastPrice.push(el.buyBeforeLastPrice);
+    buyBeforeMinPrice.push(el.buyBeforeMinPrice);
+    buyBeforeMaxPrice.push(el.buyBeforeMaxPrice);
+    buyDuringFirstPrice.push(el.buyDuringFirstPrice);
+    buyDuringLastPrice.push(el.buyDuringLastPrice);
+    buyDuringMinPrice.push(el.buyDuringMinPrice);
+    buyDuringMaxPrice.push(el.buyDuringMaxPrice);
+    buyAfterFirstPrice.push(el.buyAfterFirstPrice);
+    buyAfterLastPrice.push(el.buyAfterLastPrice);
+    buyAfterMinPrice.push(el.buyAfterMinPrice);
+    buyAfterMaxPrice.push(el.buyAfterMaxPrice);
+    sellBeforeFirstPrice.push(el.sellBeforeFirstPrice);
+    sellBeforeLastPrice.push(el.sellBeforeLastPrice);
+    sellBeforeMinPrice.push(el.sellBeforeMinPrice);
+    sellBeforeMaxPrice.push(el.sellBeforeMaxPrice);
+    sellDuringFirstPrice.push(el.sellDuringFirstPrice);
+    sellDuringLastPrice.push(el.sellDuringLastPrice);
+    sellDuringMinPrice.push(el.sellDuringMinPrice);
+    sellDuringMaxPrice.push(el.sellDuringMaxPrice);
+    sellAfterFirstPrice.push(el.sellAfterFirstPrice);
+    sellAfterLastPrice.push(el.sellAfterLastPrice);
+    sellAfterMinPrice.push(el.sellAfterMinPrice);
+    sellAfterMaxPrice.push(el.sellAfterMaxPrice);
   });
   let data1 = [];
+  let data2 = [];
   const { layout: layout1, config: config1 } = helperFunctions.getMinMax(
-    firstPrice,
-    lastPrice,
-    maxPrice,
-    minPrice,
-    beforeViolationFirstPrice,
-    beforeViolationLastPrice,
-    beforeViolationMaxPrice,
-    beforeViolationMinPrice,
-    afterViolationFirstPrice,
-    afterViolationLastPrice,
-    afterViolationMaxPrice,
-    afterViolationMinPrice
+    buyBeforeFirstPrice,
+    buyBeforeLastPrice,
+    buyBeforeMinPrice,
+    buyBeforeMaxPrice,
+    buyDuringFirstPrice,
+    buyDuringLastPrice,
+    buyDuringMinPrice,
+    buyDuringMaxPrice,
+    buyAfterFirstPrice,
+    buyAfterLastPrice,
+    buyAfterMinPrice,
+    buyAfterMaxPrice
+  );
+  const { layout: layout2, config: config2 } = helperFunctions.getMinMax(
+    sellBeforeFirstPrice,
+    sellBeforeLastPrice,
+    sellBeforeMinPrice,
+    sellBeforeMaxPrice,
+    sellDuringFirstPrice,
+    sellDuringLastPrice,
+    sellDuringMinPrice,
+    sellDuringMaxPrice,
+    sellAfterFirstPrice,
+    sellAfterLastPrice,
+    sellAfterMinPrice,
+    sellAfterMaxPrice
   );
   data1.push(
     {
       x: date,
-      y: firstPrice,
+      y: buyBeforeFirstPrice,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.firstPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyBeforeFirstPrice}<br>`,
     },
     {
       x: date,
-      y: lastPrice,
+      y: buyBeforeLastPrice,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.lastPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyBeforeLastPrice}<br>`,
     },
     {
       x: date,
-      y: maxPrice,
+      y: buyBeforeMinPrice,
       name: name1[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.maxPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyBeforeMinPrice}<br>`,
     },
     {
       x: date,
-      y: minPrice,
+      y: buyBeforeMaxPrice,
       name: name1[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.minPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyBeforeMaxPrice}<br>`,
     },
     {
       x: date,
-      y: beforeViolationFirstPrice,
+      y: buyDuringFirstPrice,
       name: name1[4],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.beforeViolationFirstPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyDuringFirstPrice}<br>`,
     },
     {
       x: date,
-      y: beforeViolationLastPrice,
+      y: buyDuringLastPrice,
       name: name1[5],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.beforeViolationLastPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyDuringLastPrice}<br>`,
     },
     {
       x: date,
-      y: beforeViolationMaxPrice,
+      y: buyDuringMinPrice,
       name: name1[6],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.beforeViolationMaxPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyDuringMinPrice}<br>`,
     },
     {
       x: date,
-      y: beforeViolationMinPrice,
+      y: buyDuringMaxPrice,
       name: name1[7],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.beforeViolationMinPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyDuringMaxPrice}<br>`,
     },
     {
       x: date,
-      y: afterViolationFirstPrice,
+      y: buyAfterFirstPrice,
       name: name1[8],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.afterViolationFirstPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyAfterFirstPrice}<br>`,
     },
     {
       x: date,
-      y: afterViolationLastPrice,
+      y: buyAfterLastPrice,
       name: name1[9],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.afterViolationLastPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyAfterLastPrice}<br>`,
     },
     {
       x: date,
-      y: afterViolationMaxPrice,
+      y: buyAfterMinPrice,
       name: name1[10],
       type: "bar",
       marker: {
         color: "indigo",
       },
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.afterViolationMaxPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyAfterMinPrice}<br>`,
     },
     {
       x: date,
-      y: afterViolationMinPrice,
+      y: buyAfterMaxPrice,
       name: name1[11],
       type: "bar",
       marker: {
         color: "deeppink",
       },
-      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.afterViolationMinPrice}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.buyAfterMaxPrice}<br>`,
+    }
+  );
+  data2.push(
+    {
+      x: date,
+      y: sellBeforeFirstPrice,
+      name: name2[0],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellBeforeFirstPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellBeforeLastPrice,
+      name: name2[1],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellBeforeLastPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellBeforeMinPrice,
+      name: name2[2],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellBeforeMinPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellBeforeMaxPrice,
+      name: name2[3],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellBeforeMaxPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellDuringFirstPrice,
+      name: name2[4],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellDuringFirstPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellDuringLastPrice,
+      name: name2[5],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellDuringLastPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellDuringMinPrice,
+      name: name2[6],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellDuringMinPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellDuringMaxPrice,
+      name: name2[7],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellDuringMaxPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellAfterFirstPrice,
+      name: name2[8],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellAfterFirstPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellAfterLastPrice,
+      name: name2[9],
+      type: "bar",
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellAfterLastPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellAfterMinPrice,
+      name: name2[10],
+      type: "bar",
+      marker: {
+        color: "indigo",
+      },
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellAfterMinPrice}<br>`,
+    },
+    {
+      x: date,
+      y: sellAfterMaxPrice,
+      name: name2[11],
+      type: "bar",
+      marker: {
+        color: "deeppink",
+      },
+      hovertemplate: `%{x} :${arabicTranslation[0].list9C.date}<br>%{y} :${arabicTranslation[0].list9C.sellAfterMaxPrice}<br>`,
     }
   );
 
   Plotly.newPlot("chart1", data1, layout1, config1);
+  Plotly.newPlot("chart2", data2, layout2, config2);
 }
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
@@ -222,21 +368,33 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
+        { data: "date" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "date" },
-        { data: "firstPrice" },
-        { data: "lastPrice" },
-        { data: "maxPrice" },
-        { data: "minPrice" },
-        { data: "beforeViolationFirstPrice" },
-        { data: "beforeViolationLastPrice" },
-        { data: "beforeViolationMaxPrice" },
-        { data: "beforeViolationMinPrice" },
-        { data: "afterViolationFirstPrice" },
-        { data: "afterViolationLastPrice" },
-        { data: "afterViolationMaxPrice" },
-        { data: "afterViolationMinPrice" },
+        { data: "buyBeforeFirstPrice" },
+        { data: "buyBeforeLastPrice" },
+        { data: "buyBeforeMinPrice" },
+        { data: "buyBeforeMaxPrice" },
+        { data: "buyDuringFirstPrice" },
+        { data: "buyDuringLastPrice" },
+        { data: "buyDuringMinPrice" },
+        { data: "buyDuringMaxPrice" },
+        { data: "buyAfterFirstPrice" },
+        { data: "buyAfterLastPrice" },
+        { data: "buyAfterMinPrice" },
+        { data: "buyAfterMaxPrice" },
+        { data: "sellBeforeFirstPrice" },
+        { data: "sellBeforeLastPrice" },
+        { data: "sellBeforeMinPrice" },
+        { data: "sellBeforeMaxPrice" },
+        { data: "sellDuringFirstPrice" },
+        { data: "sellDuringLastPrice" },
+        { data: "sellDuringMinPrice" },
+        { data: "sellDuringMaxPrice" },
+        { data: "sellAfterFirstPrice" },
+        { data: "sellAfterLastPrice" },
+        { data: "sellAfterMinPrice" },
+        { data: "sellAfterMaxPrice" },
       ],
       orderCellsTop: true,
 
@@ -253,18 +411,18 @@ export function startTable(tableData, chartsData, lang, ninData) {
         const emptyObj = [
           {
             date: null,
-            firstPrice: null,
-            lastPrice: null,
-            maxPrice: null,
-            minPrice: null,
-            beforeViolationFirstPrice: null,
-            beforeViolationLastPrice: null,
-            beforeViolationMaxPrice: null,
-            beforeViolationMinPrice: null,
-            afterViolationFirstPrice: null,
-            afterViolationLastPrice: null,
-            afterViolationMaxPrice: null,
-            afterViolationMinPrice: null,
+            buyBeforeFirstPrice: null,
+            buyBeforeLastPrice: null,
+            buyBeforeMinPrice: null,
+            buyBeforeMaxPrice: null,
+            buyDuringFirstPrice: null,
+            buyDuringLastPrice: null,
+            buyDuringMinPrice: null,
+            buyDuringMaxPrice: null,
+            buyAfterFirstPrice: null,
+            buyAfterLastPrice: null,
+            buyAfterMinPrice: null,
+            buyAfterMaxPrice: null,
           },
         ];
         let selectedCompanyObj;

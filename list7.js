@@ -6,50 +6,51 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
-    buyFillVolume = [],
-    sellFillVolume = [],
-    buyBeforeTotalValue = [],
-    sellBeforeTotalValue = [],
-    buyAfterTotalValue = [],
-    sellAfterTotalValue = [],
-    totalValue = [],
+    sumOfBuyOrgVolumeOfTheDay = [],
+    sumOfSellOrgVolumeOfTheDay = [],
+    sumOfBuyRemainingVolumeOfTheDay = [],
+    sumOfSellRemainingVolumeOfTheDay = [],
+    sumOfBuyOrgVolumeOfTheVioTime = [],
+    sumOfSellOrgVolumeOfTheVioTime = [],
+    sumOfBuyRemainingVolumeOfTheVioTime = [],
+    sumOfSellRemainingVolumeOfTheVioTime = [],
     chartValues = [];
   let name1 = [
-    arabicTranslation[0].list7.buyFillVolume,
-    arabicTranslation[0].list7.sellFillVolume,
+    arabicTranslation[0].list7.sumOfBuyOrgVolumeOfTheDay,
+    arabicTranslation[0].list7.sumOfSellOrgVolumeOfTheDay,
   ];
   let name2 = [
-    arabicTranslation[0].list7.buyBeforeTotalValue,
-    arabicTranslation[0].list7.sellBeforeTotalValue,
+    arabicTranslation[0].list7.sumOfBuyRemainingVolumeOfTheDay,
+    arabicTranslation[0].list7.sumOfSellRemainingVolumeOfTheDay,
   ];
   let name3 = [
-    arabicTranslation[0].list7.buyAfterTotalValue,
-    arabicTranslation[0].list7.sellAfterTotalValue,
+    arabicTranslation[0].list7.sumOfBuyOrgVolumeOfTheVioTime,
+    arabicTranslation[0].list7.sumOfSellOrgVolumeOfTheVioTime,
   ];
-  let name4 = [arabicTranslation[0].list7.totalValue];
+  let name4 = [
+    arabicTranslation[0].list7.sumOfBuyRemainingVolumeOfTheVioTime,
+    arabicTranslation[0].list7.sumOfSellRemainingVolumeOfTheVioTime,
+  ];
   let name5 = [
-    arabicTranslation[0].list7.percentageTotalValueBuy,
-    arabicTranslation[0].list7.percentageBeforeTotalValueBuy,
-    arabicTranslation[0].list7.percentageAfterTotalValueBuy,
-    arabicTranslation[0].list7.percentageTotalValueSell,
-    arabicTranslation[0].list7.percentageBeforeTotalValueSell,
-    arabicTranslation[0].list7.percentageAfterTotalValueSell,
+    arabicTranslation[0].list7.percentageOfBuyOrgVolume,
+    arabicTranslation[0].list7.percentageOfBuyRemainingVolume,
+    arabicTranslation[0].list7.percentageOfSellOrgVolume,
+    arabicTranslation[0].list7.percentageOfSellRemainingVolume,
   ];
   Objects.map((el) => {
     date.push(el.date);
-    buyFillVolume.push(el.buyFillVolume);
-    sellFillVolume.push(el.sellFillVolume);
-    buyBeforeTotalValue.push(el.buyBeforeTotalValue);
-    sellBeforeTotalValue.push(el.sellBeforeTotalValue);
-    buyAfterTotalValue.push(el.buyAfterTotalValue);
-    sellAfterTotalValue.push(el.sellAfterTotalValue);
-    totalValue.push(el.totalValue);
-    chartValues.push(el.percentageTotalValueBuy);
-    chartValues.push(el.percentageBeforeTotalValueBuy);
-    chartValues.push(el.percentageAfterTotalValueBuy);
-    chartValues.push(el.percentageTotalValueSell);
-    chartValues.push(el.percentageBeforeTotalValueSell);
-    chartValues.push(el.percentageAfterTotalValueSell);
+    sumOfBuyOrgVolumeOfTheDay.push(el.sumOfBuyOrgVolumeOfTheDay);
+    sumOfSellOrgVolumeOfTheDay.push(el.sumOfSellOrgVolumeOfTheDay);
+    sumOfBuyRemainingVolumeOfTheDay.push(el.sumOfBuyRemainingVolumeOfTheDay);
+    sumOfSellRemainingVolumeOfTheDay.push(el.sumOfSellRemainingVolumeOfTheDay);
+    sumOfBuyOrgVolumeOfTheVioTime.push(el.sumOfBuyOrgVolumeOfTheVioTime);
+    sumOfSellOrgVolumeOfTheVioTime.push(el.sumOfSellOrgVolumeOfTheVioTime);
+    sumOfBuyRemainingVolumeOfTheVioTime.push(el.sumOfBuyRemainingVolumeOfTheVioTime);
+    sumOfSellRemainingVolumeOfTheVioTime.push(el.sumOfSellRemainingVolumeOfTheVioTime);
+    chartValues.push(el.percentageOfBuyOrgVolume);
+    chartValues.push(el.percentageOfBuyRemainingVolume);
+    chartValues.push(el.percentageOfSellOrgVolume);
+    chartValues.push(el.percentageOfSellRemainingVolume);
   });
   let data1 = [],
     data2 = [],
@@ -58,57 +59,63 @@ function drawCharts(Objects) {
   data1.push(
     {
       x: date,
-      y: buyFillVolume,
+      y: sumOfBuyOrgVolumeOfTheDay,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.buyFillVolume}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfBuyOrgVolumeOfTheDay}<br>`,
     },
     {
       x: date,
-      y: sellFillVolume,
+      y: sumOfSellOrgVolumeOfTheDay,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sellFillVolume}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfSellOrgVolumeOfTheDay}<br>`,
     }
   );
   data2.push(
     {
       x: date,
-      y: buyBeforeTotalValue,
+      y: sumOfBuyRemainingVolumeOfTheDay,
       name: name2[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.buyBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfBuyRemainingVolumeOfTheDay}<br>`,
     },
     {
       x: date,
-      y: sellBeforeTotalValue,
+      y: sumOfSellRemainingVolumeOfTheDay,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sellBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfSellRemainingVolumeOfTheDay}<br>`,
     }
   );
   data3.push(
     {
       x: date,
-      y: buyAfterTotalValue,
+      y: sumOfBuyOrgVolumeOfTheVioTime,
       name: name3[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.buyAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfBuyOrgVolumeOfTheVioTime}<br>`,
     },
     {
       x: date,
-      y: sellAfterTotalValue,
+      y: sumOfSellOrgVolumeOfTheVioTime,
       name: name3[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sellAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfSellOrgVolumeOfTheVioTime}<br>`,
     }
   );
   data4.push({
     x: date,
-    y: totalValue,
+    y: sumOfBuyRemainingVolumeOfTheVioTime,
     name: name4[0],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.totalValue}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfBuyRemainingVolumeOfTheVioTime}<br>`,
+  },{
+    x: date,
+    y: sumOfSellRemainingVolumeOfTheVioTime,
+    name: name4[1],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7.sumOfSellRemainingVolumeOfTheVioTime}<br>`,
   });
   const data5 = [
     {
@@ -125,6 +132,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart4", data4, layout, { responsive: true });
   Plotly.newPlot("chart5", data5, {}, { responsive: true });
 }
+
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
@@ -190,18 +198,15 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
+        { data: "date" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "date" },
-        { data: "buyFillVolume" },
-        { data: "sellFillVolume" },
-        { data: "buyBeforeTotalValue" },
-        { data: "sellBeforeTotalValue" },
-        { data: "buyAfterTotalValue" },
-        { data: "sellAfterTotalValue" },
-        { data: "totalValue" },
+        { data: "sumOfBuyOrgVolumeOfTheDay" },
+        { data: "sumOfBuyRemainingVolumeOfTheDay" },
+        { data: "sumOfBuyOrgVolumeOfTheVioTime" },
+        { data: "sumOfBuyRemainingVolumeOfTheVioTime" },
         {
-          data: "percentageTotalValueBuy",
+          data: "percentageOfBuyOrgVolume",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -211,7 +216,21 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         },
         {
-          data: "percentageBeforeTotalValueBuy",
+          data: "percentageOfBuyRemainingVolume",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        { data: "sumOfSellOrgVolumeOfTheDay" },
+        { data: "sumOfSellRemainingVolumeOfTheDay" },
+        { data: "sumOfSellOrgVolumeOfTheVioTime" },
+        { data: "sumOfSellRemainingVolumeOfTheVioTime" },
+        {
+          data: "percentageOfSellOrgVolume",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -221,37 +240,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         },
         {
-          data: "percentageAfterTotalValueBuy",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageTotalValueSell",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBeforeTotalValueSell",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageAfterTotalValueSell",
+          data: "percentageOfSellRemainingVolume",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";

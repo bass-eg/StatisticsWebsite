@@ -5,54 +5,59 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let date = [],
-    buyVolume = [],
-    secondViolatorBuyVolume = [],
-    totalBuyVolume = [],
-    percentageBuyVolume = [],
-    percentageBuyVolumesecondV = [],
-    sellVolume = [],
-    secondViolatorSellVolume = [],
-    totalSellVolume = [],
-    percentageSellVolume = [],
-    percentageSellVolumesecondV = [],
-    buyValue = [],
-    secondViolatorBuyValue = [],
-    totalBuyValue = [],
-    percentageBuyValue = [],
-    percentageBuyValuesecondV = [],
-    sellValue = [],
-    secondViolatorSellValue = [],
-    totalSellValue = [],
-    percentageSellValue = [],
-    percentageSellValuesecondV = [];
+    // buyVolume = [],
+    // secondViolatorBuyVolume = [],
+    // totalBuyVolume = [],
+    // percentageBuyVolume = [],
+    // percentageBuyVolumesecondV = [],
+    // sellVolume = [],
+    // secondViolatorSellVolume = [],
+    // totalSellVolume = [],
+    // percentageSellVolume = [],
+    // percentageSellVolumesecondV = [],
+    // buyValue = [],
+    // secondViolatorBuyValue = [],
+    // totalBuyValue = [],
+    // percentageBuyValue = [],
+    // percentageBuyValuesecondV = [],
+    // sellValue = [],
+    // secondViolatorSellValue = [],
+    // totalSellValue = [],
+    // percentageSellValue = [],
+    // percentageSellValuesecondV = [],
+
+
+    buyVolume= [],
+    buyValue=[],
+    sellVolume=[],
+    sellValue=[],
+    numoftrades_buy=[],
+    numoftrades_sell=[],
+    percentageamountbuy=[],
+    percentagevaluebuy=[],
+    percentageamountsell=[],
+    percentagevaluesell=[],
+    countMatching=[],
+    totalViolation=[],
+    percentage=[];
 
   Objects.map((el) => {
-    date.push(el.date);
-
+    date.push(new Date());
     buyVolume.push(el.buyVolume);
-    secondViolatorBuyVolume.push(el.secondViolatorBuyVolume);
-    totalBuyVolume.push(el.totalBuyVolume);
-    percentageBuyVolume.push(el.percentageBuyVolume);
-    percentageBuyVolumesecondV.push(el.percentageBuyVolumesecondV);
-
-    sellVolume.push(el.sellVolume);
-    secondViolatorSellVolume.push(el.secondViolatorSellVolume);
-    totalSellVolume.push(el.totalSellVolume);
-    percentageSellVolume.push(el.percentageSellVolume);
-    percentageSellVolumesecondV.push(el.percentageSellVolumesecondV);
-
     buyValue.push(el.buyValue);
-    secondViolatorBuyValue.push(el.secondViolatorBuyValue);
-    totalBuyValue.push(el.totalBuyValue);
-    percentageBuyValue.push(el.percentageBuyValue);
-    percentageBuyValuesecondV.push(el.percentageBuyValuesecondV);
-
+    sellVolume.push(el.sellVolume);
     sellValue.push(el.sellValue);
-    secondViolatorSellValue.push(el.secondViolatorSellValue);
-    totalSellValue.push(el.totalSellValue);
-    percentageSellValue.push(el.percentageSellValue);
-    percentageSellValuesecondV.push(el.percentageSellValuesecondV);
+    numoftrades_buy.push(el.numoftrades_buy);
+    numoftrades_sell.push(el.numoftrades_sell);
+    percentageamountbuy.push(el.percentageamountbuy);
+    percentagevaluebuy.push(el.percentagevaluebuy);
+    percentageamountsell.push(el.percentageamountsell);
+    percentagevaluesell.push(el.percentagevaluesell);
+    countMatching.push(el.countMatching);
+    totalViolation.push(el.totalViolation);
+    percentage.push(el.percentage);
   });
+
   // const colors = [
   //   "#1f77b4", //blue
   //   "#17becf", //aqua
@@ -71,105 +76,85 @@ function drawCharts(Objects) {
     data4 = [];
   data1.push(
     {
-      x: date,
+      x: [
+        "الشراء"
+      ],
       y: buyVolume,
       name: arabicTranslation[0].list1B.buyVolume,
       type: "bar",
-      customdata: percentageBuyVolume,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageBuyVolume}`,
+      customdata: percentageamountbuy,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountbuy}`,
     },
     {
-      x: date,
-      y: secondViolatorBuyVolume,
-      name: arabicTranslation[0].list1B.secondViolatorBuyVolume,
+      x: [
+        "الشراء"
+      ],
+      y: buyValue,
+      name: arabicTranslation[0].list1B.buyValue,
       type: "bar",
-      customdata: percentageBuyVolumesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.secondViolatorBuyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageBuyVolumesecondV}`,
+      customdata: percentagevaluebuy,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluebuy}`,
     },
-    {
-      x: date,
-      y: totalBuyVolume,
-      name: arabicTranslation[0].list1B.totalBuyVolume,
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalBuyVolume}<br>`,
-    }
   );
 
   data2.push(
     {
-      x: date,
+      x: ["البيع"],
       y: sellVolume,
       name: arabicTranslation[0].list1B.sellVolume,
       type: "bar",
-      customdata: percentageSellVolume,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageSellVolume}`,
+      customdata: percentageamountsell,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountsell}`,
     },
     {
-      x: date,
-      y: secondViolatorSellVolume,
-      name: arabicTranslation[0].list1B.secondViolatorSellVolume,
+      x: ["البيع"],
+      y: sellValue,
+      name: arabicTranslation[0].list1B.sellValue,
       type: "bar",
-      customdata: percentageSellVolumesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.secondViolatorSellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageSellVolumesecondV}`,
+      customdata: percentagevaluesell,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluesell}`,
     },
-    {
-      x: date,
-      y: totalSellVolume,
-      name: arabicTranslation[0].list1B.totalSellVolume,
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalSellVolume}<br>`,
-    }
   );
   data3.push(
     {
-      x: date,
-      y: buyValue,
-      name: arabicTranslation[0].list1B.buyValue,
+      x: ["الاوامر"],
+      y: numoftrades_buy,
+      name: arabicTranslation[0].list1B.numoftrades_buy,
       type: "bar",
-      customdata: percentageBuyValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValue}`,
+      // customdata: percentageBuyValue,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_buy}<br>`
+      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValue}`,
     },
     {
-      x: date,
-      y: secondViolatorBuyValue,
-      name: arabicTranslation[0].list1B.secondViolatorBuyValue,
+      x: ["الاوامر"],
+      y: numoftrades_sell,
+      name: arabicTranslation[0].list1B.numoftrades_sell,
       type: "bar",
-      customdata: percentageBuyValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.secondViolatorBuyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValuesecondV}`,
-    },
-    {
-      x: date,
-      y: totalBuyValue,
-      name: arabicTranslation[0].list1B.totalBuyValue,
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalBuyValue}<br>`,
+      // customdata: percentageBuyValuesecondV,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_sell}<br>`
+      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValuesecondV}`,
     }
   );
 
   data4.push(
     {
-      x: date,
-      y: sellValue,
-      name: arabicTranslation[0].list1B.sellValue,
+      x: ["المخالفات"],
+      y: countMatching,
+      name: arabicTranslation[0].list1B.countMatching,
       type: "bar",
-      customdata: percentageSellValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageSellValue}`,
+      // customdata: percentageSellValue,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.countMatching}<br>`
+      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValue}`,
     },
     {
-      x: date,
-      y: secondViolatorSellValue,
-      name: arabicTranslation[0].list1B.secondViolatorSellValue,
+      x: ["المخالفات"],
+      y: totalViolation,
+      name: arabicTranslation[0].list1B.totalViolation,
       type: "bar",
-      customdata: percentageSellValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.secondViolatorSellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageSellValuesecondV}`,
+      // customdata: percentageSellValuesecondV,
+      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalViolation}<br>`
+      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValuesecondV}`,
     },
-    {
-      x: date,
-      y: totalSellValue,
-      name: arabicTranslation[0].list1B.totalSellValue,
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalSellValue}<br>`,
-    }
   );
   let layout = { barmode: "group", showlegend: true };
 
@@ -246,16 +231,15 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "securityName" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "secondViolator" },
-        { data: "secondViolatorName" },
-        { data: "date" },
-        { data: "nbOfBuyTrades" },
-        { data: "nbOfSellTrades" },
+        { data: "secondNin" },
+        { data: "secondNinName" },
+        { data: "combination" },
+        { data: "numoftrades_buy" },
+        { data: "numoftrades_sell" },
         { data: "buyVolume" },
-        { data: "secondViolatorBuyVolume" },
-        { data: "totalBuyVolume" },
+        { data: "buyValue" },
         {
-          data: "percentageBuyVolume",
+          data: "percentageamountbuy",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -265,7 +249,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         },
         {
-          data: "percentageBuyVolumesecondV",
+          data: "percentagevaluebuy",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -275,56 +259,9 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         },
         { data: "sellVolume" },
-        { data: "secondViolatorSellVolume" },
-        { data: "totalSellVolume" },
-        {
-          data: "percentageSellVolume",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellVolumesecondV",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "buyValue" },
-        { data: "secondViolatorBuyValue" },
-        { data: "totalBuyValue" },
-        {
-          data: "percentageBuyValue",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyValuesecondV",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
         { data: "sellValue" },
-        { data: "secondViolatorSellValue" },
-        { data: "totalSellValue" },
         {
-          data: "percentageSellValue",
+          data: "percentageamountsell",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -334,7 +271,19 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         },
         {
-          data: "percentageSellValuesecondV",
+          data: "percentagevaluesell",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        { data: "countMatching" },
+        { data: "totalViolation" },
+        {
+          data: "percentage",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";

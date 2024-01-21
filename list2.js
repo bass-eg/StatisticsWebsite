@@ -6,15 +6,15 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let securityName = [],
     balance = [],
-    position = [];
+    buyVolume = [];
   let name1 = [
     arabicTranslation[0].list2.balance,
-    arabicTranslation[0].list2.position,
+    arabicTranslation[0].list2.buyVolume,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
     balance.push(el.balance);
-    position.push(el.position);
+    buyVolume.push(el.buyVolume);
   });
   let data1 = [];
   data1.push(
@@ -27,10 +27,10 @@ function drawCharts(Objects) {
     },
     {
       x: securityName,
-      y: position,
+      y: buyVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list2.position}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list2.buyVolume}<br>`,
     }
   );
   let layout1 = { barmode: "group", showlegend: true };
@@ -102,13 +102,37 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
         { data: "date" },
+        { data: "buyVolume" },
+        { data: "buyValue" },
+        { data: "sellVolume" },
+        { data: "sellValue" },
+        { data: "numoftrades_buy" },
+        { data: "numoftrades_sell" },
+        { data: "close" },
         { data: "balance" },
-        { data: "position" },
-        { data: "ownership" },
-        { data: "balanaceOwnership" },
+        { data: "balanceValue" },
+        { data: "capital" },
+        {
+          data: "percentageOwnership",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageBalance",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
       ],
       orderCellsTop: true,
 

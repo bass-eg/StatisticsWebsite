@@ -14,8 +14,8 @@ function drawCharts(Objects) {
     arabicTranslation[0].list1C.sellVolume,
   ];
   let name2 = [
-    arabicTranslation[0].list1A.buyValue,
-    arabicTranslation[0].list1A.sellValue,
+    arabicTranslation[0].list1C.buyValue,
+    arabicTranslation[0].list1C.sellValue,
   ];
   Objects.map((el) => {
     date.push(el.date);
@@ -149,15 +149,33 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "date" },
         { data: "buyVolume" },
         { data: "buyValue" },
+        { data: "totalBuyVolume" },
+        { data: "totalBuyValue" },
+        { data: "buyVolumePercentage" },
+        { data: "buyValuePercentage" },
         { data: "sellVolume" },
         { data: "sellValue" },
-        { data: "source" },
-        { data: "close" },
-        { data: "rassid" },
-        { data: "balanceValue" },
-        { data: "total" },
+        { data: "totalSellVolume" },
+        { data: "totalSellValue" },
+        { data: "sellVolumePercentage" },
+        { data: "sellValuePercentage" },
+        { data: "buyAvgPriceByNin" },
+        { data: "sellAvgPriceByNin" },
+        { data: "buyAvgPriceBysc" },
+        { data: "sellAvgPriceBySc" },
+        { data: "sector" },
         {
-          data: "percenatgeBalance",
+          data: "percentageTradesBuy",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageTradesSell",
           render: function (data, type, row, meta) {
             if (data != null) {
               return data + "%";
@@ -200,7 +218,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
-              );
+            );
             selectedCompanyObj = customFilter.filterBySecurityCode(
               selectedNinObj,
               $("#selectCompany").val()
@@ -215,17 +233,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");
-            
+
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
-              );
-              selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
-              selectedNinObj.forEach(function (item) {
-                selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-              });
-              
-              var selectBoxElement = document.querySelector("#selectCompany");
+            );
+            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+            selectedNinObj.forEach(function (item) {
+              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+            });
+
+            var selectBoxElement = document.querySelector("#selectCompany");
             dselect(selectBoxElement, {
               search: true,
             });

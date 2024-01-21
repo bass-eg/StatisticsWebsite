@@ -6,77 +6,67 @@ function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
-    buyRemainingVolume = [],
-    sellRemainingVolume = [],
-    fullyExecutedBuy = [],
-    partiallyExecutedBuy = [],
-    fullyExecutedSell = [],
-    partiallyExecutedSell = [];
+  totalVolume = [],
+    fullyExecutedBuyOrderTotalValue = [],
+    partiallyExecutedBuyOrderTotalValue = [],
+    fullyExecutedSellOrderTotalValue = [],
+    partiallyExecutedSellOrderTotalValue = [];
   let name1 = [
-    arabicTranslation[0].list5.buyRemainingVolume,
-    arabicTranslation[0].list5.sellRemainingVolume,
+    arabicTranslation[0].list5.totalVolume,
   ];
   let name2 = [
-    arabicTranslation[0].list5.fullyExecutedBuy,
-    arabicTranslation[0].list5.partiallyExecutedBuy,
-    arabicTranslation[0].list5.fullyExecutedSell,
-    arabicTranslation[0].list5.partiallyExecutedSell,
+    arabicTranslation[0].list5.fullyExecutedBuyOrderTotalValue,
+    arabicTranslation[0].list5.partiallyExecutedBuyOrderTotalValue,
+    arabicTranslation[0].list5.fullyExecutedSellOrderTotalValue,
+    arabicTranslation[0].list5.partiallyExecutedSellOrderTotalValue,
   ];
   Objects.map((el) => {
     date.push(el.date);
-    buyRemainingVolume.push(el.buyRemainingVolume);
-    sellRemainingVolume.push(el.sellRemainingVolume);
-    fullyExecutedBuy.push(el.fullyExecutedBuy);
-    partiallyExecutedBuy.push(el.partiallyExecutedBuy);
-    fullyExecutedSell.push(el.fullyExecutedSell);
-    partiallyExecutedSell.push(el.partiallyExecutedSell);
+    totalVolume.push(el.totalVolume);
+    fullyExecutedBuyOrderTotalValue.push(el.fullyExecutedBuyOrderTotalValue);
+    partiallyExecutedBuyOrderTotalValue.push(el.partiallyExecutedBuyOrderTotalValue);
+    fullyExecutedSellOrderTotalValue.push(el.fullyExecutedSellOrderTotalValue);
+    partiallyExecutedSellOrderTotalValue.push(el.partiallyExecutedSellOrderTotalValue);
   });
   let data1 = [],
     data2 = [];
   data1.push(
     {
       x: date,
-      y: buyRemainingVolume,
+      y: totalVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.buyRemainingVolume}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.totalVolume}<br>`,
     },
-    {
-      x: date,
-      y: sellRemainingVolume,
-      name: name1[1],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.sellRemainingVolume}<br>`,
-    }
   );
   data2.push(
     {
       x: date,
-      y: fullyExecutedBuy,
+      y: fullyExecutedBuyOrderTotalValue,
       name: name2[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedBuy}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedBuyOrderTotalValue}<br>`,
     },
     {
       x: date,
-      y: partiallyExecutedBuy,
+      y: partiallyExecutedBuyOrderTotalValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedBuy}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedBuyOrderTotalValue}<br>`,
     },
     {
       x: date,
-      y: fullyExecutedSell,
+      y: fullyExecutedSellOrderTotalValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedSell}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedSellOrderTotalValue}<br>`,
     },
     {
       x: date,
-      y: partiallyExecutedSell,
+      y: partiallyExecutedSellOrderTotalValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedSell}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedSellOrderTotalValue}<br>`,
     }
   );
   let layout = { barmode: "group", showlegend: true };
@@ -152,13 +142,96 @@ export function startTable(tableData, chartsData, lang, ninData) {
         { data: "nin" },
         { data: "ninName" },
         { data: "date" },
-        { data: "nbOfEnters" },
-        { data: "buyRemainingVolume" },
-        { data: "sellRemainingVolume" },
-        { data: "fullyExecutedBuy" },
-        { data: "partiallyExecutedBuy" },
-        { data: "fullyExecutedSell" },
-        { data: "partiallyExecutedSell" },
+        { data: "fullyExecutedBuyOrderTotalVolume" },
+        { data: "fullyExecutedBuyOrderTotalValue" },
+        { data: "partiallyExecutedBuyOrderTotalValue" },
+        { data: "partiallyExecutedBuyOrderTotalVolume" },
+        { data: "fullyExecutedSellOrderTotalValue" },
+        { data: "fullyExecutedSellOrderTotalVolume" },
+        { data: "partiallyExecutedSellOrderTotalValue" },
+        { data: "partiallyExecutedSellOrderTotalVolume" },
+        { data: "totalVolume" },
+        { data: "totalValue" },
+        {
+          data: "percentageOfFullyExecutedBuyTradesVolume",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfFullyExecutedBuyTradesValue",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfPartiallyExecutedBuyTradesVolume",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfPartiallyExecutedBuyTradesValue",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfFullyExecutedSellTradesVolume",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfFullyExecutedSellTradesValue",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfPartiallyExecutedSellTradesVolume",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
+        {
+          data: "percentageOfPartiallyExecutedSellTradesValue",
+          render: function (data, type, row, meta) {
+            if (data != null) {
+              return data + "%";
+            } else {
+              return null;
+            }
+          },
+        },
       ],
       orderCellsTop: true,
 

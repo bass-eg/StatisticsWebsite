@@ -8,49 +8,37 @@ function drawCharts(Objects) {
   let date = [],
     buyVolume = [],
     sellVolume = [],
-    meanBuyVolume = [],
-    meanSellVolume = [],
     buyValue = [],
     sellValue = [],
-    meanBuyValue = [],
-    meanSellValue = [],
-    priceBuy = [],
-    priceSell = [],
-    cumulativePriceBuy = [],
-    cumulativePriceSell = [];
+    numoftrades_buy = [],
+    numoftrades_sell = [],
+    avgBuy = [],
+    avgSell = [];
   let name1 = [
     arabicTranslation[0].list10.buyVolume,
     arabicTranslation[0].list10.sellVolume,
-    arabicTranslation[0].list10.meanBuyVolume,
-    arabicTranslation[0].list10.meanSellVolume,
   ];
   let name2 = [
     arabicTranslation[0].list10.buyValue,
     arabicTranslation[0].list10.sellValue,
-    arabicTranslation[0].list10.meanBuyValue,
-    arabicTranslation[0].list10.meanSellValue,
   ];
   let name3 = [
-    arabicTranslation[0].list10.priceBuy,
-    arabicTranslation[0].list10.priceSell,
-    arabicTranslation[0].list10.cumulativePriceBuy,
-    arabicTranslation[0].list10.cumulativePriceSell,
+    arabicTranslation[0].list10.numoftrades_buy,
+    arabicTranslation[0].list10.numoftrades_sell,
+    arabicTranslation[0].list10.avgBuy,
+    arabicTranslation[0].list10.avgSell,
   ];
 
   Objects.map((el) => {
     date.push(el.date);
     buyVolume.push(el.buyVolume);
     sellVolume.push(el.sellVolume);
-    meanBuyVolume.push(el.meanBuyVolume);
-    meanSellVolume.push(el.meanSellVolume);
     buyValue.push(el.buyValue);
     sellValue.push(el.sellValue);
-    meanBuyValue.push(el.meanBuyValue);
-    meanSellValue.push(el.meanSellValue);
-    priceBuy.push(el.priceBuy);
-    priceSell.push(el.priceSell);
-    cumulativePriceBuy.push(el.cumulativePriceBuy);
-    cumulativePriceSell.push(el.cumulativePriceSell);
+    numoftrades_buy.push(el.numoftrades_buy);
+    numoftrades_sell.push(el.numoftrades_sell);
+    avgBuy.push(el.avgBuy);
+    avgSell.push(el.avgSell);
   });
   // const colors = [
   //   "#1f77b4", //blue
@@ -82,20 +70,6 @@ function drawCharts(Objects) {
       type: "bar",
       hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.sellVolume}<br>`,
     },
-    {
-      x: date,
-      y: meanBuyVolume,
-      name: name1[2],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.meanBuyVolume}<br>`,
-    },
-    {
-      x: date,
-      y: meanSellVolume,
-      name: name1[3],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.meanSellVolume}<br>`,
-    }
   );
   data2.push(
     {
@@ -112,49 +86,35 @@ function drawCharts(Objects) {
       type: "bar",
       hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.sellValue}<br>`,
     },
-    {
-      x: date,
-      y: meanBuyValue,
-      name: name2[2],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.meanBuyValue}<br>`,
-    },
-    {
-      x: date,
-      y: meanSellValue,
-      name: name2[3],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.meanSellValue}<br>`,
-    }
   );
   data3.push(
     {
       x: date,
-      y: priceBuy,
+      y: numoftrades_buy,
       name: name3[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.priceBuy}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.numoftrades_buy}<br>`,
     },
     {
       x: date,
-      y: priceSell,
+      y: numoftrades_sell,
       name: name3[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.priceSell}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.numoftrades_sell}<br>`,
     },
     {
       x: date,
-      y: cumulativePriceBuy,
+      y: avgBuy,
       name: name3[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.cumulativePriceBuy}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.avgBuy}<br>`,
     },
     {
       x: date,
-      y: cumulativePriceSell,
+      y: avgSell,
       name: name3[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.cumulativePriceSell}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation[0].list10.date}<br>%{y} :${arabicTranslation[0].list10.avgSell}<br>`,
     }
   );
   let layout = { barmode: "group", showlegend: true };
@@ -228,21 +188,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
       columns: [
         { data: "securityCode" },
         { data: "securityName" },
+        { data: "date" },
         { data: "nin" },
         { data: "ninName" },
-        { data: "date" },
         { data: "buyVolume" },
         { data: "buyValue" },
         { data: "sellVolume" },
         { data: "sellValue" },
-        { data: "meanBuyVolume" },
-        { data: "meanBuyValue" },
-        { data: "meanSellVolume" },
-        { data: "meanSellValue" },
-        { data: "priceBuy" },
-        { data: "priceSell" },
-        { data: "cumulativePriceBuy" },
-        { data: "cumulativePriceSell" },
+        { data: "numoftrades_buy" },
+        { data: "numoftrades_sell" },
+        { data: "avgBuy" },
+        { data: "avgSell" },
       ],
       orderCellsTop: true,
 

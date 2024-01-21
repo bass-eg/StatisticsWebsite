@@ -15,6 +15,7 @@ import * as list9F from "./list9F.js";
 import * as list10 from "./list10.js";
 import * as list11 from "./list11.js";
 import * as list8 from "./list8.js";
+import * as list3 from "./list3.js";
 
 import { getLanguage } from "./lang.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
@@ -40,7 +41,9 @@ const startProgram = async () => {
   const translateTableHeaders = (object) => {
     for (const key in object) {
       const htmlElements = document.querySelector(`.${key}`);
-      htmlElements.textContent = object[key];
+      if (htmlElements !== null) {
+        htmlElements.textContent = object[key];
+      }
     }
   };
 
@@ -246,6 +249,7 @@ const startProgram = async () => {
     list9D.startTable(
       datatableData[0].list9D,
       chartsData[0].list9D,
+      chartsData[0].securities,
       lang,
       datatableData[0].NINs
     );
@@ -310,13 +314,33 @@ const startProgram = async () => {
     list11.startTable(
       datatableData[0].list11,
       {
-        securities:chartsData[0].list11Securities,
-        sectors:chartsData[0].list11Sectors
+        securities: chartsData[0].list11Securities,
+        sectors: chartsData[0].list11Sectors
       },
       chartsData[0].list11,
       lang,
       datatableData[0].NINs
     );
   }
+
+  if (listName === "list3") {
+    translateTableHeaders(arabicTranslation[0].list3);
+
+    if (!datatableData[0].list3 && !chartsData[0].list3) {
+      document.querySelector(".search-container").style.display = "none";
+      template.innerHTML =
+        "<h3>هذه القضية لا تحتوي على الإحصائيات الخاصة بأداء السهم بحركة المؤشر</h3>";
+      document.body.appendChild(template);
+    }
+    list3.startTable(
+      datatableData[0].list3,
+      chartsData[0].list3,
+      lang,
+      datatableData[0].NINs
+    );
+  }
+  
+
+ 
 };
 startProgram();
