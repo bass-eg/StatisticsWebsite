@@ -21,26 +21,26 @@ function drawCharts(Objects) {
     arabicTranslation[0].list3.address_relation,
     arabicTranslation[0].list3.job_relation,
     arabicTranslation[0].list3.wallets_relation,
-    arabicTranslation[0].list3.ip_matching,
-    arabicTranslation[0].list3.bank_statement,
-    arabicTranslation[0].list3.agency_relation,
-    arabicTranslation[0].list3.phone_calls,
-    arabicTranslation[0].list3.verification_number,
-    arabicTranslation[0].list3.wallet_opening_date,
-    arabicTranslation[0].list3.other,
+    // arabicTranslation[0].list3.ip_matching,
+    // arabicTranslation[0].list3.bank_statement,
+    // arabicTranslation[0].list3.agency_relation,
+    // arabicTranslation[0].list3.phone_calls,
+    // arabicTranslation[0].list3.verification_number,
+    // arabicTranslation[0].list3.wallet_opening_date,
+    // arabicTranslation[0].list3.other,
   ];
   Objects.map((el) => {
     family_relation.push(el.details[0].family_relation ? 1 : 0 );
     address_relation.push(el.details[0].address_relation ? 1 : 0 );
     job_relation.push(el.details[0].job_relation ? 1 : 0 );
     wallets_relation.push(el.details[0].wallets_relation ? 1 : 0 );
-    ip_matching.push(el.details[0].ip_matching ? 1 : 0 );
-    bank_statement.push(el.details[0].bank_statement ? 1 : 0 );
-    agency_relation.push(el.details[0].agency_relation ? 1 : 0 );
-    phone_calls.push(el.details[0].phone_calls ? 1 : 0 );
-    verification_number.push(el.details[0].verification_number ? 1 : 0 );
-    wallet_opening_date.push(el.details[0].wallet_opening_date ? 1 : 0 );
-    other.push(el.details[0].other ? 1 : 0 );
+    // ip_matching.push(el.details[0].ip_matching ? 1 : 0 );
+    // bank_statement.push(el.details[0].bank_statement ? 1 : 0 );
+    // agency_relation.push(el.details[0].agency_relation ? 1 : 0 );
+    // phone_calls.push(el.details[0].phone_calls ? 1 : 0 );
+    // verification_number.push(el.details[0].verification_number ? 1 : 0 );
+    // wallet_opening_date.push(el.details[0].wallet_opening_date ? 1 : 0 );
+    // other.push(el.details[0].other ? 1 : 0 );
     securityName.push(el.otherNinName);
   });
   
@@ -51,8 +51,10 @@ function drawCharts(Objects) {
   ];
   data1.push(
     {
-      z: [family_relation,address_relation,job_relation,wallets_relation,ip_matching,
-        bank_statement,agency_relation,phone_calls,verification_number,wallet_opening_date,other],
+      z: [family_relation,address_relation,job_relation,wallets_relation,
+        // ip_matching,
+        // bank_statement,agency_relation,phone_calls,verification_number,wallet_opening_date,other
+      ],
       x: securityName,
       y: name1,
       type: 'heatmap',
@@ -129,6 +131,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       snapshot: null,
       data: tableData,
       columns: [
+        
+
         { data: "ninName" },
         { data: "nin" },
         { data: "relation" },
@@ -201,97 +205,97 @@ export function startTable(tableData, chartsData, lang, ninData) {
             }
           },
         },
-        {
-          data: "ip_matching",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "bank_statement",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "agency_relation",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "phone_calls",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "verification_number",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "wallet_opening_date",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "other",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
-            } else {
-              return null;
-            }
-          },
-        },
+        // {
+        //   data: "ip_matching",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "bank_statement",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "agency_relation",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "phone_calls",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "verification_number",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "wallet_opening_date",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
+        // {
+        //   data: "other",
+        //   render: function (data, type, row, meta) {
+        //     if (data != null) {
+        //       if (data)
+        //         return "متطابق";
+        //       else
+        //         return "عدم التطابق"
+        //     } else {
+        //       return null;
+        //     }
+        //   },
+        // },
       ],
       orderCellsTop: true,
 

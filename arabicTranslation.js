@@ -468,7 +468,7 @@ export function getArabicTranslation() {
         buyAfterAmendOrgVolume: "كمية أوامر الشراء المعدلة بعد المخالفة",
         buyAfterPercentageEnter: "نسبة أوامر الشراء المدخلة بعد المخالفة",
         buyAfterPercentageAmend: "نسبة أوامر الشراء المعدلة بعد المخالفة",
-        sellBeforeRemainingVolume: "اكمية أوامر بيع المتبقية قبل المخالفة",
+        sellBeforeRemainingVolume: "كمية أوامر بيع المتبقية قبل المخالفة",
         sellBeforeOrgVolume: "كمية أوامر البيع المدخلة قبل المخالفة",
         sellBeforeAmendOrgVolume: "كمية أوامر بيع المعدلة قبل المخالفة",
         sellBeforePercentageEnter: "نسبة أوامر بيع المدخلة قبل المخالفة",

@@ -57,14 +57,14 @@ function drawCharts(Objects) {
     {
       x: date,
       y: fullyExecutedSellOrderTotalValue,
-      name: name2[1],
+      name: name2[2],
       type: "bar",
       hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedSellOrderTotalValue}<br>`,
     },
     {
       x: date,
       y: partiallyExecutedSellOrderTotalValue,
-      name: name2[1],
+      name: name2[3],
       type: "bar",
       hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedSellOrderTotalValue}<br>`,
     }
