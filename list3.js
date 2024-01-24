@@ -5,17 +5,17 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let securityName = [],
-  family_relation=[],
-    address_relation=[],
-    job_relation=[],
-    wallets_relation=[],
-    ip_matching=[],
-    bank_statement=[],
-    agency_relation=[],
-    phone_calls=[],
-    verification_number=[],
-    wallet_opening_date=[],
-    other=[];
+    family_relation = [],
+    address_relation = [],
+    job_relation = [],
+    wallets_relation = [],
+    ip_matching = [],
+    bank_statement = [],
+    agency_relation = [],
+    phone_calls = [],
+    verification_number = [],
+    wallet_opening_date = [],
+    other = [];
   let name1 = [
     arabicTranslation[0].list3.family_relation,
     arabicTranslation[0].list3.address_relation,
@@ -30,10 +30,10 @@ function drawCharts(Objects) {
     // arabicTranslation[0].list3.other,
   ];
   Objects.map((el) => {
-    family_relation.push(el.details[0].family_relation ? 1 : 0 );
-    address_relation.push(el.details[0].address_relation ? 1 : 0 );
-    job_relation.push(el.details[0].job_relation ? 1 : 0 );
-    wallets_relation.push(el.details[0].wallets_relation ? 1 : 0 );
+    family_relation.push(el.details[0].family_relation ? 1 : 0);
+    address_relation.push(el.details[0].address_relation ? 1 : 0);
+    job_relation.push(el.details[0].job_relation ? 1 : 0);
+    wallets_relation.push(el.details[0].wallets_relation ? 1 : 0);
     // ip_matching.push(el.details[0].ip_matching ? 1 : 0 );
     // bank_statement.push(el.details[0].bank_statement ? 1 : 0 );
     // agency_relation.push(el.details[0].agency_relation ? 1 : 0 );
@@ -43,29 +43,32 @@ function drawCharts(Objects) {
     // other.push(el.details[0].other ? 1 : 0 );
     securityName.push(el.otherNinName);
   });
-  
+
   let data1 = [];
-  var colorscaleValue = [
-    [0, '#800020'],
-    [1, '#50C878']
-  ];
-  data1.push(
-    {
-      z: [family_relation,address_relation,job_relation,wallets_relation,
-        // ip_matching,
-        // bank_statement,agency_relation,phone_calls,verification_number,wallet_opening_date,other
-      ],
-      x: securityName,
-      y: name1,
-      type: 'heatmap',
-      colorscale: colorscaleValue,
-      showscale: false,
-      showarrow: true,
-      hoverongaps: false
-    }
-  );
+  var colorscaleValue = [[0, "white"],[1, "#50C878"]];
+  data1.push({
+    z: [
+      family_relation,
+      address_relation,
+      job_relation,
+      wallets_relation,
+      // ip_matching,
+      // bank_statement,agency_relation,phone_calls,verification_number,wallet_opening_date,other
+    ],
+    x: securityName,
+    y: name1,
+    type: "heatmap",
+    colorscale: colorscaleValue,
+    showscale: false,
+    // showarrow: true,
+
+    hoverongaps: false,
+  });
+  // let layout1 = { barmode: "group", showlegend: true };
   let layout1 = { barmode: "group", showlegend: true };
+
   Plotly.newPlot("chart1", data1);
+  // Plotly.redraw("chart1",layout);
 }
 
 export function startTable(tableData, chartsData, lang, ninData) {
@@ -131,8 +134,6 @@ export function startTable(tableData, chartsData, lang, ninData) {
       snapshot: null,
       data: tableData,
       columns: [
-        
-
         { data: "ninName" },
         { data: "nin" },
         { data: "relation" },
@@ -157,10 +158,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
           data: "family_relation",
           render: function (data, type, row, meta) {
             if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
+              if (data) return "متطابق";
+              else return "عدم التطابق";
             } else {
               return null;
             }
@@ -170,10 +169,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
           data: "address_relation",
           render: function (data, type, row, meta) {
             if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
+              if (data) return "متطابق";
+              else return "عدم التطابق";
             } else {
               return null;
             }
@@ -183,10 +180,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
           data: "job_relation",
           render: function (data, type, row, meta) {
             if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
+              if (data) return "متطابق";
+              else return "عدم التطابق";
             } else {
               return null;
             }
@@ -196,10 +191,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
           data: "wallets_relation",
           render: function (data, type, row, meta) {
             if (data != null) {
-              if (data)
-                return "متطابق";
-              else
-                return "عدم التطابق"
+              if (data) return "متطابق";
+              else return "عدم التطابق";
             } else {
               return null;
             }
@@ -325,7 +318,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             if (selectedNinObj.length === 0) {
               drawCharts(emptyObj);
             } else {
-              console.log(selectedNinObj)
+              console.log(selectedNinObj);
               drawCharts(selectedNinObj);
             }
           }

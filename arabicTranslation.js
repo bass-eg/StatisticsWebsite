@@ -2,7 +2,7 @@ export function getArabicTranslation() {
   return [
     {
       list1A: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -22,7 +22,7 @@ export function getArabicTranslation() {
       },
 
       list1B: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -66,7 +66,7 @@ export function getArabicTranslation() {
       },
 
       list1C: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -99,8 +99,6 @@ export function getArabicTranslation() {
       },
 
       list2: {
-        securityCode: "رقم تعرفة الشركة",
-        securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
         date: "التاريخ",
@@ -110,7 +108,6 @@ export function getArabicTranslation() {
         balanaceOwnership: "قيمة الرصيد المحتسب",
         securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
-        date: "اليوم",
         buyVolume: "كمية الشراء",
         buyValue: "قيمة الشراء",
         sellVolume: "كمية البيع",
@@ -118,7 +115,6 @@ export function getArabicTranslation() {
         numoftrades_buy: "عدد أوامر الشراء",
         numoftrades_sell: "عدد أوامر البيع",
         close: "سعر الاغلاق",
-        balance: "الرصيد",
         balanceValue: "قيمة الرصيد",
         capital: "أسهم الشركة",
         percentageOwnership: "نسبة ملكية المشتبه به",
@@ -160,7 +156,7 @@ export function getArabicTranslation() {
       },
 
       list4: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -171,10 +167,7 @@ export function getArabicTranslation() {
         sellPartiallyDiscolsed: "كمية أسهم البيع المعلنة جزئياً",
         buyPartiallyDiscolsed: "كمية أسهم الشراء المعلنة جزئياً",
         buyPercentageDiscolsed: "نسبة أسهم الشراء المعلنة",
-        sellPercentageDiscolsed: "نسبة أسهم البيع المعلنة",
-        securityCode: "رمز الشركة",
-        securityName: "إسم الشركة",
-        volumeOfBuyEnter_fullydisclosed: "كمية أوامر الشراء المعلنة بالكميل",
+        volumeOfBuyEnter_fullydisclosed: "كمية أوامر الشراء المعلنة بالكامل",
         valueOfBuyEnter_fullydisclosed: "قيمة أوامر الشراء المعلنة بالكامل",
         nbOfBuyEnter_fullydisclosed: "عدد أوامر الشراء المعلنة بالكامل",
         volumeOfBuyEnter_partiallydiscolsed: "كمية أوامر الشراء المعلنة جزئياً",
@@ -183,29 +176,45 @@ export function getArabicTranslation() {
         volumeOfSellEnter_partiallydiscolsed: "كمية أوامر البيع المعلنة جزئياً",
         valueOfSellEnter_partiallydiscolsed: "قيمة أوامر البيع المعلنة جزئياً",
         nbOfSellEnter_partiallydiscolsed: "عدد أوامر البيع المعلنة جزئياً",
-        volumeOfSellAmend_partiallydiscolsed: "كميات أوامر البيع المعدلة والمعلنة جزئياً",
-        valueOfSellAmend_partiallydiscolsed: "قيمة أوامر البيع المعدلة والمعلنة جزئياً",
-        nbOfSellAmend_partiallydiscolsed: "عدد أوامر البيع المعدلة ومعلنة جزئياً",
+        volumeOfSellAmend_partiallydiscolsed:
+          "كمية أوامر البيع المعدلة والمعلنة جزئياً",
+        valueOfSellAmend_partiallydiscolsed:
+          "قيمة أوامر البيع المعدلة والمعلنة جزئياً",
+        nbOfSellAmend_partiallydiscolsed:
+          "عدد أوامر البيع المعدلة ومعلنة جزئياً",
         volumeOfSellEnter_fullydisclosed: "كمية أوامر البيع المعلنة بالكامل",
         valueOfSellEnter_fullydisclosed: "قيمة أوامر البيع المعلنة بالكامل",
-        nbOfSellEnter_fullydisclosed: "عدد أوامر النبيع المعلنة بالكامل",
-        volumeOfBuyAmend_partiallydiscolsed: "كمية أوامر الشراء المعدلة والمعلنة جزئياً",
-        valueOfBuyAmend_partiallydiscolsed: "قيمة أوامر الشراء المعدلة والمعلنة جزئياً",
-        nbOfBuyAmend_partiallydiscolsed: "عدد أوامر الفهرا المعدلة والمعلنة جزئياً",
-        volumeOfSellAmend_fullydisclosed: "كمية أوامر الشيع المعدلة والمعلنة بالكامل",
-        valueOfSellAmend_fullydisclosed: "قيمة أوامر البيع المعدلة والمعلنة بالكامل",
-        nbOfSellAmend_fullydisclosed: "عدد أوامر البيع المعدلة والمعلنة بالكامل",
-        volumeOfBuyAmend_fullydisclosed: "كمية أوامر الشراء المعدلة والمعلنة بالكامل",
-        valueOfBuyAmend_fullydisclosed: "قيمة أوامر الشراء المعادلة والمعلنة بالكامل",
-        nbOfBuyAmend_fullydisclosed: "عدد أوامر الشراء المعدلة والمعلنة بالكامل",
-        buyEnterPercentage: "نسبة أوامر الشراء المعلنة جزئياً إلى الأوامر المدخلة والمعلنة بالكامل",
-        buyAmendPercentage: "نسبة أوامر الشراء المعلنة جزئياً إلى الأوامر المعدلة والمعلنة بالكامل",
-        sellEnterPercentage: "نسبة أوامر البيع المعلنة جزئياً إلى الأوامر المدخلة والمعلنة بالكامل    ",
-        sellAmendPercentage: "نسبة أوامر البيع المعلنة جزئياً إلى الأوامر المعدلة والمعلنة بالكامل",
+        nbOfSellEnter_fullydisclosed: "عدد أوامر البيع المعلنة بالكامل",
+        volumeOfBuyAmend_partiallydiscolsed:
+          "كمية أوامر الشراء المعدلة والمعلنة جزئياً",
+        valueOfBuyAmend_partiallydiscolsed:
+          "قيمة أوامر الشراء المعدلة والمعلنة جزئياً",
+        nbOfBuyAmend_partiallydiscolsed:
+          "عدد أوامر الشراء المعدلة والمعلنة جزئياً",
+        volumeOfSellAmend_fullydisclosed:
+          "كمية أوامر البيع المعدلة والمعلنة بالكامل",
+        valueOfSellAmend_fullydisclosed:
+          "قيمة أوامر البيع المعدلة والمعلنة بالكامل",
+        nbOfSellAmend_fullydisclosed:
+          "عدد أوامر البيع المعدلة والمعلنة بالكامل",
+        volumeOfBuyAmend_fullydisclosed:
+          "كمية أوامر الشراء المعدلة والمعلنة بالكامل",
+        valueOfBuyAmend_fullydisclosed:
+          "قيمة أوامر الشراء المعادلة والمعلنة بالكامل",
+        nbOfBuyAmend_fullydisclosed:
+          "عدد أوامر الشراء المعدلة والمعلنة بالكامل",
+        buyEnterPercentage:
+          "نسبة أوامر الشراء المعلنة جزئياً إلى الأوامر المدخلة والمعلنة بالكامل",
+        buyAmendPercentage:
+          "نسبة أوامر الشراء المعلنة جزئياً إلى الأوامر المعدلة والمعلنة بالكامل",
+        sellEnterPercentage:
+          "نسبة أوامر البيع المعلنة جزئياً إلى الأوامر المدخلة والمعلنة بالكامل    ",
+        sellAmendPercentage:
+          "نسبة أوامر البيع المعلنة جزئياً إلى الأوامر المعدلة والمعلنة بالكامل",
       },
 
       list5: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -217,29 +226,38 @@ export function getArabicTranslation() {
         partiallyExecutedBuy: "نسبة أسهم البيع المنفذة جزئياً",
         partiallyExecutedSell: "نسبة أسهم البيع المنفذة جزئياً",
         fullyExecutedSell: "نسبة أسهم البيع المنفذة بالكامل",
-        securityCode: "رمز الشركة",
         fullyExecutedBuyOrderTotalVolume: "كمية أوامر الشراء المنفذة بالكامل",
         fullyExecutedBuyOrderTotalValue: "قيمة أوامر الشراء المنفذة بالكامل",
         partiallyExecutedBuyOrderTotalValue: "قيمة أوامر الشراء المنفذة جزئياً",
-        partiallyExecutedBuyOrderTotalVolume: "كمية أوامر الشراء المنفذة جزئياً",
+        partiallyExecutedBuyOrderTotalVolume:
+          "كمية أوامر الشراء المنفذة جزئياً",
         fullyExecutedSellOrderTotalValue: "قيمة أوامر البيع المنفذة بالكامل",
         fullyExecutedSellOrderTotalVolume: "كمية أوامر البيع المنفذة بالكامل",
         partiallyExecutedSellOrderTotalValue: "قيمة أوامر البيع المنفذة جزئياً",
-        partiallyExecutedSellOrderTotalVolume: "كمية أوامر البيع المنفذة جزئياً",
+        partiallyExecutedSellOrderTotalVolume:
+          "كمية أوامر البيع المنفذة جزئياً",
         totalVolume: "إجمالي الكمية المنفذة",
         totalValue: "إجمالي القيمة المنفذة",
-        percentageOfFullyExecutedBuyTradesVolume: "نسبة كمية أوامر الشراء المنفذة بالكامل",
-        percentageOfFullyExecutedBuyTradesValue: "نسبة قيمة أوامر الشراء المنفذة بالكامل",
-        percentageOfPartiallyExecutedBuyTradesVolume: "نسبة كمية أوامر الشراء المنفذة جزئياً",
-        percentageOfPartiallyExecutedBuyTradesValue: "نسبة قيمة أوامر الشراء المنفذة جزئياً",
-        percentageOfFullyExecutedSellTradesVolume: "نسبة كمية أوامر البيع المنفذة بالكامل",
-        percentageOfFullyExecutedSellTradesValue: "نسبة قيمة أوامر البيع المنفذة بالكامل",
-        percentageOfPartiallyExecutedSellTradesVolume: "نسبة كمية أوامر البيع المنفذة جزئياً",
-        percentageOfPartiallyExecutedSellTradesValue: "نسبة قيمة أوامر البيع المنفذة جزئياً",
+        percentageOfFullyExecutedBuyTradesVolume:
+          "نسبة كمية أوامر الشراء المنفذة بالكامل",
+        percentageOfFullyExecutedBuyTradesValue:
+          "نسبة قيمة أوامر الشراء المنفذة بالكامل",
+        percentageOfPartiallyExecutedBuyTradesVolume:
+          "نسبة كمية أوامر الشراء المنفذة جزئياً",
+        percentageOfPartiallyExecutedBuyTradesValue:
+          "نسبة قيمة أوامر الشراء المنفذة جزئياً",
+        percentageOfFullyExecutedSellTradesVolume:
+          "نسبة كمية أوامر البيع المنفذة بالكامل",
+        percentageOfFullyExecutedSellTradesValue:
+          "نسبة قيمة أوامر البيع المنفذة بالكامل",
+        percentageOfPartiallyExecutedSellTradesVolume:
+          "نسبة كمية أوامر البيع المنفذة جزئياً",
+        percentageOfPartiallyExecutedSellTradesValue:
+          "نسبة قيمة أوامر البيع المنفذة جزئياً",
       },
 
       list6: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -253,7 +271,7 @@ export function getArabicTranslation() {
       },
 
       list7: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -272,15 +290,21 @@ export function getArabicTranslation() {
         percentageBeforeTotalValueSell: "نسبة البيع قبل المخالفة",
         percentageAfterTotalValueSell: "نسبة البيع بعد المخالفة",
         sumOfBuyOrgVolumeOfTheDay: "مجموع كميات أوامر الشراء المدخلة في اليوم",
-        sumOfBuyRemainingVolumeOfTheDay: "مجموع كمية أوامر الشراء المتبقية في اليوم",
-        sumOfBuyOrgVolumeOfTheVioTime: "مجموع كمية أوامر الشراء المدخلة في وقت المخالفة",
-        sumOfBuyRemainingVolumeOfTheVioTime: "مجموع كمية أوامر الشراء المتبقية في وقت المخالفة",
+        sumOfBuyRemainingVolumeOfTheDay:
+          "مجموع كمية أوامر الشراء المتبقية في اليوم",
+        sumOfBuyOrgVolumeOfTheVioTime:
+          "مجموع كمية أوامر الشراء المدخلة في وقت المخالفة",
+        sumOfBuyRemainingVolumeOfTheVioTime:
+          "مجموع كمية أوامر الشراء المتبقية في وقت المخالفة",
         percentageOfBuyOrgVolume: "نسبة أوامر الشراء المدخلة",
         percentageOfBuyRemainingVolume: "نسبة أوامر الشراء المتبقية",
         sumOfSellOrgVolumeOfTheDay: "مجموع كمية أوامر البيع المدخلة في اليوم",
-        sumOfSellRemainingVolumeOfTheDay: "مجموع كمية أوامر البيع المتبقية في اليوم",
-        sumOfSellOrgVolumeOfTheVioTime: "مجموع كمية أوامر البيع المدخلة في وقت المخالفة",
-        sumOfSellRemainingVolumeOfTheVioTime: "مجموع كميات أوامر البيع المتبقية في وقت المخالفة",
+        sumOfSellRemainingVolumeOfTheDay:
+          "مجموع كمية أوامر البيع المتبقية في اليوم",
+        sumOfSellOrgVolumeOfTheVioTime:
+          "مجموع كمية أوامر البيع المدخلة في وقت المخالفة",
+        sumOfSellRemainingVolumeOfTheVioTime:
+          "مجموع كميات أوامر البيع المتبقية في وقت المخالفة",
         percentageOfSellOrgVolume: "نسبة أوامر البيع المدخلة",
         percentageOfSellRemainingVolume: "نسبة أوامر البيع المتبقية",
       },
@@ -295,7 +319,7 @@ export function getArabicTranslation() {
       },
 
       list9A: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -348,22 +372,34 @@ export function getArabicTranslation() {
         securityEnteredOrgVolume: "كمية الأوامر المدخلة للشركة",
         securityExecutedFillVolume: "كمية الأوامر المنفذة للشركة",
         securityExecutedTotalValue: "قيمة الأوامر المنفذة للشركة",
-        percentageBuyEnterVolumeBefore: "نسبة كمية أوامر الشراء المدخلة قبل المخالفة",
-        percentageBuyEnterVolumeDuring: "نسبة كمية أوامر الشراء المدخلة وقت المخالفة",
-        percentageBuyEnterVolumeAfter: "نسبة كمية أوامر الشراء المدخلة بعد المخالفة",
-        percentageSellEnterVolumeBefore: "نسبة كمية أوامر البيع المدخلة قبل المخالفة",
-        percentageSellEnterVolumeDuring: "نسبة كمية أوامر البيع المدخلة وقت المخالفة",
-        percentageSellEnterVolumeAfter: "نسبة كمية أوامر البيع المدخلة بعد المخالفة",
-        percentageBuyEnterValueBefore: "نسبة قيمة أوامر الشراء المدخلة قبل المخالفة",
-        percentageBuyEnterValueDuring: "نسبة قيمة أوامر الشراء المدخلة وقت المخالفة",
-        percentageBuyEnterValueAfter: "نسبة قيمة أوامر الشراء المدخلة بعد المخالفة",
-        percentageSellEnterValueBefore: "نسبة قيمة أوامر البيع المدخلة قبل المخالفة",
-        percentageSellEnterValueDuring: "نسبة قيمة أوامر البيع المدخلة وقت المخالفة",
-        percentageSellEnterValueAfter: "نسبة قيمة أوامر البيع المدخلة بعد المخالفة",
+        percentageBuyEnterVolumeBefore:
+          "نسبة كمية أوامر الشراء المدخلة قبل المخالفة",
+        percentageBuyEnterVolumeDuring:
+          "نسبة كمية أوامر الشراء المدخلة وقت المخالفة",
+        percentageBuyEnterVolumeAfter:
+          "نسبة كمية أوامر الشراء المدخلة بعد المخالفة",
+        percentageSellEnterVolumeBefore:
+          "نسبة كمية أوامر البيع المدخلة قبل المخالفة",
+        percentageSellEnterVolumeDuring:
+          "نسبة كمية أوامر البيع المدخلة وقت المخالفة",
+        percentageSellEnterVolumeAfter:
+          "نسبة كمية أوامر البيع المدخلة بعد المخالفة",
+        percentageBuyEnterValueBefore:
+          "نسبة قيمة أوامر الشراء المدخلة قبل المخالفة",
+        percentageBuyEnterValueDuring:
+          "نسبة قيمة أوامر الشراء المدخلة وقت المخالفة",
+        percentageBuyEnterValueAfter:
+          "نسبة قيمة أوامر الشراء المدخلة بعد المخالفة",
+        percentageSellEnterValueBefore:
+          "نسبة قيمة أوامر البيع المدخلة قبل المخالفة",
+        percentageSellEnterValueDuring:
+          "نسبة قيمة أوامر البيع المدخلة وقت المخالفة",
+        percentageSellEnterValueAfter:
+          "نسبة قيمة أوامر البيع المدخلة بعد المخالفة",
       },
 
       list9B: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -383,7 +419,7 @@ export function getArabicTranslation() {
       },
 
       list9C: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -428,7 +464,7 @@ export function getArabicTranslation() {
       },
 
       list9D: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -439,12 +475,11 @@ export function getArabicTranslation() {
         percentageOfTotalValue: "نسبة كمية الأوامر المتقابلة",
         fillVolume: "الكمية المنفذة",
         totalVolume: "إجملي الكمية المنفذة",
-        securityName: "إسم الشركة",
         percentage: "النسبة",
       },
 
       list9E: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -486,7 +521,7 @@ export function getArabicTranslation() {
       },
 
       list9F: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -496,29 +531,35 @@ export function getArabicTranslation() {
         percentageOfDeletedTrades: "نسبة الأوامر الملغاة",
         percentageOfExecutedTrades: "نسبة الأوامر المنفذة",
 
-        date: "اليوم",
+        date: "التاريخ",
         buyBeforeCountTrades: "عدد أوامر الشراء المنفذة قبل المخالفة",
         buyBeforeCountDelete: "عدد أوامر الشراء الملغاة قبل المخالفة",
-        buyBeforePercentage: "نسبة أوامر الشراء الملغاة على المنفذة قبل المخالفة",
+        buyBeforePercentage:
+          "نسبة أوامر الشراء الملغاة على المنفذة قبل المخالفة",
         buyDuringCountTrades: "عدد أوامر الشراء المنفذة وقت المخالفة",
         buyDuringCountDelete: "عدد أوامر الشراء الملغاة وقت المخالفة",
-        buyDuringPercentage: "نسبة أوامر الشراء الملغاة على المنفذة وقت المخالفة",
+        buyDuringPercentage:
+          "نسبة أوامر الشراء الملغاة على المنفذة وقت المخالفة",
         buyAfterCountTrades: "عدد أوامر الشراء المنفذة بعد المخالفة",
         buyAfterCountDelete: "عدد أوامر الشراء الملغاة بعد المخالفة",
-        buyAfterPercentage: "نسبة أوامر الشراء الملغاة على المنفذة بعد المخالفة",
+        buyAfterPercentage:
+          "نسبة أوامر الشراء الملغاة على المنفذة بعد المخالفة",
         sellBeforeCountTrades: "عدد أوامر البيع المنفذة قبل المخالفة",
         sellBeforeCountDelete: "عدد أوامر البيع الملغاة قبل المخالفة",
-        sellBeforePercentage: "نسبة أوامر الشراء الملغاة على المنفذة بعد المخالفة",
+        sellBeforePercentage:
+          "نسبة أوامر الشراء الملغاة على المنفذة بعد المخالفة",
         sellDuringCountTrades: "عدد أوامر البيع المنفذة وقت المخالفة",
         sellDuringCountDelete: "عدد أوامر البيع الملغاة وقت المخالفة",
-        sellDuringPercentage: "نسبة أوامر البيع الملغاة على المنفذة وقت المخالفة",
+        sellDuringPercentage:
+          "نسبة أوامر البيع الملغاة على المنفذة وقت المخالفة",
         sellAfterCountTrades: "عدد أوامر البيع المنفذة بعد المخالفة",
         sellAfterCountDelete: "عدد أوامر البيع الملغاة بعد المخالفة",
-        sellAfterPercentage: "نسبة أوامر البيع الملغاة على المنفذة بعد المخالفة",
+        sellAfterPercentage:
+          "نسبة أوامر البيع الملغاة على المنفذة بعد المخالفة",
       },
 
       list10: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         nin: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
@@ -543,7 +584,7 @@ export function getArabicTranslation() {
       },
 
       list11Old: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         date: "التاريخ",
         sector: "المؤشر",
@@ -551,11 +592,10 @@ export function getArabicTranslation() {
         sectorClosingPrice: "سعر الاغلاق للمؤشر",
         sectorHigh: "أعلى سعر للمؤشر",
         sectorLow: "أدنى سعر للمؤشر",
-
       },
 
       list11: {
-        securityCode: "رقم تعرفة الشركة",
+        securityCode: "رمز الشركة",
         securityName: "إسم الشركة",
         date: "التاريخ",
         sector: "المؤشر",
@@ -567,7 +607,6 @@ export function getArabicTranslation() {
         sectorVolumeTraded: "كمية التداول للمؤشر",
         sectorValueTraded: "قيمة التداول للمؤشر",
         sectorNumberOfTrades: "عدد الأوامر للمؤشر",
-
       },
 
       list11ChartsLabels: {
@@ -576,7 +615,6 @@ export function getArabicTranslation() {
         ValueTraded: "قيمة التداول",
         NumberOfTrades: "عدد الأوامر",
       },
-
     },
   ];
 }
