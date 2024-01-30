@@ -147,6 +147,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             }
           },
         },
+        { data: "totalBalanceByDay" },
       ],
       orderCellsTop: true,
 

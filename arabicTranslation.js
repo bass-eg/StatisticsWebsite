@@ -268,6 +268,7 @@ export function getArabicTranslation() {
         valueOfPosition: "قيمة الرصيد",
         balanceValue: "قيمة الرصيد",
         percentageOwnership: "نسبة ملكية المشتبه به",
+        totalBalanceByDay:"إجمالي الرصيد للمشتبه به في اليوم"
       },
 
       list7: {
