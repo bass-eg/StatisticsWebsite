@@ -2,47 +2,81 @@ import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let date = [],
-    balance = [],
-    percentageOwnership = [],
-    closingPrice = [],
-    valueOfPosition = [];
-  let name1 = [
-    arabicTranslation[0].list6.balance,
-  ];
-  let name2 = [
-    arabicTranslation[0].list6.percentageOwnership,
-  ];
-
-  Objects.map((el) => {
-    date.push(el.date);
-    balance.push(el.balance);
-    percentageOwnership.push(el.percentageOwnership);
-  });
-  let data1 = [],
-    data2 = [],
-    data3 = [];
-  data1.push(
-    {
-      x: date,
-      y: balance,
-      name: name1[0],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balance}<br>`,
-    },
-  );
-  data2.push({
+const arabicTranslation = getArabicTranslation();
+let date = [];
+let chartsDataArrays = {
+  balance: [],
+  balanceValue: [],
+  percentageOwnership: [],
+  totalBalanceByDay: [],
+}
+let name1 = [
+  arabicTranslation[0].list6.balance,
+  arabicTranslation[0].list6.balanceValue,
+  arabicTranslation[0].list6.percentageOwnership,
+  arabicTranslation[0].list6.totalBalanceByDay,
+];
+let chartObjects = {
+  balance: {
     x: date,
-    y: percentageOwnership,
-    name: name2[0],
+    y: [],
+    name: name1[0],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balance}<br>`,
+  },
+  balanceValue: {
+    x: date,
+    y: [],
+    name: name1[1],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balanceValue}<br>`,
+  },
+  percentageOwnership: {
+    x: date,
+    y: [],
+    name: name1[2],
     type: "bar",
     hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.percentageOwnership}<br>`,
+  },
+  totalBalanceByDay: {
+    x: date,
+    y: [],
+    name: name1[3],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.totalBalanceByDay}<br>`,
+  },
+}
+
+function prepareDataForCharts(Objects) {
+  date = [];
+  chartsDataArrays.balance = [];
+  chartsDataArrays.balanceValue = [];
+  chartsDataArrays.percentageOwnership = [];
+  chartsDataArrays.totalBalanceByDay = [];
+  Objects.map((el) => {
+    date.push(el.date);
+    chartsDataArrays.balance.push(el.balance);
+    chartsDataArrays.balanceValue.push(el.balanceValue);
+    chartsDataArrays.percentageOwnership.push(el.percentageOwnership);
+    chartsDataArrays.totalBalanceByDay.push(el.totalBalanceByDay);
   });
+}
+function drawCharts(Objects, selectedItems) {
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    console.log(el);
+    console.log(chartObjects[el]);
+    let temp = chartObjects[el];
+    temp.x = date;
+    temp.y = chartsDataArrays[el];
+    selectedItemsObjects.push(temp);
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+
   let layout = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
   // Plotly.newPlot("chart3", data3, layout, { responsive: true });
 
   // let values = [];
@@ -65,6 +99,26 @@ function drawCharts(Objects) {
   //   title: `المجموع: ${totalValue}`,
   // };
   // Plotly.newPlot("chart1", data, layout1, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  if ($("#selectCompany").val() && $("#selectNin").val()) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedNinObj,
+      $("#selectCompany").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (selectedCompanyObj.length === 0) {
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
 }
 
 export function startTable(tableData, chartsData, lang, ninData) {
@@ -160,6 +214,17 @@ export function startTable(tableData, chartsData, lang, ninData) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          for (let key in chartsData[0].details[0]) {
+            console.log(key)
+            var option = document.createElement("option");
+            option.value = key;
+            option.innerHTML = arabicTranslation[0].list6[key];
+            selectChartItems.appendChild(option);
+          }
+          var selectBoxElement = document.querySelector("#selectChartItems");
+          dselect(selectBoxElement, {
+            search: true,
+          });
         }
         const emptyObj = [
           {
@@ -168,30 +233,16 @@ export function startTable(tableData, chartsData, lang, ninData) {
             totalValue: null,
           },
         ];
-        let selectedCompanyObj;
-        let selectedNinObj;
         $("#selectCompany").on("change", function () {
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
-          }
+          updateCharts(chartsData);
+        });
+        $("#selectChartItems").on("change", function () {
+          updateCharts(chartsData);
         });
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");
-
-            selectedNinObj = customFilter.filterByNin(
+            let selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
             );
@@ -199,22 +250,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
             selectedNinObj.forEach(function (item) {
               selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
             });
-
             var selectBoxElement = document.querySelector("#selectCompany");
             dselect(selectBoxElement, {
               search: true,
             });
-          }
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
+            updateCharts(updateCharts);
           }
         });
         var api = this.api();

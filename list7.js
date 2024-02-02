@@ -4,49 +4,49 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 const arabicTranslation = getArabicTranslation();
 
 let date = [];
-let chartsData = {
-  buyBeforeOrgVolume : [],
-  buyBeforeRemainingVolume : [],
-  buyBeforeFillVolume : [],
-  buyDuringOrgVolume : [],
-  buyDuringRemainingVolume : [],
-  buyDuringFillVolume : [],
-  buyAfterOrgVolume : [],
-  buyAfterRemainingVolume : [],
-  buyAfterFillVolume : [],
-  buyTotalOrgVolume : [],
-  buyTotalRemainingVolume : [],
-  buyTotalFillVolume : [],
-  percentageOfBuyOrgVolumeBefore : [],
-  percentageOfBuyRemainingVolumeBefore : [],
-  percentageOfBuyFillVolumeBefore : [],
-  percentageOfBuyOrgVolumeDuring : [],
-  percentageOfBuyRemainingVolumeDuring : [],
-  percentageOfBuyFillVolumeDuring : [],
-  percentageOfBuyOrgVolumeAfter : [],
-  percentageOfBuyRemainingVolumeAfter : [],
-  percentageOfBuyFillVolumeAfter : [],
-  sellBeforeOrgVolume : [],
-  sellBeforeRemainingVolume : [],
-  sellBeforeFillVolume : [],
-  sellDuringOrgVolume : [],
-  sellDuringRemainingVolume : [],
-  sellDuringFillVolume : [],
-  sellAfterOrgVolume : [],
-  sellAfterRemainingVolume : [],
-  sellAfterFillVolume : [],
-  sellTotalOrgVolume : [],
-  sellTotalRemainingVolume : [],
-  sellTotalFillVolume : [],
-  percentageOfSellOrgVolumeBefore : [],
-  percentageOfSellRemainingVolumeBefore : [],
-  percentageOfSellFillVolumeBefore : [],
-  percentageOfSellOrgVolumeDuring : [],
-  percentageOfSellRemainingVolumeDuring : [],
-  percentageOfSellFillVolumeDuring : [],
-  percentageOfSellOrgVolumeAfter : [],
-  percentageOfSellRemainingVolumeAfter : [],
-  percentageOfSellFillVolumeAfter : [],
+let chartsDataArrays = {
+  buyBeforeOrgVolume: [],
+  buyBeforeRemainingVolume: [],
+  buyBeforeFillVolume: [],
+  buyDuringOrgVolume: [],
+  buyDuringRemainingVolume: [],
+  buyDuringFillVolume: [],
+  buyAfterOrgVolume: [],
+  buyAfterRemainingVolume: [],
+  buyAfterFillVolume: [],
+  buyTotalOrgVolume: [],
+  buyTotalRemainingVolume: [],
+  buyTotalFillVolume: [],
+  percentageOfBuyOrgVolumeBefore: [],
+  percentageOfBuyRemainingVolumeBefore: [],
+  percentageOfBuyFillVolumeBefore: [],
+  percentageOfBuyOrgVolumeDuring: [],
+  percentageOfBuyRemainingVolumeDuring: [],
+  percentageOfBuyFillVolumeDuring: [],
+  percentageOfBuyOrgVolumeAfter: [],
+  percentageOfBuyRemainingVolumeAfter: [],
+  percentageOfBuyFillVolumeAfter: [],
+  sellBeforeOrgVolume: [],
+  sellBeforeRemainingVolume: [],
+  sellBeforeFillVolume: [],
+  sellDuringOrgVolume: [],
+  sellDuringRemainingVolume: [],
+  sellDuringFillVolume: [],
+  sellAfterOrgVolume: [],
+  sellAfterRemainingVolume: [],
+  sellAfterFillVolume: [],
+  sellTotalOrgVolume: [],
+  sellTotalRemainingVolume: [],
+  sellTotalFillVolume: [],
+  percentageOfSellOrgVolumeBefore: [],
+  percentageOfSellRemainingVolumeBefore: [],
+  percentageOfSellFillVolumeBefore: [],
+  percentageOfSellOrgVolumeDuring: [],
+  percentageOfSellRemainingVolumeDuring: [],
+  percentageOfSellFillVolumeDuring: [],
+  percentageOfSellOrgVolumeAfter: [],
+  percentageOfSellRemainingVolumeAfter: [],
+  percentageOfSellFillVolumeAfter: [],
 };
 let name1 = [
   arabicTranslation[0].list7.buyBeforeOrgVolume,
@@ -93,7 +93,7 @@ let name1 = [
   arabicTranslation[0].list7.percentageOfSellFillVolumeAfter,
 ];
 
-let chartItems = {
+let chartObjects = {
   buyBeforeOrgVolume: {
     x: date,
     y: [],
@@ -391,104 +391,104 @@ let chartItems = {
 };
 function prepareDataForCharts(Objects) {
   date = [];
-  chartsData.buyBeforeOrgVolume = [];
-  chartsData.buyBeforeRemainingVolume = [];
-  chartsData.buyBeforeFillVolume = [];
-  chartsData.buyDuringOrgVolume = [];
-  chartsData.buyDuringRemainingVolume = [];
-  chartsData.buyDuringFillVolume = [];
-  chartsData.buyAfterOrgVolume = [];
-  chartsData.buyAfterRemainingVolume = [];
-  chartsData.buyAfterFillVolume = [];
-  chartsData.buyTotalOrgVolume = [];
-  chartsData.buyTotalRemainingVolume = [];
-  chartsData.buyTotalFillVolume = [];
-  chartsData.percentageOfBuyOrgVolumeBefore = [];
-  chartsData.percentageOfBuyRemainingVolumeBefore = [];
-  chartsData.percentageOfBuyFillVolumeBefore = [];
-  chartsData.percentageOfBuyOrgVolumeDuring = [];
-  chartsData.percentageOfBuyRemainingVolumeDuring = [];
-  chartsData.percentageOfBuyFillVolumeDuring = [];
-  chartsData.percentageOfBuyOrgVolumeAfter = [];
-  chartsData.percentageOfBuyRemainingVolumeAfter = [];
-  chartsData.percentageOfBuyFillVolumeAfter = [];
-  chartsData.sellBeforeOrgVolume = [];
-  chartsData.sellBeforeRemainingVolume = [];
-  chartsData.sellBeforeFillVolume = [];
-  chartsData.sellDuringOrgVolume = [];
-  chartsData.sellDuringRemainingVolume = [];
-  chartsData.sellDuringFillVolume = [];
-  chartsData.sellAfterOrgVolume = [];
-  chartsData.sellAfterRemainingVolume = [];
-  chartsData.sellAfterFillVolume = [];
-  chartsData.sellTotalOrgVolume = [];
-  chartsData.sellTotalRemainingVolume = [];
-  chartsData.sellTotalFillVolume = [];
-  chartsData.percentageOfSellOrgVolumeBefore = [];
-  chartsData.percentageOfSellRemainingVolumeBefore = [];
-  chartsData.percentageOfSellFillVolumeBefore = [];
-  chartsData.percentageOfSellOrgVolumeDuring = [];
-  chartsData.percentageOfSellRemainingVolumeDuring = [];
-  chartsData.percentageOfSellFillVolumeDuring = [];
-  chartsData.percentageOfSellOrgVolumeAfter = [];
-  chartsData.percentageOfSellRemainingVolumeAfter = [];
-  chartsData.percentageOfSellFillVolumeAfter = [];
+  chartsDataArrays.buyBeforeOrgVolume = [];
+  chartsDataArrays.buyBeforeRemainingVolume = [];
+  chartsDataArrays.buyBeforeFillVolume = [];
+  chartsDataArrays.buyDuringOrgVolume = [];
+  chartsDataArrays.buyDuringRemainingVolume = [];
+  chartsDataArrays.buyDuringFillVolume = [];
+  chartsDataArrays.buyAfterOrgVolume = [];
+  chartsDataArrays.buyAfterRemainingVolume = [];
+  chartsDataArrays.buyAfterFillVolume = [];
+  chartsDataArrays.buyTotalOrgVolume = [];
+  chartsDataArrays.buyTotalRemainingVolume = [];
+  chartsDataArrays.buyTotalFillVolume = [];
+  chartsDataArrays.percentageOfBuyOrgVolumeBefore = [];
+  chartsDataArrays.percentageOfBuyRemainingVolumeBefore = [];
+  chartsDataArrays.percentageOfBuyFillVolumeBefore = [];
+  chartsDataArrays.percentageOfBuyOrgVolumeDuring = [];
+  chartsDataArrays.percentageOfBuyRemainingVolumeDuring = [];
+  chartsDataArrays.percentageOfBuyFillVolumeDuring = [];
+  chartsDataArrays.percentageOfBuyOrgVolumeAfter = [];
+  chartsDataArrays.percentageOfBuyRemainingVolumeAfter = [];
+  chartsDataArrays.percentageOfBuyFillVolumeAfter = [];
+  chartsDataArrays.sellBeforeOrgVolume = [];
+  chartsDataArrays.sellBeforeRemainingVolume = [];
+  chartsDataArrays.sellBeforeFillVolume = [];
+  chartsDataArrays.sellDuringOrgVolume = [];
+  chartsDataArrays.sellDuringRemainingVolume = [];
+  chartsDataArrays.sellDuringFillVolume = [];
+  chartsDataArrays.sellAfterOrgVolume = [];
+  chartsDataArrays.sellAfterRemainingVolume = [];
+  chartsDataArrays.sellAfterFillVolume = [];
+  chartsDataArrays.sellTotalOrgVolume = [];
+  chartsDataArrays.sellTotalRemainingVolume = [];
+  chartsDataArrays.sellTotalFillVolume = [];
+  chartsDataArrays.percentageOfSellOrgVolumeBefore = [];
+  chartsDataArrays.percentageOfSellRemainingVolumeBefore = [];
+  chartsDataArrays.percentageOfSellFillVolumeBefore = [];
+  chartsDataArrays.percentageOfSellOrgVolumeDuring = [];
+  chartsDataArrays.percentageOfSellRemainingVolumeDuring = [];
+  chartsDataArrays.percentageOfSellFillVolumeDuring = [];
+  chartsDataArrays.percentageOfSellOrgVolumeAfter = [];
+  chartsDataArrays.percentageOfSellRemainingVolumeAfter = [];
+  chartsDataArrays.percentageOfSellFillVolumeAfter = [];
   Objects.map((el) => {
     date.push(el.date);
-    chartsData.buyBeforeOrgVolume.push(el.buyBeforeOrgVolume);
-    chartsData.buyBeforeRemainingVolume.push(el.buyBeforeRemainingVolume);
-    chartsData.buyBeforeFillVolume.push(el.buyBeforeFillVolume);
-    chartsData.buyDuringOrgVolume.push(el.buyDuringOrgVolume);
-    chartsData.buyDuringRemainingVolume.push(el.buyDuringRemainingVolume);
-    chartsData.buyDuringFillVolume.push(el.buyDuringFillVolume);
-    chartsData.buyAfterOrgVolume.push(el.buyAfterOrgVolume);
-    chartsData.buyAfterRemainingVolume.push(el.buyAfterRemainingVolume);
-    chartsData.buyAfterFillVolume.push(el.buyAfterFillVolume);
-    chartsData.buyTotalOrgVolume.push(el.buyTotalOrgVolume);
-    chartsData.buyTotalRemainingVolume.push(el.buyTotalRemainingVolume);
-    chartsData.buyTotalFillVolume.push(el.buyTotalFillVolume);
-    chartsData.percentageOfBuyOrgVolumeBefore.push(el.percentageOfBuyOrgVolumeBefore);
-    chartsData.percentageOfBuyRemainingVolumeBefore.push(
+    chartsDataArrays.buyBeforeOrgVolume.push(el.buyBeforeOrgVolume);
+    chartsDataArrays.buyBeforeRemainingVolume.push(el.buyBeforeRemainingVolume);
+    chartsDataArrays.buyBeforeFillVolume.push(el.buyBeforeFillVolume);
+    chartsDataArrays.buyDuringOrgVolume.push(el.buyDuringOrgVolume);
+    chartsDataArrays.buyDuringRemainingVolume.push(el.buyDuringRemainingVolume);
+    chartsDataArrays.buyDuringFillVolume.push(el.buyDuringFillVolume);
+    chartsDataArrays.buyAfterOrgVolume.push(el.buyAfterOrgVolume);
+    chartsDataArrays.buyAfterRemainingVolume.push(el.buyAfterRemainingVolume);
+    chartsDataArrays.buyAfterFillVolume.push(el.buyAfterFillVolume);
+    chartsDataArrays.buyTotalOrgVolume.push(el.buyTotalOrgVolume);
+    chartsDataArrays.buyTotalRemainingVolume.push(el.buyTotalRemainingVolume);
+    chartsDataArrays.buyTotalFillVolume.push(el.buyTotalFillVolume);
+    chartsDataArrays.percentageOfBuyOrgVolumeBefore.push(el.percentageOfBuyOrgVolumeBefore);
+    chartsDataArrays.percentageOfBuyRemainingVolumeBefore.push(
       el.percentageOfBuyRemainingVolumeBefore
     );
-    chartsData.percentageOfBuyFillVolumeBefore.push(el.percentageOfBuyFillVolumeBefore);
-    chartsData.percentageOfBuyOrgVolumeDuring.push(el.percentageOfBuyOrgVolumeDuring);
-    chartsData.percentageOfBuyRemainingVolumeDuring.push(
+    chartsDataArrays.percentageOfBuyFillVolumeBefore.push(el.percentageOfBuyFillVolumeBefore);
+    chartsDataArrays.percentageOfBuyOrgVolumeDuring.push(el.percentageOfBuyOrgVolumeDuring);
+    chartsDataArrays.percentageOfBuyRemainingVolumeDuring.push(
       el.percentageOfBuyRemainingVolumeDuring
     );
-    chartsData.percentageOfBuyFillVolumeDuring.push(el.percentageOfBuyFillVolumeDuring);
-    chartsData.percentageOfBuyOrgVolumeAfter.push(el.percentageOfBuyOrgVolumeAfter);
-    chartsData.percentageOfBuyRemainingVolumeAfter.push(
+    chartsDataArrays.percentageOfBuyFillVolumeDuring.push(el.percentageOfBuyFillVolumeDuring);
+    chartsDataArrays.percentageOfBuyOrgVolumeAfter.push(el.percentageOfBuyOrgVolumeAfter);
+    chartsDataArrays.percentageOfBuyRemainingVolumeAfter.push(
       el.percentageOfBuyRemainingVolumeAfter
     );
-    chartsData.percentageOfBuyFillVolumeAfter.push(el.percentageOfBuyFillVolumeAfter);
-    chartsData.sellBeforeOrgVolume.push(el.sellBeforeOrgVolume);
-    chartsData.sellBeforeRemainingVolume.push(el.sellBeforeRemainingVolume);
-    chartsData.sellBeforeFillVolume.push(el.sellBeforeFillVolume);
-    chartsData.sellDuringOrgVolume.push(el.sellDuringOrgVolume);
-    chartsData.sellDuringRemainingVolume.push(el.sellDuringRemainingVolume);
-    chartsData.sellDuringFillVolume.push(el.sellDuringFillVolume);
-    chartsData.sellAfterOrgVolume.push(el.sellAfterOrgVolume);
-    chartsData.sellAfterRemainingVolume.push(el.sellAfterRemainingVolume);
-    chartsData.sellAfterFillVolume.push(el.sellAfterFillVolume);
-    chartsData.sellTotalOrgVolume.push(el.sellTotalOrgVolume);
-    chartsData.sellTotalRemainingVolume.push(el.sellTotalRemainingVolume);
-    chartsData.sellTotalFillVolume.push(el.sellTotalFillVolume);
-    chartsData.percentageOfSellOrgVolumeBefore.push(el.percentageOfSellOrgVolumeBefore);
-    chartsData.percentageOfSellRemainingVolumeBefore.push(
+    chartsDataArrays.percentageOfBuyFillVolumeAfter.push(el.percentageOfBuyFillVolumeAfter);
+    chartsDataArrays.sellBeforeOrgVolume.push(el.sellBeforeOrgVolume);
+    chartsDataArrays.sellBeforeRemainingVolume.push(el.sellBeforeRemainingVolume);
+    chartsDataArrays.sellBeforeFillVolume.push(el.sellBeforeFillVolume);
+    chartsDataArrays.sellDuringOrgVolume.push(el.sellDuringOrgVolume);
+    chartsDataArrays.sellDuringRemainingVolume.push(el.sellDuringRemainingVolume);
+    chartsDataArrays.sellDuringFillVolume.push(el.sellDuringFillVolume);
+    chartsDataArrays.sellAfterOrgVolume.push(el.sellAfterOrgVolume);
+    chartsDataArrays.sellAfterRemainingVolume.push(el.sellAfterRemainingVolume);
+    chartsDataArrays.sellAfterFillVolume.push(el.sellAfterFillVolume);
+    chartsDataArrays.sellTotalOrgVolume.push(el.sellTotalOrgVolume);
+    chartsDataArrays.sellTotalRemainingVolume.push(el.sellTotalRemainingVolume);
+    chartsDataArrays.sellTotalFillVolume.push(el.sellTotalFillVolume);
+    chartsDataArrays.percentageOfSellOrgVolumeBefore.push(el.percentageOfSellOrgVolumeBefore);
+    chartsDataArrays.percentageOfSellRemainingVolumeBefore.push(
       el.percentageOfSellRemainingVolumeBefore
     );
-    chartsData.percentageOfSellFillVolumeBefore.push(el.percentageOfSellFillVolumeBefore);
-    chartsData.percentageOfSellOrgVolumeDuring.push(el.percentageOfSellOrgVolumeDuring);
-    chartsData.percentageOfSellRemainingVolumeDuring.push(
+    chartsDataArrays.percentageOfSellFillVolumeBefore.push(el.percentageOfSellFillVolumeBefore);
+    chartsDataArrays.percentageOfSellOrgVolumeDuring.push(el.percentageOfSellOrgVolumeDuring);
+    chartsDataArrays.percentageOfSellRemainingVolumeDuring.push(
       el.percentageOfSellRemainingVolumeDuring
     );
-    chartsData.percentageOfSellFillVolumeDuring.push(el.percentageOfSellFillVolumeDuring);
-    chartsData.percentageOfSellOrgVolumeAfter.push(el.percentageOfSellOrgVolumeAfter);
-    chartsData.percentageOfSellRemainingVolumeAfter.push(
+    chartsDataArrays.percentageOfSellFillVolumeDuring.push(el.percentageOfSellFillVolumeDuring);
+    chartsDataArrays.percentageOfSellOrgVolumeAfter.push(el.percentageOfSellOrgVolumeAfter);
+    chartsDataArrays.percentageOfSellRemainingVolumeAfter.push(
       el.percentageOfSellRemainingVolumeAfter
     );
-    chartsData.percentageOfSellFillVolumeAfter.push(el.percentageOfSellFillVolumeAfter);
+    chartsDataArrays.percentageOfSellFillVolumeAfter.push(el.percentageOfSellFillVolumeAfter);
   });
 }
 
@@ -496,10 +496,10 @@ function drawCharts(Objects, selectedItems) {
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
-    let temp = chartItems[el];
+    let temp = chartObjects[el];
     temp.x = date;
-    temp.y = chartsData[el];
-    selectedItemsObjects.push(chartItems[el]);
+    temp.y = chartsDataArrays[el];
+    selectedItemsObjects.push(temp);
   });
   console.log(selectedItemsObjects);
   let data1 = [];
@@ -507,7 +507,33 @@ function drawCharts(Objects, selectedItems) {
   let layout = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
 }
+function updateCharts(chartsData) {
+  if (
+    $("#selectCompany").val() &&
+    $("#selectNin").val() &&
+    $("#selectChartItems").val()
+  ) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedNinObj,
+      $("#selectCompany").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
 
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItems.length === 0 ||
+      selectChartItems === null
+    ) {
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
@@ -812,67 +838,19 @@ export function startTable(tableData, chartsData, lang, ninData) {
             afterTotalValue: null,
           },
         ];
-        let selectedCompanyObj;
-        let selectedNinObj;
+
         $("#selectCompany").on("change", function () {
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectChartItems").val()
-          ) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            let selectChartItemsValue = $("#selectChartItems").val();
-            console.log(selectChartItemsValue);
-            if (
-              selectedCompanyObj.length === 0 ||
-              selectChartItemsValue.length === 0 ||
-              selectChartItemsValue === null
-            ) {
-              drawCharts(emptyObj,[]);
-            } else {
-              drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
-            }
-          }
+          updateCharts(chartsData);
         });
         $("#selectChartItems").on("change", function () {
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectChartItems").val()
-          ) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            let selectChartItemsValue = $("#selectChartItems").val();
-            console.log(selectChartItemsValue);
-            if (
-              selectedCompanyObj.length === 0 ||
-              selectChartItemsValue.length === 0 ||
-              selectChartItemsValue === null
-            ) {
-              drawCharts(emptyObj,[]);
-            } else {
-              drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
-            }
-          }
+          updateCharts(chartsData);
         });
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
+
             let selectCompanyElement = document.getElementById("selectCompany");
 
-            selectedNinObj = customFilter.filterByNin(
+            let selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
             );
@@ -886,27 +864,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
               search: true,
             });
           }
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectChartItems").val()
-          ) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            let selectChartItemsValue = $("#selectChartItems").val();
 
-            if (
-              selectedCompanyObj.length === 0 ||
-              selectChartItems.length === 0 ||
-              selectChartItems === null
-            ) {
-              drawCharts(emptyObj,[]);
-            } else {
-              drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
-            }
-          }
         });
         var api = this.api();
 

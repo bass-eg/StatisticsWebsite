@@ -2,74 +2,101 @@ import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let securityName = [],
-    family_relation = [],
-    address_relation = [],
-    job_relation = [],
-    wallets_relation = [],
-    ip_matching = [],
-    bank_statement = [],
-    agency_relation = [],
-    phone_calls = [],
-    verification_number = [],
-    wallet_opening_date = [],
-    other = [];
-  let name1 = [
-    arabicTranslation[0].list3.family_relation,
-    arabicTranslation[0].list3.address_relation,
-    arabicTranslation[0].list3.job_relation,
-    arabicTranslation[0].list3.wallets_relation,
-    // arabicTranslation[0].list3.ip_matching,
-    // arabicTranslation[0].list3.bank_statement,
-    // arabicTranslation[0].list3.agency_relation,
-    // arabicTranslation[0].list3.phone_calls,
-    // arabicTranslation[0].list3.verification_number,
-    // arabicTranslation[0].list3.wallet_opening_date,
-    // arabicTranslation[0].list3.other,
-  ];
+const arabicTranslation = getArabicTranslation();
+let chartsDataArrays = {
+  securityName: [],
+  family_relation: [],
+  address_relation: [],
+  job_relation: [],
+  wallets_relation: [],
+  ip_matching: [],
+  bank_statement: [],
+  agency_relation: [],
+  phone_calls: [],
+  verification_number: [],
+  wallet_opening_date: [],
+  other: []
+}
+let name1 = {
+  family_relation:arabicTranslation[0].list3.family_relation,
+  address_relation:arabicTranslation[0].list3.address_relation,
+  job_relation:arabicTranslation[0].list3.job_relation,
+  wallets_relation:arabicTranslation[0].list3.wallets_relation,
+  ip_matching:arabicTranslation[0].list3.ip_matching,
+  bank_statement:arabicTranslation[0].list3.bank_statement,
+  agency_relation:arabicTranslation[0].list3.agency_relation,
+  phone_calls:arabicTranslation[0].list3.phone_calls,
+  verification_number:arabicTranslation[0].list3.verification_number,
+  wallet_opening_date:arabicTranslation[0].list3.wallet_opening_date,
+  other:arabicTranslation[0].list3.other,
+};
+function prepareDataForCharts(Objects) {
+  chartsDataArrays.securityName = [],
+    chartsDataArrays.family_relation = [],
+    chartsDataArrays.address_relation = [],
+    chartsDataArrays.job_relation = [],
+    chartsDataArrays.wallets_relation = [],
+    chartsDataArrays.ip_matching = [],
+    chartsDataArrays.bank_statement = [],
+    chartsDataArrays.agency_relation = [],
+    chartsDataArrays.phone_calls = [],
+    chartsDataArrays.verification_number = [],
+    chartsDataArrays.wallet_opening_date = [],
+    chartsDataArrays.other = [];
   Objects.map((el) => {
-    family_relation.push(el.details[0].family_relation ? 1 : 0);
-    address_relation.push(el.details[0].address_relation ? 1 : 0);
-    job_relation.push(el.details[0].job_relation ? 1 : 0);
-    wallets_relation.push(el.details[0].wallets_relation ? 1 : 0);
-    // ip_matching.push(el.details[0].ip_matching ? 1 : 0 );
-    // bank_statement.push(el.details[0].bank_statement ? 1 : 0 );
-    // agency_relation.push(el.details[0].agency_relation ? 1 : 0 );
-    // phone_calls.push(el.details[0].phone_calls ? 1 : 0 );
-    // verification_number.push(el.details[0].verification_number ? 1 : 0 );
-    // wallet_opening_date.push(el.details[0].wallet_opening_date ? 1 : 0 );
-    // other.push(el.details[0].other ? 1 : 0 );
-    securityName.push(el.otherNinName);
+    chartsDataArrays.family_relation.push(el.details[0].family_relation ? 1 : 0);
+    chartsDataArrays.address_relation.push(el.details[0].address_relation ? 1 : 0);
+    chartsDataArrays.job_relation.push(el.details[0].job_relation ? 1 : 0);
+    chartsDataArrays.wallets_relation.push(el.details[0].wallets_relation ? 1 : 0);
+    chartsDataArrays.ip_matching.push(el.details[0].ip_matching ? 1 : 0);
+    chartsDataArrays.bank_statement.push(el.details[0].bank_statement ? 1 : 0);
+    chartsDataArrays.agency_relation.push(el.details[0].agency_relation ? 1 : 0);
+    chartsDataArrays.phone_calls.push(el.details[0].phone_calls ? 1 : 0);
+    chartsDataArrays.verification_number.push(el.details[0].verification_number ? 1 : 0);
+    chartsDataArrays.wallet_opening_date.push(el.details[0].wallet_opening_date ? 1 : 0);
+    chartsDataArrays.other.push(el.details[0].other ? 1 : 0);
+    chartsDataArrays.securityName.push(el.otherNinName);
   });
-
+}
+function drawCharts(Objects, selectedItems) {
+  prepareDataForCharts(Objects);
+  let tempZ = [];
+  let tempName = [];
+  for (let i = 0; i < selectedItems.length; i++) {
+    tempZ.push(chartsDataArrays[selectedItems[i]]);
+    tempName.push(name1[selectedItems[i]])
+  }
+  console.log(tempZ);
   let data1 = [];
-  var colorscaleValue = [[0, "white"],[1, "#50C878"]];
+  var colorscaleValue = [[0, "white"], [1, "#50C878"]];
   data1.push({
-    z: [
-      family_relation,
-      address_relation,
-      job_relation,
-      wallets_relation,
-      // ip_matching,
-      // bank_statement,agency_relation,phone_calls,verification_number,wallet_opening_date,other
-    ],
-    x: securityName,
-    y: name1,
+    z: tempZ,
+    x: chartsDataArrays.securityName,
+    y: tempName,
     type: "heatmap",
     colorscale: colorscaleValue,
     showscale: false,
-    // showarrow: true,
-
     hoverongaps: false,
   });
-  // let layout1 = { barmode: "group", showlegend: true };
-  let layout1 = { barmode: "group", showlegend: true };
-
   Plotly.newPlot("chart1", data1);
   // Plotly.redraw("chart1",layout);
 }
+
+function updateCharts(chartsData) {
+  if ($("#selectNin").val() && $("#selectChartItems").val()) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (selectedNinObj.length === 0) {
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      drawCharts(selectedNinObj, selectChartItemsValue);
+    }
+  }
+};
 
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
@@ -301,6 +328,16 @@ export function startTable(tableData, chartsData, lang, ninData) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          for (let key in chartsData[0].details[0]) {
+            var option = document.createElement("option");
+            option.value = key;
+            option.innerHTML = arabicTranslation[0].list3[key];
+            selectChartItems.appendChild(option);
+          }
+          var selectBoxElement = document.querySelector("#selectChartItems");
+          dselect(selectBoxElement, {
+            search: true,
+          });
         }
         // const emptyObj = [
         //   {
@@ -310,18 +347,10 @@ export function startTable(tableData, chartsData, lang, ninData) {
         // ];
         let selectedNinObj;
         $("#selectNin").on("change", function () {
-          if ($("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            if (selectedNinObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              console.log(selectedNinObj);
-              drawCharts(selectedNinObj);
-            }
-          }
+          updateCharts(chartsData);
+        });
+        $("#selectChartItems").on("change", function () {
+          updateCharts(chartsData);
         });
         var api = this.api();
 
