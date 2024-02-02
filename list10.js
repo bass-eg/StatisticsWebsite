@@ -106,6 +106,11 @@ function prepareDataForCharts(Objects) {
   });
 }
 function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    console.log("inside selectedType = ''");
+    selectedType = "scatter";
+  }
   prepareDataForCharts(Objects);
   // const colors = [
   //   "#1f77b4", //blue
@@ -124,6 +129,7 @@ function drawCharts(Objects, selectedItems) {
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];
+    temp.type = selectedType;
     selectedItemsObjects.push(temp);
   });
   let data1 = [];
@@ -144,9 +150,16 @@ function updateCharts(chartsData) {
     );
     let selectChartItemsValue = $("#selectChartItems").val();
 
-    if (selectedCompanyObj.length === 0) {
+    if (selectedCompanyObj.length === 0 || selectChartItemsValue.length ===0) {
+      $("#shape-selection").css({
+        display: "none",
+      });
       drawCharts(emptyObj, selectChartItemsValue);
     } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
     }
   }
@@ -263,10 +276,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             cumulativeAvgSellValue: null,
           },
         ];
-        $("#selectCompany").on("change", function () {
-          updateCharts(chartsData);
-        });
-        $("#selectChartItems").on("change", function () {
+        $("#selectCompany,#selectedType,#selectChartItems").on("change", function () {
           updateCharts(chartsData);
         });
         $("#selectNin").on("change", function () {
@@ -281,7 +291,6 @@ export function startTable(tableData, chartsData, lang, ninData) {
             selectedNinObj.forEach(function (item) {
               selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
             });
-
             var selectBoxElement = document.querySelector("#selectCompany");
             dselect(selectBoxElement, {
               search: true,

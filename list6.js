@@ -62,6 +62,11 @@ function prepareDataForCharts(Objects) {
   });
 }
 function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    console.log("inside selectedType = ''");
+    selectedType = "scatter";
+  }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
@@ -70,6 +75,7 @@ function drawCharts(Objects, selectedItems) {
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];
+    temp.type = selectedType;
     selectedItemsObjects.push(temp);
   });
   let data1 = [];
@@ -112,10 +118,16 @@ function updateCharts(chartsData) {
       $("#selectCompany").val()
     );
     let selectChartItemsValue = $("#selectChartItems").val();
-
-    if (selectedCompanyObj.length === 0) {
+    if (selectedCompanyObj.length === 0 || selectChartItemsValue.length === 0) {
+      $("#shape-selection").css({
+        display: "none",
+      });
       drawCharts(emptyObj, selectChartItemsValue);
     } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
     }
   }
@@ -233,10 +245,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             totalValue: null,
           },
         ];
-        $("#selectCompany").on("change", function () {
-          updateCharts(chartsData);
-        });
-        $("#selectChartItems").on("change", function () {
+        $("#selectCompany,#selectChartItems,#selectedType").on("change", function () {
           updateCharts(chartsData);
         });
         $("#selectNin").on("change", function () {

@@ -493,12 +493,18 @@ function prepareDataForCharts(Objects) {
 }
 
 function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    console.log("inside selectedType = ''");
+    selectedType = "scatter";
+  }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];
+    temp.type = selectedType;
     selectedItemsObjects.push(temp);
   });
   console.log(selectedItemsObjects);
@@ -507,6 +513,7 @@ function drawCharts(Objects, selectedItems) {
   let layout = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
 }
+
 function updateCharts(chartsData) {
   if (
     $("#selectCompany").val() &&
@@ -525,11 +532,18 @@ function updateCharts(chartsData) {
 
     if (
       selectedCompanyObj.length === 0 ||
-      selectChartItems.length === 0 ||
-      selectChartItems === null
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
     ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
       drawCharts(emptyObj, selectChartItemsValue);
     } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
     }
   }
@@ -839,12 +853,10 @@ export function startTable(tableData, chartsData, lang, ninData) {
           },
         ];
 
-        $("#selectCompany").on("change", function () {
+        $("#selectCompany,#selectChartItems,#selectedType").on("change", function () {
           updateCharts(chartsData);
         });
-        $("#selectChartItems").on("change", function () {
-          updateCharts(chartsData);
-        });
+
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
 

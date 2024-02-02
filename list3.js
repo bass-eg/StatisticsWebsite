@@ -18,17 +18,17 @@ let chartsDataArrays = {
   other: []
 }
 let name1 = {
-  family_relation:arabicTranslation[0].list3.family_relation,
-  address_relation:arabicTranslation[0].list3.address_relation,
-  job_relation:arabicTranslation[0].list3.job_relation,
-  wallets_relation:arabicTranslation[0].list3.wallets_relation,
-  ip_matching:arabicTranslation[0].list3.ip_matching,
-  bank_statement:arabicTranslation[0].list3.bank_statement,
-  agency_relation:arabicTranslation[0].list3.agency_relation,
-  phone_calls:arabicTranslation[0].list3.phone_calls,
-  verification_number:arabicTranslation[0].list3.verification_number,
-  wallet_opening_date:arabicTranslation[0].list3.wallet_opening_date,
-  other:arabicTranslation[0].list3.other,
+  family_relation: arabicTranslation[0].list3.family_relation,
+  address_relation: arabicTranslation[0].list3.address_relation,
+  job_relation: arabicTranslation[0].list3.job_relation,
+  wallets_relation: arabicTranslation[0].list3.wallets_relation,
+  ip_matching: arabicTranslation[0].list3.ip_matching,
+  bank_statement: arabicTranslation[0].list3.bank_statement,
+  agency_relation: arabicTranslation[0].list3.agency_relation,
+  phone_calls: arabicTranslation[0].list3.phone_calls,
+  verification_number: arabicTranslation[0].list3.verification_number,
+  wallet_opening_date: arabicTranslation[0].list3.wallet_opening_date,
+  other: arabicTranslation[0].list3.other,
 };
 function prepareDataForCharts(Objects) {
   chartsDataArrays.securityName = [],
@@ -328,12 +328,32 @@ export function startTable(tableData, chartsData, lang, ninData) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
-          for (let key in chartsData[0].details[0]) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.innerHTML = arabicTranslation[0].list3[key];
-            selectChartItems.appendChild(option);
-          }
+          // for (let key in chartsData[0].details[0]) {
+          //   var option = document.createElement("option");
+          //   option.value = key;
+          //   option.innerHTML = arabicTranslation[0].list3[key];
+          //   selectChartItems.appendChild(option);
+          // }
+          var option = document.createElement("option");
+          option.value = "family_relation";
+          option.innerHTML = arabicTranslation[0].list3["family_relation"];
+          selectChartItems.appendChild(option);
+
+          option = document.createElement("option");
+          option.value = "address_relation";
+          option.innerHTML = arabicTranslation[0].list3["address_relation"];
+          selectChartItems.appendChild(option);
+
+          option = document.createElement("option");
+          option.value = "job_relation";
+          option.innerHTML = arabicTranslation[0].list3["job_relation"];
+          selectChartItems.appendChild(option);
+
+          option = document.createElement("option");
+          option.value = "wallets_relation";
+          option.innerHTML = arabicTranslation[0].list3["wallets_relation"];
+          selectChartItems.appendChild(option);
+
           var selectBoxElement = document.querySelector("#selectChartItems");
           dselect(selectBoxElement, {
             search: true,
