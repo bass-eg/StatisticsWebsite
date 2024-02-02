@@ -268,7 +268,7 @@ export function getArabicTranslation() {
         valueOfPosition: "قيمة الرصيد",
         balanceValue: "قيمة الرصيد",
         percentageOwnership: "نسبة ملكية المشتبه به",
-        totalBalanceByDay:"إجمالي الرصيد للمشتبه به في اليوم"
+        totalBalanceByDay: "إجمالي الرصيد للمشتبه به في اليوم",
       },
 
       list7: {
@@ -308,6 +308,58 @@ export function getArabicTranslation() {
           "مجموع كميات أوامر البيع المتبقية في وقت المخالفة",
         percentageOfSellOrgVolume: "نسبة أوامر البيع المدخلة",
         percentageOfSellRemainingVolume: "نسبة أوامر البيع المتبقية",
+        buyBeforeOrgVolume: "كمية الشراء الأصلية قبل المخالفة",
+        buyBeforeRemainingVolume: "كمية الشراء المتبقية قبل المخالفة",
+        buyBeforeFillVolume: "كمية الشراء المنفذة قبل المخالفة",
+        buyDuringOrgVolume: "كمية الشراء الأصلية وقت المخالفة",
+        buyDuringRemainingVolume: "كمية الشراء المتبقية وقت المخالفة",
+        buyDuringFillVolume: "كمية الشراء المنفذة وقت المخالفة",
+        buyAfterOrgVolume: "كمية الشراء الأصلية بعد المخالفة",
+        buyAfterRemainingVolume: "كمية الشراء المتبقية بعد المخالفة",
+        buyAfterFillVolume: "كمية الشراء المنفذة بعد المخالفة",
+        buyTotalOrgVolume: "إجمالي كمية الشراء الأصلية",
+        buyTotalRemainingVolume: "إجمالي كمية الشراء المتبقية",
+        buyTotalFillVolume: "إجمالي كمية الشراء المنفذة",
+        percentageOfBuyOrgVolumeBefore: "نسبة كمية الشراء الأصلية قبل المخالفة",
+        percentageOfBuyRemainingVolumeBefore:
+          "نسبة كمية الشراء المتبقية قبل المخالفة",
+        percentageOfBuyFillVolumeBefore:
+          "نسبة كمية الشراء المنفذة قبل المخالفة",
+        percentageOfBuyOrgVolumeDuring: "نسبة كمية الشراء الأصلية وقت المخالفة",
+        percentageOfBuyRemainingVolumeDuring:
+          "نسبة كمية الشراء المتبقية وقت المخالفة",
+        percentageOfBuyFillVolumeDuring:
+          "نسبة كمية الشراء المنفذة وقت المخالفة",
+        percentageOfBuyOrgVolumeAfter: "نسبة كمية الشراء الأصلية بعد المخالفة",
+        percentageOfBuyRemainingVolumeAfter:
+          "نسبة كمية الشراء المتبقية بعد المخالفة",
+        percentageOfBuyFillVolumeAfter: "نسبة كمية الشراء المنفذة بعد المخالفة",
+        sellBeforeOrgVolume: "كمية البيع الأصلية قبل المخالفة",
+        sellBeforeRemainingVolume: "كمية البيع المتبقية قبل المخالفة",
+        sellBeforeFillVolume: "كمية البيع المنفذة قبل المخالفة",
+        sellDuringOrgVolume: "كمية البيع الأصلية وقت المخالفة",
+        sellDuringRemainingVolume: "كمية البيع المتبقية وقت المخالفة",
+        sellDuringFillVolume: "كمية البيع المنفذة وقت المخالفة",
+        sellAfterOrgVolume: "كمية البيع الأصلية بعد المخالفة",
+        sellAfterRemainingVolume: "كمية البيع المتبقية بعد المخالفة",
+        sellAfterFillVolume: "كمية البيع المنفذة بعد المخالفة",
+        sellTotalOrgVolume: "إجمالي كمية البيع الأصلية",
+        sellTotalRemainingVolume: "إجمالي كمية البيع المتبقية",
+        sellTotalFillVolume: "إجمالي كمية البيع المنفذة",
+        percentageOfSellOrgVolumeBefore: "نسبة كمية البيع الأصلية قبل المخالفة",
+        percentageOfSellRemainingVolumeBefore:
+          "نسبة كمية البيع المتبقية قبل المخالفة",
+        percentageOfSellFillVolumeBefore:
+          "نسبة كمية البيع المنفذة قبل المخالفة",
+        percentageOfSellOrgVolumeDuring: "نسبة كمية البيع الأصلية وقت المخالفة",
+        percentageOfSellRemainingVolumeDuring:
+          "نسبة كمية البيع المتبقية وقت المخالفة",
+        percentageOfSellFillVolumeDuring:
+          "نسبة كمية البيع المنفذة وقت المخالفة",
+        percentageOfSellOrgVolumeAfter: "نسبة كمية البيع الأصلية بعد المخالفة",
+        percentageOfSellRemainingVolumeAfter:
+          "نسبة كمية البيع المتبقية بعد المخالفة",
+        percentageOfSellFillVolumeAfter: "نسبة كمية البيع المنفذة بعد المخالفة",
       },
 
       list8: {

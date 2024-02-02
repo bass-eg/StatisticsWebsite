@@ -101,18 +101,48 @@
             <th class="date"></th>
             <th class="nin"></th>
             <th class="ninName"></th>
-            <th class="sumOfBuyOrgVolumeOfTheDay"></th>
-            <th class="sumOfBuyRemainingVolumeOfTheDay"></th>
-            <th class="sumOfBuyOrgVolumeOfTheVioTime"></th>
-            <th class="sumOfBuyRemainingVolumeOfTheVioTime"></th>
-            <th class="percentageOfBuyOrgVolume"></th>
-            <th class="percentageOfBuyRemainingVolume"></th>
-            <th class="sumOfSellOrgVolumeOfTheDay"></th>
-            <th class="sumOfSellRemainingVolumeOfTheDay"></th>
-            <th class="sumOfSellOrgVolumeOfTheVioTime"></th>
-            <th class="sumOfSellRemainingVolumeOfTheVioTime"></th>
-            <th class="percentageOfSellOrgVolume"></th>
-            <th class="percentageOfSellRemainingVolume"></th>
+            <th class="buyBeforeOrgVolume"></th>
+            <th class="buyBeforeRemainingVolume"></th>
+            <th class="buyBeforeFillVolume"></th>
+            <th class="buyDuringOrgVolume"></th>
+            <th class="buyDuringRemainingVolume"></th>
+            <th class="buyDuringFillVolume"></th>
+            <th class="buyAfterOrgVolume"></th>
+            <th class="buyAfterRemainingVolume"></th>
+            <th class="buyAfterFillVolume"></th>
+            <th class="buyTotalOrgVolume"></th>
+            <th class="buyTotalRemainingVolume"></th>
+            <th class="buyTotalFillVolume"></th>
+            <th class="percentageOfBuyOrgVolumeBefore"></th>
+            <th class="percentageOfBuyRemainingVolumeBefore"></th>
+            <th class="percentageOfBuyFillVolumeBefore"></th>
+            <th class="percentageOfBuyOrgVolumeDuring"></th>
+            <th class="percentageOfBuyRemainingVolumeDuring"></th>
+            <th class="percentageOfBuyFillVolumeDuring"></th>
+            <th class="percentageOfBuyOrgVolumeAfter"></th>
+            <th class="percentageOfBuyRemainingVolumeAfter"></th>
+            <th class="percentageOfBuyFillVolumeAfter"></th>
+            <th class="sellBeforeOrgVolume"></th>
+            <th class="sellBeforeRemainingVolume"></th>
+            <th class="sellBeforeFillVolume"></th>
+            <th class="sellDuringOrgVolume"></th>
+            <th class="sellDuringRemainingVolume"></th>
+            <th class="sellDuringFillVolume"></th>
+            <th class="sellAfterOrgVolume"></th>
+            <th class="sellAfterRemainingVolume"></th>
+            <th class="sellAfterFillVolume"></th>
+            <th class="sellTotalOrgVolume"></th>
+            <th class="sellTotalRemainingVolume"></th>
+            <th class="sellTotalFillVolume"></th>
+            <th class="percentageOfSellOrgVolumeBefore"></th>
+            <th class="percentageOfSellRemainingVolumeBefore"></th>
+            <th class="percentageOfSellFillVolumeBefore"></th>
+            <th class="percentageOfSellOrgVolumeDuring"></th>
+            <th class="percentageOfSellRemainingVolumeDuring"></th>
+            <th class="percentageOfSellFillVolumeDuring"></th>
+            <th class="percentageOfSellOrgVolumeAfter"></th>
+            <th class="percentageOfSellRemainingVolumeAfter"></th>
+            <th class="percentageOfSellFillVolumeAfter"></th>
           </tr>
         <tbody class="doc-table-body" dir="rtl">
         </tbody>
@@ -132,6 +162,11 @@
       <div class="ser form-outline">
         <select id="selectCompany" class="form-select">
           <option value="" selected disabled hidden>إختر شركة</option>
+        </select>
+      </div>
+      <div class="ser form-outline">
+        <select id="selectChartItems" class="form-select" multiple="multiple">
+          <option value="" selected disabled hidden>إختر البيانات</option>
         </select>
       </div>
       <div class="ser form-outline">
