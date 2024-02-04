@@ -150,7 +150,7 @@ function updateCharts(chartsData) {
     );
     let selectChartItemsValue = $("#selectChartItems").val();
 
-    if (selectedCompanyObj.length === 0 || selectChartItemsValue.length ===0) {
+    if (selectedCompanyObj.length === 0 || selectChartItemsValue.length === 0) {
       $("#shape-selection").css({
         display: "none",
       });
@@ -253,10 +253,12 @@ export function startTable(tableData, chartsData, lang, ninData) {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
           for (let key in chartsData[0].details[0]) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.innerHTML = arabicTranslation[0].list10[key];
-            selectChartItems.appendChild(option);
+            if (key !== "date") {
+              var option = document.createElement("option");
+              option.value = key;
+              option.innerHTML = arabicTranslation[0].list10[key];
+              selectChartItems.appendChild(option);
+            }
           }
           var selectBoxElement = document.querySelector("#selectChartItems");
           dselect(selectBoxElement, {

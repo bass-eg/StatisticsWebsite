@@ -73,6 +73,8 @@ function drawCharts(Objects, selectedItems) {
     z: tempZ,
     x: chartsDataArrays.securityName,
     y: tempName,
+    zmin: 0,  // Set the minimum value for the color scale
+    zmax: 1,
     type: "heatmap",
     colorscale: colorscaleValue,
     showscale: false,

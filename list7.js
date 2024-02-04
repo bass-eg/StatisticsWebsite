@@ -834,10 +834,12 @@ export function startTable(tableData, chartsData, lang, ninData) {
           helperFunctions.fillNinDropdownList(ninData);
 
           for (let key in chartsData[0].details[0]) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.innerHTML = arabicTranslation[0].list7[key];
-            selectChartItems.appendChild(option);
+            if (key !== "date") {
+              var option = document.createElement("option");
+              option.value = key;
+              option.innerHTML = arabicTranslation[0].list7[key];
+              selectChartItems.appendChild(option);
+            }
           }
           var selectBoxElement = document.querySelector("#selectChartItems");
           dselect(selectBoxElement, {
