@@ -10,12 +10,12 @@ function drawCharts(Objects) {
     buyValue = [],
     sellValue = [];
   let name1 = [
-    arabicTranslation[0].list1C.buyVolume,
-    arabicTranslation[0].list1C.sellVolume,
+     arabicTranslation.buyVolume,
+     arabicTranslation.sellVolume,
   ];
   let name2 = [
-    arabicTranslation[0].list1C.buyValue,
-    arabicTranslation[0].list1C.sellValue,
+     arabicTranslation.buyValue,
+     arabicTranslation.sellValue,
   ];
   Objects.map((el) => {
     date.push(el.date);
@@ -47,14 +47,14 @@ function drawCharts(Objects) {
       // marker: {
       //   color: colors[0],
       // },
-      hovertemplate: `%{x} :${arabicTranslation[0].list1C.date}<br>%{y} :${arabicTranslation[0].list1C.buyVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyVolume}<br>`,
     },
     {
       x: date,
       y: sellVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1C.date}<br>%{y} :${arabicTranslation[0].list1C.sellVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellVolume}<br>`,
     }
   );
   data2.push(
@@ -63,14 +63,14 @@ function drawCharts(Objects) {
       y: buyValue,
       name: name2[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1C.date}<br>%{y} :${arabicTranslation[0].list1C.buyValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyValue}<br>`,
     },
     {
       x: date,
       y: sellValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list1C.date}<br>%{y} :${arabicTranslation[0].list1C.sellValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellValue}<br>`,
     }
   );
 
@@ -79,7 +79,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -141,50 +141,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "date" },
-        { data: "buyVolume" },
-        { data: "buyValue" },
-        { data: "totalBuyVolume" },
-        { data: "totalBuyValue" },
-        { data: "buyVolumePercentage" },
-        { data: "buyValuePercentage" },
-        { data: "sellVolume" },
-        { data: "sellValue" },
-        { data: "totalSellVolume" },
-        { data: "totalSellValue" },
-        { data: "sellVolumePercentage" },
-        { data: "sellValuePercentage" },
-        { data: "buyAvgPriceByNin" },
-        { data: "sellAvgPriceByNin" },
-        { data: "buyAvgPriceBysc" },
-        { data: "sellAvgPriceBySc" },
-        { data: "sector" },
-        {
-          data: "percentageTradesBuy",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageTradesSell",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

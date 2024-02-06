@@ -9,13 +9,13 @@ function drawCharts(Objects) {
     totalViolation = [],
     percentage = [];
   let name1 = [
-    arabicTranslation[0].list1A.countMatching,
+     arabicTranslation.countMatching,
   ];
   let name2 = [
-    arabicTranslation[0].list1A.totalViolation,
+     arabicTranslation.totalViolation,
   ];
   let name3 = [
-    arabicTranslation[0].list1A.percentage,
+     arabicTranslation.percentage,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
@@ -32,7 +32,7 @@ function drawCharts(Objects) {
       y: countMatching,
       name: name1[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.countMatching}<br>`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.countMatching}<br>`,
     }
   );
   data2.push(
@@ -41,7 +41,7 @@ function drawCharts(Objects) {
       y: totalViolation,
       name: name2[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.totalViolation}<br>`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.totalViolation}<br>`,
     }
   );
   data3.push(
@@ -50,7 +50,7 @@ function drawCharts(Objects) {
       y: percentage,
       name: name3[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.percentage}<br>`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.percentage}<br>`,
     }
   );
 
@@ -60,7 +60,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
   Plotly.newPlot("chart3", data3, layout, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -119,26 +119,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "countMatching" },
-        { data: "combination" },
-        { data: "violators" },
-        { data: "totalViolation" },
-        {
-          data: "percentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
       orderCellsTop: true,
 
       language: lang,

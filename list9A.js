@@ -31,32 +31,32 @@ function drawCharts(Objects) {
     sellEnterAfterTotalValue = [],
     sellAfterOrgVolume = [];
   let name1 = [
-    arabicTranslation[0].list9A.buyBeforeFillVolume,
-    arabicTranslation[0].list9A.buyBeforeTotalValue,
-    arabicTranslation[0].list9A.buyDuringFillVolume,
-    arabicTranslation[0].list9A.buyDuringTotalValue,
-    arabicTranslation[0].list9A.buyAfterFillVolume,
-    arabicTranslation[0].list9A.buyAfterTotalValue,
-    arabicTranslation[0].list9A.sellBeforeFillVolume,
-    arabicTranslation[0].list9A.sellBeforeTotalValue,
-    arabicTranslation[0].list9A.sellDuringFillVolume,
-    arabicTranslation[0].list9A.sellDuringTotalValue,
-    arabicTranslation[0].list9A.sellAfterFillVolume,
-    arabicTranslation[0].list9A.sellAfterTotalValue,
+     arabicTranslation.buyBeforeFillVolume,
+     arabicTranslation.buyBeforeTotalValue,
+     arabicTranslation.buyDuringFillVolume,
+     arabicTranslation.buyDuringTotalValue,
+     arabicTranslation.buyAfterFillVolume,
+     arabicTranslation.buyAfterTotalValue,
+     arabicTranslation.sellBeforeFillVolume,
+     arabicTranslation.sellBeforeTotalValue,
+     arabicTranslation.sellDuringFillVolume,
+     arabicTranslation.sellDuringTotalValue,
+     arabicTranslation.sellAfterFillVolume,
+     arabicTranslation.sellAfterTotalValue,
   ];
   let name2 = [
-    arabicTranslation[0].list9A.buyEnterBeforeTotalValue,
-    arabicTranslation[0].list9A.buyBeforeOrgVolume,
-    arabicTranslation[0].list9A.buyEnterDuringTotalValue,
-    arabicTranslation[0].list9A.buyDuringOrgVolume,
-    arabicTranslation[0].list9A.buyEnterAfterTotalValue,
-    arabicTranslation[0].list9A.buyAfterOrgVolume,
-    arabicTranslation[0].list9A.sellEnterBeforeTotalValue,
-    arabicTranslation[0].list9A.sellBeforeOrgVolume,
-    arabicTranslation[0].list9A.sellEnterDuringTotalValue,
-    arabicTranslation[0].list9A.sellDuringOrgVolume,
-    arabicTranslation[0].list9A.sellEnterAfterTotalValue,
-    arabicTranslation[0].list9A.sellAfterOrgVolume,
+     arabicTranslation.buyEnterBeforeTotalValue,
+     arabicTranslation.buyBeforeOrgVolume,
+     arabicTranslation.buyEnterDuringTotalValue,
+     arabicTranslation.buyDuringOrgVolume,
+     arabicTranslation.buyEnterAfterTotalValue,
+     arabicTranslation.buyAfterOrgVolume,
+     arabicTranslation.sellEnterBeforeTotalValue,
+     arabicTranslation.sellBeforeOrgVolume,
+     arabicTranslation.sellEnterDuringTotalValue,
+     arabicTranslation.sellDuringOrgVolume,
+     arabicTranslation.sellEnterAfterTotalValue,
+     arabicTranslation.sellAfterOrgVolume,
   ];
   Objects.map((el) => {
     date.push(el.date);
@@ -116,84 +116,84 @@ function drawCharts(Objects) {
       y: buyBeforeFillVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyBeforeFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyBeforeFillVolume}<br>`,
     },
     {
       x: date,
       y: buyBeforeTotalValue,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyBeforeTotalValue}<br>`,
     },
     {
       x: date,
       y: buyDuringFillVolume,
       name: name1[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyDuringFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyDuringFillVolume}<br>`,
     },
     {
       x: date,
       y: buyDuringTotalValue,
       name: name1[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyDuringTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyDuringTotalValue}<br>`,
     },
     {
       x: date,
       y: buyAfterFillVolume,
       name: name1[4],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyAfterFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyAfterFillVolume}<br>`,
     },
     {
       x: date,
       y: buyAfterTotalValue,
       name: name1[5],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyAfterTotalValue}<br>`,
     },
     {
       x: date,
       y: sellBeforeFillVolume,
       name: name1[6],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellBeforeFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellBeforeFillVolume}<br>`,
     },
     {
       x: date,
       y: sellBeforeTotalValue,
       name: name1[7],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellBeforeTotalValue}<br>`,
     },
     {
       x: date,
       y: sellDuringFillVolume,
       name: name1[8],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellDuringFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellDuringFillVolume}<br>`,
     },
     {
       x: date,
       y: sellDuringTotalValue,
       name: name1[9],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellDuringTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellDuringTotalValue}<br>`,
     },
     {
       x: date,
       y: sellAfterFillVolume,
       name: name1[10],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellAfterFillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellAfterFillVolume}<br>`,
     },
     {
       x: date,
       y: sellAfterTotalValue,
       name: name1[11],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellAfterTotalValue}<br>`,
     },
   );
 
@@ -203,84 +203,84 @@ function drawCharts(Objects) {
       y: buyEnterBeforeTotalValue,
       name: name2[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyEnterBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyEnterBeforeTotalValue}<br>`,
     },
     {
       x: date,
       y: buyBeforeOrgVolume,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyBeforeOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyBeforeOrgVolume}<br>`,
     },
     {
       x: date,
       y: buyEnterDuringTotalValue,
       name: name2[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyEnterDuringTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyEnterDuringTotalValue}<br>`,
     },
     {
       x: date,
       y: buyDuringOrgVolume,
       name: name2[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyDuringOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyDuringOrgVolume}<br>`,
     },
     {
       x: date,
       y: buyEnterAfterTotalValue,
       name: name2[4],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyEnterAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyEnterAfterTotalValue}<br>`,
     },
     {
       x: date,
       y: buyAfterOrgVolume,
       name: name2[5],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.buyAfterOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyAfterOrgVolume}<br>`,
     },
     {
       x: date,
       y: sellEnterBeforeTotalValue,
       name: name2[6],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellEnterBeforeTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellEnterBeforeTotalValue}<br>`,
     },
     {
       x: date,
       y: sellBeforeOrgVolume,
       name: name2[colors.length % 7],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellBeforeOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellBeforeOrgVolume}<br>`,
     },
     {
       x: date,
       y: sellEnterDuringTotalValue,
       name: name2[8],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellEnterDuringTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellEnterDuringTotalValue}<br>`,
     },
     {
       x: date,
       y: sellDuringOrgVolume,
       name: name2[9],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellDuringOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellDuringOrgVolume}<br>`,
     },
     {
       x: date,
       y: sellEnterAfterTotalValue,
       name: name2[10],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellEnterAfterTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellEnterAfterTotalValue}<br>`,
     },
     {
       x: date,
       y: sellAfterOrgVolume,
       name: name2[11],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9A.date}<br>%{y} :${arabicTranslation[0].list9A.sellAfterOrgVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellAfterOrgVolume}<br>`,
     },
   );
 
@@ -288,7 +288,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -350,281 +350,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "date" },
-        { data: "buyBeforeFillVolume" },
-        { data: "buyBeforeTotalValue" },
-        { data: "buyDuringFillVolume" },
-        { data: "buyDuringTotalValue" },
-        { data: "buyAfterFillVolume" },
-        { data: "buyAfterTotalValue" },
-        { data: "sellBeforeFillVolume" },
-        { data: "sellBeforeTotalValue" },
-        { data: "sellDuringFillVolume" },
-        { data: "sellDuringTotalValue" },
-        { data: "sellAfterFillVolume" },
-        { data: "sellAfterTotalValue" },
-        {
-          data: "percentageBuyVolumeBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyVolumeDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyVolumeAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyValueBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyValueDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyValueAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellVolumeBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellVolumeDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellVolumeAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellValueBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellValueDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellValueAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "buyEnterBeforeTotalValue" },
-        { data: "buyBeforeOrgVolume" },
-        { data: "buyEnterDuringTotalValue" },
-        { data: "buyDuringOrgVolume" },
-        { data: "buyEnterAfterTotalValue" },
-        { data: "buyAfterOrgVolume" },
-        { data: "sellEnterBeforeTotalValue" },
-        { data: "sellBeforeOrgVolume" },
-        { data: "sellEnterDuringTotalValue" },
-        { data: "sellDuringOrgVolume" },
-        { data: "sellEnterAfterTotalValue" },
-        { data: "sellAfterOrgVolume" },
-        { data: "securityEnteredTotalValue" },
-        { data: "securityEnteredOrgVolume" },
-        { data: "securityExecutedFillVolume" },
-        { data: "securityExecutedTotalValue" },
-        {
-          data: "percentageBuyEnterVolumeBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyEnterVolumeDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyEnterVolumeAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterVolumeBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterVolumeDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterVolumeAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyEnterValueBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyEnterValueDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBuyEnterValueAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterValueBefore",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterValueDuring",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageSellEnterValueAfter",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

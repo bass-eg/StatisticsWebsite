@@ -13,16 +13,16 @@ function drawCharts(Objects) {
     valueOfBuyAmend_partiallydiscolsed = [],
     valueOfSellAmend_partiallydiscolsed = [];
   let name1 = [
-    arabicTranslation[0].list4.nbOfBuyEnter_fullydisclosed,
-    arabicTranslation[0].list4.nbOfSellEnter_fullydisclosed,
+     arabicTranslation.nbOfBuyEnter_fullydisclosed,
+     arabicTranslation.nbOfSellEnter_fullydisclosed,
   ];
   let name2 = [
-    arabicTranslation[0].list4.valueOfBuyEnter_partiallydiscolsed,
-    arabicTranslation[0].list4.valueOfSellEnter_partiallydiscolsed,
+     arabicTranslation.valueOfBuyEnter_partiallydiscolsed,
+     arabicTranslation.valueOfSellEnter_partiallydiscolsed,
   ];
   let name3 = [
-    arabicTranslation[0].list4.valueOfBuyAmend_partiallydiscolsed,
-    arabicTranslation[0].list4.valueOfSellAmend_partiallydiscolsed,
+     arabicTranslation.valueOfBuyAmend_partiallydiscolsed,
+     arabicTranslation.valueOfSellAmend_partiallydiscolsed,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
@@ -42,14 +42,14 @@ function drawCharts(Objects) {
       y: nbOfBuyEnter_fullydisclosed,
       name: name1[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.buyOrg}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyOrg}<br>`,
     },
     {
       x: securityName,
       y: nbOfSellEnter_fullydisclosed,
       name: name1[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.nbOfSellEnter_fullydisclosed}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.nbOfSellEnter_fullydisclosed}<br>`,
     }
   );
   data2.push(
@@ -58,14 +58,14 @@ function drawCharts(Objects) {
       y: valueOfBuyEnter_partiallydiscolsed,
       name: name2[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.valueOfBuyEnter_partiallydiscolsed}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfBuyEnter_partiallydiscolsed}<br>`,
     },
     {
       x: securityName,
       y: valueOfSellEnter_partiallydiscolsed,
       name: name2[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.valueOfSellEnter_partiallydiscolsed}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfSellEnter_partiallydiscolsed}<br>`,
     }
   );
   data3.push(
@@ -74,14 +74,14 @@ function drawCharts(Objects) {
       y: valueOfBuyAmend_partiallydiscolsed,
       name: name3[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.valueOfBuyAmend_partiallydiscolsed}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfBuyAmend_partiallydiscolsed}<br>`,
     },
     {
       x: securityName,
       y: valueOfSellAmend_partiallydiscolsed,
       name: name3[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list4.valueOfSellAmend_partiallydiscolsed}<br>`,
+      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfSellAmend_partiallydiscolsed}<br>`,
     }
   );
   let layout = { barmode: "group", showlegend: true };
@@ -91,7 +91,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart3", data3, layout, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -153,74 +153,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "volumeOfBuyEnter_fullydisclosed" },
-        { data: "valueOfBuyEnter_fullydisclosed" },
-        { data: "nbOfBuyEnter_fullydisclosed" },
-        { data: "volumeOfBuyEnter_partiallydiscolsed" },
-        { data: "valueOfBuyEnter_partiallydiscolsed" },
-        { data: "nbOfBuyEnter_partiallydiscolsed" },
-        { data: "volumeOfSellEnter_partiallydiscolsed" },
-        { data: "valueOfSellEnter_partiallydiscolsed" },
-        { data: "nbOfSellEnter_partiallydiscolsed" },
-        { data: "volumeOfSellAmend_partiallydiscolsed" },
-        { data: "valueOfSellAmend_partiallydiscolsed" },
-        { data: "nbOfSellAmend_partiallydiscolsed" },
-        { data: "volumeOfSellEnter_fullydisclosed" },
-        { data: "valueOfSellEnter_fullydisclosed" },
-        { data: "nbOfSellEnter_fullydisclosed" },
-        { data: "volumeOfBuyAmend_partiallydiscolsed" },
-        { data: "valueOfBuyAmend_partiallydiscolsed" },
-        { data: "nbOfBuyAmend_partiallydiscolsed" },
-        { data: "volumeOfSellAmend_fullydisclosed" },
-        { data: "valueOfSellAmend_fullydisclosed" },
-        { data: "nbOfSellAmend_fullydisclosed" },
-        { data: "volumeOfBuyAmend_fullydisclosed" },
-        { data: "valueOfBuyAmend_fullydisclosed" },
-        { data: "nbOfBuyAmend_fullydisclosed" },
-        {
-          data: "buyEnterPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "buyAmendPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "sellEnterPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "sellAmendPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

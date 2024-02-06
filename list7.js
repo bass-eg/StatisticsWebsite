@@ -80,32 +80,8 @@ function updateCharts(chartsData) {
   }
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
-  let columnsArray = [];
-  for (let key in tableData[0]) {
-    if (key.toLowerCase().includes("percentage")) {
-      columnsArray.push({
-        data: `` + key + ``,
-        render: function (data, type, row, meta) {
-          if (data != null) {
-            return data + "%";
-          } else {
-            return null;
-          }
-        },
-      });
-    } else {
-      columnsArray.push({ data: `` + key + `` });
-    }
-  }
-
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
-    // let tableRows = document.getElementById("tableRows");
-    // console.log(tableRows);
-    // tableRows.innerHTML = ``;
-    // for (let key in tableData[0]) {
-    //   tableRows.innerHTML += `<th class="${key}"></th>`;
-    // }
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
         if (columns[i]) {
@@ -180,18 +156,18 @@ export function startTable(tableData, chartsData, lang, ninData) {
           helperFunctions.fillNinDropdownList(ninData);
           for (let key in chartsData[0].details[0]) {
             if (key !== "date") {
-              name1.push(arabicTranslation[0].list7[key]);
+              name1.push( arabicTranslation[key]);
               chartsDataArrays[key] = [];
               chartObjects[key] = {
                 x: [],
                 y: [],
-                name: arabicTranslation[0].list7[key],
+                name:  arabicTranslation[key],
                 type: "bar",
-                hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7[key]}<br>`,
+                hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation[key]}<br>`,
               };
               var option = document.createElement("option");
               option.value = key;
-              option.innerHTML = arabicTranslation[0].list7[key];
+              option.innerHTML =  arabicTranslation[key];
               selectChartItems.appendChild(option);
             }
           }

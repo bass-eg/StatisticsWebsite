@@ -1,4 +1,4 @@
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -60,14 +60,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "matchingDate" },
-        { data: "ipAddress" },
-        { data: "apCode" },
-        { data: "apName" },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
       language: lang,
       rowReorder: {

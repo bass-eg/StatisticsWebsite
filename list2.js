@@ -8,8 +8,8 @@ function drawCharts(Objects) {
     balance = [],
     buyVolume = [];
   let name1 = [
-    arabicTranslation[0].list2.balance,
-    arabicTranslation[0].list2.buyVolume,
+      arabicTranslation.balance,
+      arabicTranslation.buyVolume,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
@@ -23,21 +23,21 @@ function drawCharts(Objects) {
       y: balance,
       name: name1[0],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list2.balance}<br>`,
+      hovertemplate: `${  arabicTranslation.securityName}: %{x}<br>%{y} :${  arabicTranslation.balance}<br>`,
     },
     {
       x: securityName,
       y: buyVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list2.buyVolume}<br>`,
+      hovertemplate: `${  arabicTranslation.securityName}: %{x}<br>%{y} :${  arabicTranslation.buyVolume}<br>`,
     }
   );
   let layout1 = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout1, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -99,41 +99,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "date" },
-        { data: "buyVolume" },
-        { data: "buyValue" },
-        { data: "sellVolume" },
-        { data: "sellValue" },
-        { data: "numoftrades_buy" },
-        { data: "numoftrades_sell" },
-        { data: "close" },
-        { data: "balance" },
-        { data: "balanceValue" },
-        { data: "capital" },
-        {
-          data: "percentageOwnership",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageBalance",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

@@ -5,11 +5,11 @@ import { getArabicTranslation } from "./arabicTranslation.js";
 function drawCharts(Objects) {
   const arabicTranslation = getArabicTranslation();
   let name1 = [
-    arabicTranslation[0].list9D.fillVolume,
-    arabicTranslation[0].list9D.totalVolume,
+     arabicTranslation.fillVolume,
+     arabicTranslation.totalVolume,
   ];
   let name2 = [
-    arabicTranslation[0].list9D.percentage,
+     arabicTranslation.percentage,
   ];
 
   let date = [],
@@ -33,14 +33,14 @@ function drawCharts(Objects) {
       y: fillVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.fillVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.fillVolume}<br>`,
     },
     {
       x: date,
       y: totalVolume,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.totalVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalVolume}<br>`,
     }
   );
   data2.push({
@@ -48,7 +48,7 @@ function drawCharts(Objects) {
     y: percentage,
     name: name2[0],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.percentage}<br>`,
+    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.percentage}<br>`,
   });
 
   let layout = { barmode: "group", showlegend: true };
@@ -56,7 +56,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -118,23 +118,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "date" },
-        { data: "fillVolume" },
-        { data: "totalVolume" },
-        {
-          data: "percentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

@@ -18,17 +18,17 @@ let chartsDataArrays = {
   other: []
 }
 let name1 = {
-  family_relation: arabicTranslation[0].list3.family_relation,
-  address_relation: arabicTranslation[0].list3.address_relation,
-  job_relation: arabicTranslation[0].list3.job_relation,
-  wallets_relation: arabicTranslation[0].list3.wallets_relation,
-  ip_matching: arabicTranslation[0].list3.ip_matching,
-  bank_statement: arabicTranslation[0].list3.bank_statement,
-  agency_relation: arabicTranslation[0].list3.agency_relation,
-  phone_calls: arabicTranslation[0].list3.phone_calls,
-  verification_number: arabicTranslation[0].list3.verification_number,
-  wallet_opening_date: arabicTranslation[0].list3.wallet_opening_date,
-  other: arabicTranslation[0].list3.other,
+  family_relation:  arabicTranslation.family_relation,
+  address_relation:  arabicTranslation.address_relation,
+  job_relation:  arabicTranslation.job_relation,
+  wallets_relation:  arabicTranslation.wallets_relation,
+  ip_matching:  arabicTranslation.ip_matching,
+  bank_statement:  arabicTranslation.bank_statement,
+  agency_relation:  arabicTranslation.agency_relation,
+  phone_calls:  arabicTranslation.phone_calls,
+  verification_number:  arabicTranslation.verification_number,
+  wallet_opening_date:  arabicTranslation.wallet_opening_date,
+  other:  arabicTranslation.other,
 };
 function prepareDataForCharts(Objects) {
   chartsDataArrays.securityName = [],
@@ -100,7 +100,7 @@ function updateCharts(chartsData) {
   }
 };
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -162,163 +162,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "ninName" },
-        { data: "nin" },
-        { data: "relation" },
-        { data: "address" },
-        { data: "wallets" },
-        { data: "agencies" },
-        { data: "tool" },
-        { data: "phone" },
-        { data: "nationality" },
-        { data: "job" },
-        { data: "otherNinName" },
-        { data: "otherNin" },
-        { data: "otherRelation" },
-        { data: "otherAddress" },
-        { data: "otherWallets" },
-        { data: "otherAgencies" },
-        { data: "otherTool" },
-        { data: "otherPhone" },
-        { data: "otherNationality" },
-        { data: "otherJob" },
-        {
-          data: "family_relation",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data) return "متطابق";
-              else return "عدم التطابق";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "address_relation",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data) return "متطابق";
-              else return "عدم التطابق";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "job_relation",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data) return "متطابق";
-              else return "عدم التطابق";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "wallets_relation",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              if (data) return "متطابق";
-              else return "عدم التطابق";
-            } else {
-              return null;
-            }
-          },
-        },
-        // {
-        //   data: "ip_matching",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "bank_statement",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "agency_relation",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "phone_calls",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "verification_number",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "wallet_opening_date",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-        // {
-        //   data: "other",
-        //   render: function (data, type, row, meta) {
-        //     if (data != null) {
-        //       if (data)
-        //         return "متطابق";
-        //       else
-        //         return "عدم التطابق"
-        //     } else {
-        //       return null;
-        //     }
-        //   },
-        // },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,
@@ -333,27 +178,27 @@ export function startTable(tableData, chartsData, lang, ninData) {
           // for (let key in chartsData[0].details[0]) {
           //   var option = document.createElement("option");
           //   option.value = key;
-          //   option.innerHTML = arabicTranslation[0].list3[key];
+          //   option.innerHTML =  arabicTranslation[key];
           //   selectChartItems.appendChild(option);
           // }
           var option = document.createElement("option");
           option.value = "family_relation";
-          option.innerHTML = arabicTranslation[0].list3["family_relation"];
+          option.innerHTML =  arabicTranslation["family_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "address_relation";
-          option.innerHTML = arabicTranslation[0].list3["address_relation"];
+          option.innerHTML =  arabicTranslation["address_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "job_relation";
-          option.innerHTML = arabicTranslation[0].list3["job_relation"];
+          option.innerHTML =  arabicTranslation["job_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "wallets_relation";
-          option.innerHTML = arabicTranslation[0].list3["wallets_relation"];
+          option.innerHTML =  arabicTranslation["wallets_relation"];
           selectChartItems.appendChild(option);
 
           var selectBoxElement = document.querySelector("#selectChartItems");

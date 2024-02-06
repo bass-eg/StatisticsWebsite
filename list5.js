@@ -12,13 +12,13 @@ function drawCharts(Objects) {
     fullyExecutedSellOrderTotalValue = [],
     partiallyExecutedSellOrderTotalValue = [];
   let name1 = [
-    arabicTranslation[0].list5.totalVolume,
+     arabicTranslation.totalVolume,
   ];
   let name2 = [
-    arabicTranslation[0].list5.fullyExecutedBuyOrderTotalValue,
-    arabicTranslation[0].list5.partiallyExecutedBuyOrderTotalValue,
-    arabicTranslation[0].list5.fullyExecutedSellOrderTotalValue,
-    arabicTranslation[0].list5.partiallyExecutedSellOrderTotalValue,
+     arabicTranslation.fullyExecutedBuyOrderTotalValue,
+     arabicTranslation.partiallyExecutedBuyOrderTotalValue,
+     arabicTranslation.fullyExecutedSellOrderTotalValue,
+     arabicTranslation.partiallyExecutedSellOrderTotalValue,
   ];
   Objects.map((el) => {
     date.push(el.date);
@@ -36,7 +36,7 @@ function drawCharts(Objects) {
       y: totalVolume,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.totalVolume}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalVolume}<br>`,
     },
   );
   data2.push(
@@ -45,28 +45,28 @@ function drawCharts(Objects) {
       y: fullyExecutedBuyOrderTotalValue,
       name: name2[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedBuyOrderTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.fullyExecutedBuyOrderTotalValue}<br>`,
     },
     {
       x: date,
       y: partiallyExecutedBuyOrderTotalValue,
       name: name2[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedBuyOrderTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.partiallyExecutedBuyOrderTotalValue}<br>`,
     },
     {
       x: date,
       y: fullyExecutedSellOrderTotalValue,
       name: name2[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.fullyExecutedSellOrderTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.fullyExecutedSellOrderTotalValue}<br>`,
     },
     {
       x: date,
       y: partiallyExecutedSellOrderTotalValue,
       name: name2[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list5.date}<br>%{y} :${arabicTranslation[0].list5.partiallyExecutedSellOrderTotalValue}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.partiallyExecutedSellOrderTotalValue}<br>`,
     }
   );
   let layout = { barmode: "group", showlegend: true };
@@ -74,7 +74,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
   Plotly.newPlot("chart2", data2, layout, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -136,103 +136,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "date" },
-        { data: "fullyExecutedBuyOrderTotalVolume" },
-        { data: "fullyExecutedBuyOrderTotalValue" },
-        { data: "partiallyExecutedBuyOrderTotalValue" },
-        { data: "partiallyExecutedBuyOrderTotalVolume" },
-        { data: "fullyExecutedSellOrderTotalValue" },
-        { data: "fullyExecutedSellOrderTotalVolume" },
-        { data: "partiallyExecutedSellOrderTotalValue" },
-        { data: "partiallyExecutedSellOrderTotalVolume" },
-        { data: "totalVolume" },
-        { data: "totalValue" },
-        {
-          data: "percentageOfFullyExecutedBuyTradesVolume",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfFullyExecutedBuyTradesValue",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfPartiallyExecutedBuyTradesVolume",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfPartiallyExecutedBuyTradesValue",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfFullyExecutedSellTradesVolume",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfFullyExecutedSellTradesValue",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfPartiallyExecutedSellTradesVolume",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentageOfPartiallyExecutedSellTradesValue",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

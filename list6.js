@@ -11,10 +11,10 @@ let chartsDataArrays = {
   totalBalanceByDay: [],
 }
 let name1 = [
-  arabicTranslation[0].list6.balance,
-  arabicTranslation[0].list6.balanceValue,
-  arabicTranslation[0].list6.percentageOwnership,
-  arabicTranslation[0].list6.totalBalanceByDay,
+   arabicTranslation.balance,
+   arabicTranslation.balanceValue,
+   arabicTranslation.percentageOwnership,
+   arabicTranslation.totalBalanceByDay,
 ];
 let chartObjects = {
   balance: {
@@ -22,28 +22,28 @@ let chartObjects = {
     y: [],
     name: name1[0],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balance}<br>`,
+    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.balance}<br>`,
   },
   balanceValue: {
     x: date,
     y: [],
     name: name1[1],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.balanceValue}<br>`,
+    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.balanceValue}<br>`,
   },
   percentageOwnership: {
     x: date,
     y: [],
     name: name1[2],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.percentageOwnership}<br>`,
+    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.percentageOwnership}<br>`,
   },
   totalBalanceByDay: {
     x: date,
     y: [],
     name: name1[3],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list6.date}<br>%{y} :${arabicTranslation[0].list6.totalBalanceByDay}<br>`,
+    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalBalanceByDay}<br>`,
   },
 }
 
@@ -133,7 +133,7 @@ function updateCharts(chartsData) {
   }
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -195,26 +195,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "date" },
-        { data: "balance" },
-        { data: "balanceValue" },
-        {
-          data: "percentageOwnership",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "totalBalanceByDay" },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,
@@ -230,7 +212,7 @@ export function startTable(tableData, chartsData, lang, ninData) {
             if (key !== "date") {
               var option = document.createElement("option");
               option.value = key;
-              option.innerHTML = arabicTranslation[0].list6[key];
+              option.innerHTML =  arabicTranslation[key];
               selectChartItems.appendChild(option);
             }
           }

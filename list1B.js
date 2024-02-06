@@ -80,20 +80,20 @@ function drawCharts(Objects) {
         "الشراء"
       ],
       y: buyVolume,
-      name: arabicTranslation[0].list1B.buyVolume,
+      name:  arabicTranslation.buyVolume,
       type: "bar",
       customdata: percentageamountbuy,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountbuy}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyVolume}<br>%{customdata}% :${ arabicTranslation.percentageamountbuy}`,
     },
     {
       x: [
         "الشراء"
       ],
       y: buyValue,
-      name: arabicTranslation[0].list1B.buyValue,
+      name:  arabicTranslation.buyValue,
       type: "bar",
       customdata: percentagevaluebuy,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluebuy}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyValue}<br>%{customdata}% :${ arabicTranslation.percentagevaluebuy}`,
     },
   );
 
@@ -101,38 +101,38 @@ function drawCharts(Objects) {
     {
       x: ["البيع"],
       y: sellVolume,
-      name: arabicTranslation[0].list1B.sellVolume,
+      name:  arabicTranslation.sellVolume,
       type: "bar",
       customdata: percentageamountsell,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountsell}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellVolume}<br>%{customdata}% :${ arabicTranslation.percentageamountsell}`,
     },
     {
       x: ["البيع"],
       y: sellValue,
-      name: arabicTranslation[0].list1B.sellValue,
+      name:  arabicTranslation.sellValue,
       type: "bar",
       customdata: percentagevaluesell,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluesell}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellValue}<br>%{customdata}% :${ arabicTranslation.percentagevaluesell}`,
     },
   );
   data3.push(
     {
       x: ["الاوامر"],
       y: numoftrades_buy,
-      name: arabicTranslation[0].list1B.numoftrades_buy,
+      name:  arabicTranslation.numoftrades_buy,
       type: "bar",
       // customdata: percentageBuyValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_buy}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValue}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_buy}<br>`
+      // +`%{customdata}% :${ arabicTranslation.percentageBuyValue}`,
     },
     {
       x: ["الاوامر"],
       y: numoftrades_sell,
-      name: arabicTranslation[0].list1B.numoftrades_sell,
+      name:  arabicTranslation.numoftrades_sell,
       type: "bar",
       // customdata: percentageBuyValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_sell}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValuesecondV}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_sell}<br>`
+      // +`%{customdata}% :${ arabicTranslation.percentageBuyValuesecondV}`,
     }
   );
 
@@ -140,20 +140,20 @@ function drawCharts(Objects) {
     {
       x: ["المخالفات"],
       y: countMatching,
-      name: arabicTranslation[0].list1B.countMatching,
+      name:  arabicTranslation.countMatching,
       type: "bar",
       // customdata: percentageSellValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.countMatching}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValue}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.countMatching}<br>`
+      // +`%{customdata}% :${ arabicTranslation.percentageSellValue}`,
     },
     {
       x: ["المخالفات"],
       y: totalViolation,
-      name: arabicTranslation[0].list1B.totalViolation,
+      name:  arabicTranslation.totalViolation,
       type: "bar",
       // customdata: percentageSellValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalViolation}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValuesecondV}`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalViolation}<br>`
+      // +`%{customdata}% :${ arabicTranslation.percentageSellValuesecondV}`,
     },
   );
   let layout = { barmode: "group", showlegend: true };
@@ -164,7 +164,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart4", data4, layout, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -226,75 +226,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "secondNin" },
-        { data: "secondNinName" },
-        { data: "combination" },
-        { data: "numoftrades_buy" },
-        { data: "numoftrades_sell" },
-        { data: "buyVolume" },
-        { data: "buyValue" },
-        {
-          data: "percentageamountbuy",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentagevaluebuy",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "sellVolume" },
-        { data: "sellValue" },
-        {
-          data: "percentageamountsell",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        {
-          data: "percentagevaluesell",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "countMatching" },
-        { data: "totalViolation" },
-        {
-          data: "percentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-      ],
+      columns: columnsArray,
       orderCellsTop: true,
-
       language: lang,
       rowReorder: {
         selector: "td:nth-child(2)",

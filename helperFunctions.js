@@ -1,3 +1,5 @@
+import { getArabicTranslation } from "./arabicTranslation.js";
+
 export function getMinMax(...arr) {
   const newArray = arr.flat().filter(Boolean);
   const minData = Math.min.apply(null, newArray);
@@ -48,4 +50,72 @@ export function fillNinDropdownList(ninData) {
   dselect(selectBoxElement, {
     search: true,
   });
+}
+
+export function constructDataTable(structure) {
+  const arabicTranslation = getArabicTranslation();
+
+  let columnsArray = [];
+  let tableRows = document.getElementById("tableRows");
+  console.log(tableRows);
+  tableRows.innerHTML = ``;
+
+  const relationsAttr = [
+    "family_relation",
+    "address_relation",
+    "job_relation",
+    "wallets_relation",
+    "ip_matching",
+    "bank_statement",
+    "agency_relation",
+    "phone_calls",
+    "verification_number",
+    "wallet_opening_date",
+    "other",
+  ];
+
+  structure.forEach((key) => {
+    //add to html page
+    tableRows.innerHTML += `<th class="${key}"></th>`;
+
+    //prepare column array for the jquery datatable
+    if (key.toLowerCase().includes("percentage")) {
+      columnsArray.push({
+        data: `` + key + ``,
+        render: function (data, type, row, meta) {
+          if (data != null) {
+            return data + "%";
+          } else {
+            return null;
+          }
+        },
+      });
+    } else if (relationsAttr.includes(key)) {
+      columnsArray.push({
+        data: `` + key + ``,
+        render: function (data, type, row, meta) {
+          if (data != null) {
+            if(data){
+              return "متطابق";
+            }else{
+              return "غير متطابق";
+            }
+          } else {
+            return null;
+          }
+        },
+      });
+    } else {
+      columnsArray.push({ data: `` + key + `` });
+    }
+  });
+  //put translation in the page
+  structure.forEach((key) => {
+    const htmlElements = document.querySelector(`.${key}`);
+    if (htmlElements !== null) {
+      htmlElements.textContent = arabicTranslation[key];
+    }
+  });
+
+  return columnsArray;
 }

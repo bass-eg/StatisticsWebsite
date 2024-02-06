@@ -67,48 +67,48 @@ function drawCharts(
         x: date,
         y: closingPrice,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector,
+           arabicTranslation.ClosingPrice + " " + inner.securityName :
+           arabicTranslation.ClosingPrice + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.ClosingPrice + " " + inner.sector
+        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
+           arabicTranslation.ClosingPrice + " " + inner.securityName :
+           arabicTranslation.ClosingPrice + " " + inner.sector
           }<br>`,
       });
       data2.push({
         x: date,
         y: volumeTraded,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector,
+           arabicTranslation.VolumeTraded + " " + inner.securityName :
+           arabicTranslation.VolumeTraded + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.VolumeTraded + " " + inner.sector
+        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
+           arabicTranslation.VolumeTraded + " " + inner.securityName :
+           arabicTranslation.VolumeTraded + " " + inner.sector
           }<br>`,
       });
       data3.push({
         x: date,
         y: valueTraded,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector,
+           arabicTranslation.ValueTraded + " " + inner.securityName :
+           arabicTranslation.ValueTraded + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.ValueTraded + " " + inner.sector
+        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
+           arabicTranslation.ValueTraded + " " + inner.securityName :
+           arabicTranslation.ValueTraded + " " + inner.sector
           }<br>`,
       });
       data4.push({
         x: date,
         y: numberOfTrades,
         name: inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector,
+           arabicTranslation.NumberOfTrades + " " + inner.securityName :
+           arabicTranslation.NumberOfTrades + " " + inner.sector,
         type: selectedType,
-        hovertemplate: `%{x} :${arabicTranslation[0].list11.date}<br>%{y} :${inner.securityCode ?
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.securityName :
-          arabicTranslation[0].list11ChartsLabels.NumberOfTrades + " " + inner.sector
+        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
+           arabicTranslation.NumberOfTrades + " " + inner.securityName :
+           arabicTranslation.NumberOfTrades + " " + inner.sector
           }<br>`,
       });
       date = [];
@@ -126,7 +126,7 @@ function drawCharts(
   Plotly.newPlot("chart4", data4, layout1, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -188,20 +188,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "date" },
-        { data: "sector" },
-        { data: "securityClosingPrice" },
-        { data: "securityVolumeTraded" },
-        { data: "securityValueTraded" },
-        { data: "securityNumberOfTrades" },
-        { data: "sectorClosingPrice" },
-        { data: "sectorVolumeTraded" },
-        { data: "sectorValueTraded" },
-        { data: "sectorNumberOfTrades" },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,

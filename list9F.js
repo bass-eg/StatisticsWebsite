@@ -30,31 +30,31 @@ function drawCharts(Objects) {
     sellAfterCountDelete = [],
     sellAfterPercentage = [];
   let name1 = [
-    arabicTranslation[0].list9F.nbOfDeletedTrades,
-    arabicTranslation[0].list9F.nbOfExecutedTrades,
-    arabicTranslation[0].list9F.percentageOfDeletedTrades,
-    arabicTranslation[0].list9F.percentageOfExecutedTrades,
-    arabicTranslation[0].list9F.buyBeforeCountTrades,
-    arabicTranslation[0].list9F.buyBeforeCountDelete,
-    arabicTranslation[0].list9F.buyBeforePercentage,
-    arabicTranslation[0].list9F.buyDuringCountTrades,
-    arabicTranslation[0].list9F.buyDuringCountDelete,
-    arabicTranslation[0].list9F.buyDuringPercentage,
-    arabicTranslation[0].list9F.buyAfterCountTrades,
-    arabicTranslation[0].list9F.buyAfterCountDelete,
-    arabicTranslation[0].list9F.buyAfterPercentage,
-    arabicTranslation[0].list9F.sellBeforeCountTrades,
-    arabicTranslation[0].list9F.sellBeforeCountDelete,
-    arabicTranslation[0].list9F.sellBeforePercentage,
-    arabicTranslation[0].list9F.sellDuringCountTrades,
-    arabicTranslation[0].list9F.sellDuringCountDelete,
-    arabicTranslation[0].list9F.sellDuringPercentage,
-    arabicTranslation[0].list9F.sellAfterCountTrades,
-    arabicTranslation[0].list9F.sellAfterCountDelete,
-    arabicTranslation[0].list9F.sellAfterPercentage,
+     arabicTranslation.nbOfDeletedTrades,
+     arabicTranslation.nbOfExecutedTrades,
+     arabicTranslation.percentageOfDeletedTrades,
+     arabicTranslation.percentageOfExecutedTrades,
+     arabicTranslation.buyBeforeCountTrades,
+     arabicTranslation.buyBeforeCountDelete,
+     arabicTranslation.buyBeforePercentage,
+     arabicTranslation.buyDuringCountTrades,
+     arabicTranslation.buyDuringCountDelete,
+     arabicTranslation.buyDuringPercentage,
+     arabicTranslation.buyAfterCountTrades,
+     arabicTranslation.buyAfterCountDelete,
+     arabicTranslation.buyAfterPercentage,
+     arabicTranslation.sellBeforeCountTrades,
+     arabicTranslation.sellBeforeCountDelete,
+     arabicTranslation.sellBeforePercentage,
+     arabicTranslation.sellDuringCountTrades,
+     arabicTranslation.sellDuringCountDelete,
+     arabicTranslation.sellDuringPercentage,
+     arabicTranslation.sellAfterCountTrades,
+     arabicTranslation.sellAfterCountDelete,
+     arabicTranslation.sellAfterPercentage,
   ];
   let name2 = [
-    arabicTranslation[0].list9F.total,
+     arabicTranslation.total,
   ];
   Objects.map((el) => {
     securityName.push(el.securityName);
@@ -87,8 +87,8 @@ function drawCharts(Objects) {
       name: name1[0],
       type: "bar",
       customdata: buyBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyBeforeCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
     },
     {
       x: securityName,
@@ -96,8 +96,8 @@ function drawCharts(Objects) {
       name: name1[1],
       type: "bar",
       customdata: buyBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyBeforeCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
     },
     {
       x: securityName,
@@ -105,8 +105,8 @@ function drawCharts(Objects) {
       name: name1[2],
       type: "bar",
       customdata: buyDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyDuringCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
     },
     {
       x: securityName,
@@ -114,8 +114,8 @@ function drawCharts(Objects) {
       name: name1[3],
       type: "bar",
       customdata: buyDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyDuringCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
     },
     {
       x: securityName,
@@ -123,8 +123,8 @@ function drawCharts(Objects) {
       name: name1[4],
       type: "bar",
       customdata: buyAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyAfterCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
     },
     {
       x: securityName,
@@ -132,8 +132,8 @@ function drawCharts(Objects) {
       name: name1[5],
       type: "bar",
       customdata: buyAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyAfterCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
     },
     {
       x: securityName,
@@ -141,8 +141,8 @@ function drawCharts(Objects) {
       name: name1[6],
       type: "bar",
       customdata: sellBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellBeforeCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
     },
     {
       x: securityName,
@@ -150,8 +150,8 @@ function drawCharts(Objects) {
       name: name1[7],
       type: "bar",
       customdata: sellBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellBeforeCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
     },
     {
       x: securityName,
@@ -159,8 +159,8 @@ function drawCharts(Objects) {
       name: name1[8],
       type: "bar",
       customdata: sellDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellDuringCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
     },
     {
       x: securityName,
@@ -168,8 +168,8 @@ function drawCharts(Objects) {
       name: name1[9],
       type: "bar",
       customdata: sellDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellDuringCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
     },
     {
       x: securityName,
@@ -177,8 +177,8 @@ function drawCharts(Objects) {
       name: name1[10],
       type: "bar",
       customdata: sellAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellAfterCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
     },
     {
       x: securityName,
@@ -186,8 +186,8 @@ function drawCharts(Objects) {
       name: name1[11],
       type: "bar",
       customdata: sellAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellAfterCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
     },
   );
   data2.push(
@@ -197,8 +197,8 @@ function drawCharts(Objects) {
       name: name1[0],
       type: "bar",
       customdata: buyBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyBeforeCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
     },
     {
       x: date,
@@ -206,8 +206,8 @@ function drawCharts(Objects) {
       name: name1[1],
       type: "bar",
       customdata: buyBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyBeforeCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
     },
     {
       x: date,
@@ -215,8 +215,8 @@ function drawCharts(Objects) {
       name: name1[2],
       type: "bar",
       customdata: buyDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyDuringCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
     },
     {
       x: date,
@@ -224,8 +224,8 @@ function drawCharts(Objects) {
       name: name1[3],
       type: "bar",
       customdata: buyDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyDuringCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
     },
     {
       x: date,
@@ -233,8 +233,8 @@ function drawCharts(Objects) {
       name: name1[4],
       type: "bar",
       customdata: buyAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyAfterCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
     },
     {
       x: date,
@@ -242,8 +242,8 @@ function drawCharts(Objects) {
       name: name1[5],
       type: "bar",
       customdata: buyAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.buyAfterCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.buyAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
     },
     {
       x: date,
@@ -251,8 +251,8 @@ function drawCharts(Objects) {
       name: name1[6],
       type: "bar",
       customdata: sellBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellBeforeCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
     },
     {
       x: date,
@@ -260,8 +260,8 @@ function drawCharts(Objects) {
       name: name1[7],
       type: "bar",
       customdata: sellBeforePercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellBeforeCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellBeforePercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
     },
     {
       x: date,
@@ -269,8 +269,8 @@ function drawCharts(Objects) {
       name: name1[8],
       type: "bar",
       customdata: sellDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellDuringCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
     },
     {
       x: date,
@@ -278,8 +278,8 @@ function drawCharts(Objects) {
       name: name1[9],
       type: "bar",
       customdata: sellDuringPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellDuringCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellDuringPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
     },
     {
       x: date,
@@ -287,8 +287,8 @@ function drawCharts(Objects) {
       name: name1[10],
       type: "bar",
       customdata: sellAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellAfterCountTrades}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountTrades}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
     },
     {
       x: date,
@@ -296,8 +296,8 @@ function drawCharts(Objects) {
       name: name1[11],
       type: "bar",
       customdata: sellAfterPercentage,
-      hovertemplate: `${arabicTranslation[0].list9F.date}: %{x}<br>%{y} :${arabicTranslation[0].list9F.sellAfterCountDelete}<br>`
-      +`%{customdata}% :${arabicTranslation[0].list9F.sellAfterPercentage}`,
+      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountDelete}<br>`
+      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
     },
   );
   let layout1 = { barmode: "group", showlegend: true };
@@ -305,7 +305,7 @@ function drawCharts(Objects) {
   Plotly.newPlot("chart1", data1, layout1, { responsive: true });
   Plotly.newPlot("chart2", data2, layout1, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -367,86 +367,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "date" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "buyBeforeCountTrades" },
-        { data: "buyBeforeCountDelete" },
-        {
-          data: "buyBeforePercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "buyDuringCountTrades" },
-        { data: "buyDuringCountDelete" },
-        {
-          data: "buyDuringPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "buyAfterCountTrades" },
-        { data: "buyAfterCountDelete" },
-        {
-          data: "buyAfterPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "sellBeforeCountTrades" },
-        { data: "sellBeforeCountDelete" },
-        {
-          data: "sellBeforePercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "sellDuringCountTrades" },
-        { data: "sellDuringCountDelete" },
-        {
-          data: "sellDuringPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
-        { data: "sellAfterCountTrades" },
-        { data: "sellAfterCountDelete" },
-        {
-          data: "sellAfterPercentage",
-          render: function (data, type, row, meta) {
-            if (data != null) {
-              return data + "%";
-            } else {
-              return null;
-            }
-          },
-        },
+      columns: columnsArray,
 
-      ],
       orderCellsTop: true,
 
       language: lang,

@@ -14,12 +14,12 @@ function drawCharts(Objects) {
     sellAfterPrice = [];
 
   let name1 = [
-    arabicTranslation[0].list9B.buyBeforePrice,
-    arabicTranslation[0].list9B.sellBeforePrice,
-    arabicTranslation[0].list9B.buyDuringPrice,
-    arabicTranslation[0].list9B.sellDuringPrice,
-    arabicTranslation[0].list9B.buyAfterPrice,
-    arabicTranslation[0].list9B.sellAfterPrice,
+     arabicTranslation.buyBeforePrice,
+     arabicTranslation.sellBeforePrice,
+     arabicTranslation.buyDuringPrice,
+     arabicTranslation.sellDuringPrice,
+     arabicTranslation.buyAfterPrice,
+     arabicTranslation.sellAfterPrice,
   ];
   Objects.map((el) => {
     date.push(el.date);
@@ -45,48 +45,48 @@ function drawCharts(Objects) {
       y: buyBeforePrice,
       name: name1[0],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyBeforePrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyBeforePrice}<br>`,
     },
     {
       x: date,
       y: sellBeforePrice,
       name: name1[1],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellBeforePrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellBeforePrice}<br>`,
     },
     {
       x: date,
       y: buyDuringPrice,
       name: name1[2],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyDuringPrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyDuringPrice}<br>`,
     },
     {
       x: date,
       y: sellDuringPrice,
       name: name1[3],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellDuringPrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellDuringPrice}<br>`,
     },
     {
       x: date,
       y: buyAfterPrice,
       name: name1[4],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.buyAfterPrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyAfterPrice}<br>`,
     },
     {
       x: date,
       y: sellAfterPrice,
       name: name1[5],
       type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9B.date}<br>%{y} :${arabicTranslation[0].list9B.sellAfterPrice}<br>`,
+      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellAfterPrice}<br>`,
     }
   );
 
   Plotly.newPlot("chart1", data1, layout1, config1);
 }
-export function startTable(tableData, chartsData, lang, ninData) {
+export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -148,21 +148,8 @@ export function startTable(tableData, chartsData, lang, ninData) {
       ],
       snapshot: null,
       data: tableData,
-      columns: [
-        { data: "securityCode" },
-        { data: "securityName" },
-        { data: "date" },
-        { data: "nin" },
-        { data: "ninName" },
-        { data: "buyBeforePrice" },
-        { data: "buyDuringPrice" },
-        { data: "buyAfterPrice" },
-        { data: "sellBeforePrice" },
-        { data: "sellDuringPrice" },
-        { data: "sellAfterPrice" },
-        { data: "allMarketAvgBuyPrice" },
-        { data: "allMarketAvgSellPrice" },
-      ],
+      columns: columnsArray,
+
       orderCellsTop: true,
 
       language: lang,
