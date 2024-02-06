@@ -2,168 +2,258 @@ import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let date = [],
-    // buyVolume = [],
-    // secondViolatorBuyVolume = [],
-    // totalBuyVolume = [],
-    // percentageBuyVolume = [],
-    // percentageBuyVolumesecondV = [],
-    // sellVolume = [],
-    // secondViolatorSellVolume = [],
-    // totalSellVolume = [],
-    // percentageSellVolume = [],
-    // percentageSellVolumesecondV = [],
-    // buyValue = [],
-    // secondViolatorBuyValue = [],
-    // totalBuyValue = [],
-    // percentageBuyValue = [],
-    // percentageBuyValuesecondV = [],
-    // sellValue = [],
-    // secondViolatorSellValue = [],
-    // totalSellValue = [],
-    // percentageSellValue = [],
-    // percentageSellValuesecondV = [],
-
-
-    buyVolume= [],
-    buyValue=[],
-    sellVolume=[],
-    sellValue=[],
-    numoftrades_buy=[],
-    numoftrades_sell=[],
-    percentageamountbuy=[],
-    percentagevaluebuy=[],
-    percentageamountsell=[],
-    percentagevaluesell=[],
-    countMatching=[],
-    totalViolation=[],
-    percentage=[];
-
+let date = [];
+let chartsDataArrays = {};
+const listNumber = "1B";
+function prepareDataForCharts(Objects) {
+  date = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
-    date.push(new Date());
-    buyVolume.push(el.buyVolume);
-    buyValue.push(el.buyValue);
-    sellVolume.push(el.sellVolume);
-    sellValue.push(el.sellValue);
-    numoftrades_buy.push(el.numoftrades_buy);
-    numoftrades_sell.push(el.numoftrades_sell);
-    percentageamountbuy.push(el.percentageamountbuy);
-    percentagevaluebuy.push(el.percentagevaluebuy);
-    percentageamountsell.push(el.percentageamountsell);
-    percentagevaluesell.push(el.percentagevaluesell);
-    countMatching.push(el.countMatching);
-    totalViolation.push(el.totalViolation);
-    percentage.push(el.percentage);
-  });
-
-  // const colors = [
-  //   "#1f77b4", //blue
-  //   "#17becf", //aqua
-  //   "#ff7f0e", //orange
-  //   "#d62728", //red
-  //   "#228B22", //green
-  //   "#2F4F4F", //lawn-green
-  //   "#9467bd", //violet
-  //   "#e377c2", //pink
-  //   "#8c564b", //brown
-  //   "#7f7f7f", //grey
-  // ];
-  let data1 = [],
-    data2 = [],
-    data3 = [],
-    data4 = [];
-  data1.push(
-    {
-      x: [
-        "الشراء"
-      ],
-      y: buyVolume,
-      name: arabicTranslation[0].list1B.buyVolume,
-      type: "bar",
-      customdata: percentageamountbuy,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountbuy}`,
-    },
-    {
-      x: [
-        "الشراء"
-      ],
-      y: buyValue,
-      name: arabicTranslation[0].list1B.buyValue,
-      type: "bar",
-      customdata: percentagevaluebuy,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluebuy}`,
-    },
-  );
-
-  data2.push(
-    {
-      x: ["البيع"],
-      y: sellVolume,
-      name: arabicTranslation[0].list1B.sellVolume,
-      type: "bar",
-      customdata: percentageamountsell,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountsell}`,
-    },
-    {
-      x: ["البيع"],
-      y: sellValue,
-      name: arabicTranslation[0].list1B.sellValue,
-      type: "bar",
-      customdata: percentagevaluesell,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluesell}`,
-    },
-  );
-  data3.push(
-    {
-      x: ["الاوامر"],
-      y: numoftrades_buy,
-      name: arabicTranslation[0].list1B.numoftrades_buy,
-      type: "bar",
-      // customdata: percentageBuyValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_buy}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValue}`,
-    },
-    {
-      x: ["الاوامر"],
-      y: numoftrades_sell,
-      name: arabicTranslation[0].list1B.numoftrades_sell,
-      type: "bar",
-      // customdata: percentageBuyValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_sell}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValuesecondV}`,
+    date.push(el.date);
+    for (let key in el) {
+      if (key !== "date") {
+        chartsDataArrays[key].push(el[key]);
+      }
     }
-  );
-
-  data4.push(
-    {
-      x: ["المخالفات"],
-      y: countMatching,
-      name: arabicTranslation[0].list1B.countMatching,
-      type: "bar",
-      // customdata: percentageSellValue,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.countMatching}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValue}`,
-    },
-    {
-      x: ["المخالفات"],
-      y: totalViolation,
-      name: arabicTranslation[0].list1B.totalViolation,
-      type: "bar",
-      // customdata: percentageSellValuesecondV,
-      hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalViolation}<br>`
-      // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValuesecondV}`,
-    },
-  );
-  let layout = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout, { responsive: true });
-  Plotly.newPlot("chart4", data4, layout, { responsive: true });
+  });
+  console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[0]["list" + listNumber][el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation[0]["list" + listNumber].date
+      }<br>%{y} :${arabicTranslation[0]["list" + listNumber][el]}<br>`,
+    });
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
+  if (
+    $("#selectCompany").val() &&
+    $("#selectNin").val() &&
+    $("#selectChartItems").val()
+  ) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    let selectedSecondNinObj = customFilter.filterBySecondNin(
+      selectedNinObj,
+      $("#selectNin2").val()
+    );
+    selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedSecondNinObj,
+      $("#selectCompany").val()
+    );
+
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
+    ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
+// function drawCharts(Objects) {
+//   const arabicTranslation = getArabicTranslation();
+//   let date = [],
+//     // buyVolume = [],
+//     // secondViolatorBuyVolume = [],
+//     // totalBuyVolume = [],
+//     // percentageBuyVolume = [],
+//     // percentageBuyVolumesecondV = [],
+//     // sellVolume = [],
+//     // secondViolatorSellVolume = [],
+//     // totalSellVolume = [],
+//     // percentageSellVolume = [],
+//     // percentageSellVolumesecondV = [],
+//     // buyValue = [],
+//     // secondViolatorBuyValue = [],
+//     // totalBuyValue = [],
+//     // percentageBuyValue = [],
+//     // percentageBuyValuesecondV = [],
+//     // sellValue = [],
+//     // secondViolatorSellValue = [],
+//     // totalSellValue = [],
+//     // percentageSellValue = [],
+//     // percentageSellValuesecondV = [],
+
+//     buyVolume= [],
+//     buyValue=[],
+//     sellVolume=[],
+//     sellValue=[],
+//     numoftrades_buy=[],
+//     numoftrades_sell=[],
+//     percentageamountbuy=[],
+//     percentagevaluebuy=[],
+//     percentageamountsell=[],
+//     percentagevaluesell=[],
+//     countMatching=[],
+//     totalViolation=[],
+//     percentage=[];
+
+//   Objects.map((el) => {
+//     date.push(new Date());
+//     buyVolume.push(el.buyVolume);
+//     buyValue.push(el.buyValue);
+//     sellVolume.push(el.sellVolume);
+//     sellValue.push(el.sellValue);
+//     numoftrades_buy.push(el.numoftrades_buy);
+//     numoftrades_sell.push(el.numoftrades_sell);
+//     percentageamountbuy.push(el.percentageamountbuy);
+//     percentagevaluebuy.push(el.percentagevaluebuy);
+//     percentageamountsell.push(el.percentageamountsell);
+//     percentagevaluesell.push(el.percentagevaluesell);
+//     countMatching.push(el.countMatching);
+//     totalViolation.push(el.totalViolation);
+//     percentage.push(el.percentage);
+//   });
+
+//   // const colors = [
+//   //   "#1f77b4", //blue
+//   //   "#17becf", //aqua
+//   //   "#ff7f0e", //orange
+//   //   "#d62728", //red
+//   //   "#228B22", //green
+//   //   "#2F4F4F", //lawn-green
+//   //   "#9467bd", //violet
+//   //   "#e377c2", //pink
+//   //   "#8c564b", //brown
+//   //   "#7f7f7f", //grey
+//   // ];
+//   let data1 = [],
+//     data2 = [],
+//     data3 = [],
+//     data4 = [];
+//   data1.push(
+//     {
+//       x: [
+//         "الشراء"
+//       ],
+//       y: buyVolume,
+//       name: arabicTranslation[0].list1B.buyVolume,
+//       type: "bar",
+//       customdata: percentageamountbuy,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountbuy}`,
+//     },
+//     {
+//       x: [
+//         "الشراء"
+//       ],
+//       y: buyValue,
+//       name: arabicTranslation[0].list1B.buyValue,
+//       type: "bar",
+//       customdata: percentagevaluebuy,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.buyValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluebuy}`,
+//     },
+//   );
+
+//   data2.push(
+//     {
+//       x: ["البيع"],
+//       y: sellVolume,
+//       name: arabicTranslation[0].list1B.sellVolume,
+//       type: "bar",
+//       customdata: percentageamountsell,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellVolume}<br>%{customdata}% :${arabicTranslation[0].list1B.percentageamountsell}`,
+//     },
+//     {
+//       x: ["البيع"],
+//       y: sellValue,
+//       name: arabicTranslation[0].list1B.sellValue,
+//       type: "bar",
+//       customdata: percentagevaluesell,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.sellValue}<br>%{customdata}% :${arabicTranslation[0].list1B.percentagevaluesell}`,
+//     },
+//   );
+//   data3.push(
+//     {
+//       x: ["الاوامر"],
+//       y: numoftrades_buy,
+//       name: arabicTranslation[0].list1B.numoftrades_buy,
+//       type: "bar",
+//       // customdata: percentageBuyValue,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_buy}<br>`
+//       // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValue}`,
+//     },
+//     {
+//       x: ["الاوامر"],
+//       y: numoftrades_sell,
+//       name: arabicTranslation[0].list1B.numoftrades_sell,
+//       type: "bar",
+//       // customdata: percentageBuyValuesecondV,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.numoftrades_sell}<br>`
+//       // +`%{customdata}% :${arabicTranslation[0].list1B.percentageBuyValuesecondV}`,
+//     }
+//   );
+
+//   data4.push(
+//     {
+//       x: ["المخالفات"],
+//       y: countMatching,
+//       name: arabicTranslation[0].list1B.countMatching,
+//       type: "bar",
+//       // customdata: percentageSellValue,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.countMatching}<br>`
+//       // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValue}`,
+//     },
+//     {
+//       x: ["المخالفات"],
+//       y: totalViolation,
+//       name: arabicTranslation[0].list1B.totalViolation,
+//       type: "bar",
+//       // customdata: percentageSellValuesecondV,
+//       hovertemplate: `%{x} :${arabicTranslation[0].list1B.date}<br>%{y} :${arabicTranslation[0].list1B.totalViolation}<br>`
+//       // +`%{customdata}% :${arabicTranslation[0].list1B.percentageSellValuesecondV}`,
+//     },
+//   );
+//   let layout = { barmode: "group", showlegend: true };
+
+//   Plotly.newPlot("chart1", data1, layout, { responsive: true });
+//   Plotly.newPlot("chart2", data2, layout, { responsive: true });
+//   Plotly.newPlot("chart3", data3, layout, { responsive: true });
+//   Plotly.newPlot("chart4", data4, layout, { responsive: true });
+// }
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
@@ -320,31 +410,12 @@ export function startTable(tableData, chartsData, lang, ninData) {
         let selectedNinObj;
         let selectedSecondNinObj;
 
-        $("#selectCompany").on("change", function () {
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectNin2").val()
-          ) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedSecondNinObj = customFilter.filterBySecondNin(
-              selectedNinObj,
-              $("#selectNin2").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedSecondNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
           }
-        });
+        );
 
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
@@ -422,22 +493,6 @@ export function startTable(tableData, chartsData, lang, ninData) {
             dselect(selectBoxElement, {
               search: true,
             });
-          }
-
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectNin2").val()
-          ) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedSecondNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
           }
         });
 

@@ -125,11 +125,26 @@
                 </select>
             </div>
             <div class="ser form-outline">
+                 <select id="selectChartItems" class="form-select" multiple="multiple">
+                      <option value="" selected disabled hidden>إختر البيانات</option>
+                  </select>
+            </div>
+            <div class="ser form-outline">
                 <button class="btn btn-primary" type="button" id="globalDownload">
                     إستخراج إلي PDF
                 </button>
             </div>
 
+        </div>
+        <div class="container" id="shape-selection" style="display: none;">
+            <div class="ser form-outline" style="display: flex;">
+                <label for="selectedType">الرسم البياني</label>
+                <select id="selectedType" class="form-select">
+                    <option value="" selected disabled hidden>إختر شكل</option>
+                    <option value="scatter" selected>Timeline</option>
+                    <option value="bar">Bar Charts</option>
+                </select>
+            </div>
         </div>
     </div>
 

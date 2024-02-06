@@ -5,12 +5,10 @@ const arabicTranslation = getArabicTranslation();
 
 let date = [];
 let chartsDataArrays = {};
-let name1 = [];
-let chartObjects = {};
-
+const listNumber = "7";
 function prepareDataForCharts(Objects) {
   date = [];
-  for (let key in Objects) {
+  for (let key in Objects[0]) {
     chartsDataArrays[key] = [];
   }
   Objects.map((el) => {
@@ -21,24 +19,28 @@ function prepareDataForCharts(Objects) {
       }
     }
   });
+  console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
 function drawCharts(Objects, selectedItems) {
+
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
-    let temp = chartObjects[el];
-    temp.x = date;
-    temp.y = chartsDataArrays[el];
-    temp.type = selectedType;
-    selectedItemsObjects.push(temp);
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[0]["list" + listNumber][el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation[0]["list" + listNumber].date
+      }<br>%{y} :${arabicTranslation[0]["list" + listNumber][el]}<br>`,
+    });
   });
-  console.log(selectedItemsObjects);
   let data1 = [];
   data1.push(...selectedItemsObjects);
   let layout = { barmode: "group", showlegend: true };
@@ -46,6 +48,14 @@ function drawCharts(Objects, selectedItems) {
 }
 
 function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
   if (
     $("#selectCompany").val() &&
     $("#selectNin").val() &&
@@ -55,6 +65,7 @@ function updateCharts(chartsData) {
       chartsData,
       $("#selectNin").val()
     );
+
     let selectedCompanyObj = customFilter.filterBySecurityCode(
       selectedNinObj,
       $("#selectCompany").val()
@@ -81,31 +92,10 @@ function updateCharts(chartsData) {
 }
 
 export function startTable(tableData, chartsData, lang, ninData) {
-  let columnsArray = [];
-  for (let key in tableData[0]) {
-    if (key.toLowerCase().includes("percentage")) {
-      columnsArray.push({
-        data: `` + key + ``,
-        render: function (data, type, row, meta) {
-          if (data != null) {
-            return data + "%";
-          } else {
-            return null;
-          }
-        },
-      });
-    } else {
-      columnsArray.push({ data: `` + key + `` });
-    }
-  }
+  let columnsArray =
+    helperFunctions.generateColumnsArrayWithPercentageFormatting(tableData);
 
   $(document).ready(function () {
-    // let tableRows = document.getElementById("tableRows");
-    // console.log(tableRows);
-    // tableRows.innerHTML = ``;
-    // for (let key in tableData[0]) {
-    //   tableRows.innerHTML += `<th class="${key}"></th>`;
-    // }
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
         if (columns[i]) {
@@ -178,37 +168,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
-          for (let key in chartsData[0].details[0]) {
-            if (key !== "date") {
-              name1.push(arabicTranslation[0].list7[key]);
-              chartsDataArrays[key] = [];
-              chartObjects[key] = {
-                x: [],
-                y: [],
-                name: arabicTranslation[0].list7[key],
-                type: "bar",
-                hovertemplate: `%{x} :${arabicTranslation[0].list7.date}<br>%{y} :${arabicTranslation[0].list7[key]}<br>`,
-              };
-              var option = document.createElement("option");
-              option.value = key;
-              option.innerHTML = arabicTranslation[0].list7[key];
-              selectChartItems.appendChild(option);
-            }
-          }
-          var selectBoxElement = document.querySelector("#selectChartItems");
-          dselect(selectBoxElement, {
-            search: true,
-          });
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "date",
+          ]);
         }
 
-        const emptyObj = [
-          {
-            date: null,
-            totalValue: null,
-            beforeTotalValue: null,
-            afterTotalValue: null,
-          },
-        ];
         $("#selectCompany,#selectChartItems,#selectedType").on(
           "change",
           function () {

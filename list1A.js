@@ -2,64 +2,77 @@ import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let securityName = [],
-    countMatching = [],
-    totalViolation = [],
-    percentage = [];
-  let name1 = [
-    arabicTranslation[0].list1A.countMatching,
-  ];
-  let name2 = [
-    arabicTranslation[0].list1A.totalViolation,
-  ];
-  let name3 = [
-    arabicTranslation[0].list1A.percentage,
-  ];
+const arabicTranslation = getArabicTranslation();
+
+let securityNames = [];
+let chartsDataArrays = {};
+const listNumber = "1A";
+
+function prepareDataForCharts(Objects) {
+  securityNames = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
-    securityName.push(el.securityName);
-    countMatching.push(el.countMatching);
-    totalViolation.push(el.totalViolation);
-    percentage.push(el.percentage);
+    securityNames.push(el.securityName);
+    for (let key in el) {
+      if (key !== "date" && key !== "securityName") {
+        chartsDataArrays[key].push(el[key]);
+      }
+    }
   });
-  let data1 = [],
-    data2 = [],
-    data3 = [];
-  data1.push(
-    {
-      x: securityName,
-      y: countMatching,
-      name: name1[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.countMatching}<br>`,
-    }
-  );
-  data2.push(
-    {
-      x: securityName,
-      y: totalViolation,
-      name: name2[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.totalViolation}<br>`,
-    }
-  );
-  data3.push(
-    {
-      x: securityName,
-      y: percentage,
-      name: name3[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list1A.securityName}: %{x}<br>%{y} :${arabicTranslation[0].list1A.percentage}<br>`,
-    }
-  );
-
-  let layout = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout, { responsive: true });
 }
+
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+
+  selectedItems.map((obj) => {
+    selectedItemsObjects.push({
+      x: securityNames,
+      y: chartsDataArrays[obj],
+      name: arabicTranslation[0]["list" + listNumber][obj],
+      type: selectedType,
+      hovertemplate: `${
+        arabicTranslation[0]["list" + listNumber].securityName
+      }: %{x}<br>%{y} :${arabicTranslation[0]["list" + listNumber][obj]}<br>`,
+    });
+  });
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", selectedItemsObjects, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+    },
+  ];
+  if ($("#selectNin").val() && $("#selectChartItems").val()) {
+    let selectChartItemsValue = $("#selectChartItems").val();
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    if (selectChartItemsValue.length === 0 || selectChartItemsValue === null) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedNinObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
@@ -150,16 +163,13 @@ export function startTable(tableData, chartsData, lang, ninData) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "securityName",
+            "date",
+          ]);
         }
-        let selectedNinObj;
-        $("#selectNin").on("change", function () {
-          if ($("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            drawCharts(selectedNinObj[0].details);
-          }
+        $("#selectChartItems,#selectedType").on("change", function () {
+          updateCharts(chartsData);
         });
 
         // Columns Filters

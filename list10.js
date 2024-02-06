@@ -139,6 +139,7 @@ function drawCharts(Objects, selectedItems) {
 }
 
 function updateCharts(chartsData) {
+  const emptyObj = [{}];
   if ($("#selectCompany").val() && $("#selectNin").val()) {
     let selectedNinObj = customFilter.filterByNin(
       chartsData,

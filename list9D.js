@@ -1,60 +1,89 @@
 import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let name1 = [
-    arabicTranslation[0].list9D.fillVolume,
-    arabicTranslation[0].list9D.totalVolume,
-  ];
-  let name2 = [
-    arabicTranslation[0].list9D.percentage,
-  ];
+let date = [];
+let chartsDataArrays = {};
+const listNumber = "9D";
 
-  let date = [],
-    fillVolume = [],
-    totalVolume = [],
-    percentage = [];
-
+function prepareDataForCharts(Objects) {
+  date = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
     date.push(el.date);
-    fillVolume.push(el.fillVolume);
-    totalVolume.push(el.totalVolume);
-    percentage.push(el.percentage);
-  });
-
-  let data1 = [];
-  let data2 = [];
-
-  data1.push(
-    {
-      x: date,
-      y: fillVolume,
-      name: name1[0],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.fillVolume}<br>`,
-    },
-    {
-      x: date,
-      y: totalVolume,
-      name: name1[1],
-      type: "bar",
-      hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.totalVolume}<br>`,
+    for (let key in el) {
+      if (key !== "date") {
+        chartsDataArrays[key].push(el[key]);
+      }
     }
-  );
-  data2.push({
-    x: date,
-    y: percentage,
-    name: name2[0],
-    type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation[0].list9D.date}<br>%{y} :${arabicTranslation[0].list9D.percentage}<br>`,
   });
+  console.log("chartsDataArrays are ", chartsDataArrays);
+}
 
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[0]["list" + listNumber][el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation[0]["list" + listNumber].date
+      }<br>%{y} :${arabicTranslation[0]["list" + listNumber][el]}<br>`,
+    });
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
   let layout = { barmode: "group", showlegend: true };
-
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
+  if (
+    $("#selectCompany").val() &&
+    $("#selectChartItems").val()
+  ) {
+
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
+      chartsData,
+      $("#selectCompany").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
+    ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
 }
 export function startTable(tableData, chartsData, lang, ninData) {
   $(document).ready(function () {
@@ -144,9 +173,6 @@ export function startTable(tableData, chartsData, lang, ninData) {
       responsive: true,
       keys: true,
       initComplete: function () {
-        // if (chartsData) {
-        // helperFunctions.fillNinDropdownList(ninData);
-        // }
         const emptyObj = [
           {
             date: null,
@@ -164,7 +190,11 @@ export function startTable(tableData, chartsData, lang, ninData) {
             if (!allSecurities.includes(obj)) {
               allSecurities.push(obj);
             }
-          });
+
+          })
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "date",
+          ]);
         }
         if (allSecurities) {
 
@@ -180,53 +210,12 @@ export function startTable(tableData, chartsData, lang, ninData) {
           });
         }
 
-        $("#selectCompany").on("change", function () {
-          if ($("#selectCompany").val()) {
-            // selectedNinObj = customFilter.filterByNin(
-            //   chartsData,
-            //   $("#selectNin").val()
-            // );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              chartsData,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
           }
-        });
-        // $("#selectNin").on("change", function () {
-        //   if ($("#selectNin").val()) {
-        //     let selectCompanyElement = document.getElementById("selectCompany");
-
-        //     selectedNinObj = customFilter.filterByNin(
-        //       chartsData,
-        //       $("#selectNin").val()
-        //     );
-        //     selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
-        //     selectedNinObj.forEach(function (item) {
-        //       selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-        //     });
-
-        //     var selectBoxElement = document.querySelector("#selectCompany");
-        //     dselect(selectBoxElement, {
-        //       search: true,
-        //     });
-        //   }
-        //   if ($("#selectCompany").val() && $("#selectNin").val()) {
-        //     selectedCompanyObj = customFilter.filterBySecurityCode(
-        //       selectedNinObj,
-        //       $("#selectCompany").val()
-        //     );
-        //     if (selectedCompanyObj.length === 0) {
-        //       drawCharts(emptyObj);
-        //     } else {
-        //       drawCharts(selectedCompanyObj[0].details);
-        //     }
-        //   }
-        // });
+        );
         var api = this.api();
 
         // For each column

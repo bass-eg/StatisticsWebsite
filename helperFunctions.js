@@ -1,3 +1,6 @@
+import { getArabicTranslation } from "./arabicTranslation.js";
+
+const arabicTranslation = getArabicTranslation();
 export function getMinMax(...arr) {
   const newArray = arr.flat().filter(Boolean);
   const minData = Math.min.apply(null, newArray);
@@ -49,3 +52,47 @@ export function fillNinDropdownList(ninData) {
     search: true,
   });
 }
+
+export const formatPercentageColumn = () => {
+  return function (data) {
+    if (data != null) {
+      return data + "%";
+    } else {
+      return null;
+    }
+  };
+};
+
+export const generateColumnsArrayWithPercentageFormatting = (tableData) => {
+  let columnsArray = [];
+  for (let key in tableData[0]) {
+    if (key.toLowerCase().includes("percentage")) {
+      columnsArray.push({
+        data: `` + key + ``,
+        render: formatPercentageColumn(),
+      });
+    } else {
+      columnsArray.push({ data: `` + key + `` });
+    }
+  }
+
+  return columnsArray;
+};
+
+export const createChartSelectOptions = (
+  chartsData,
+  listNumber,
+  keysToIgnore
+) => {
+  for (let key in chartsData[0].details[0]) {
+    if (!keysToIgnore.includes(key)) {
+      var option = document.createElement("option");
+      option.value = key;
+      option.innerHTML = arabicTranslation[0]["list" + listNumber][key];
+      selectChartItems.appendChild(option);
+    }
+  }
+  dselect(selectChartItems, {
+    search: true,
+  });
+};
