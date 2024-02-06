@@ -364,11 +364,19 @@ export function getArabicTranslation() {
 
       list8: {
         matchingDate: "أيام التقابل",
-        ipAddress: "عناوين الانترنت",
-        nin: "رقم الهوية",
+        IPAddress: "عناوين الانترنت",
+        NIN: "رقم الهوية",
         ninName: "إسم صاحب الهوية",
-        apCode: 'رمز "AP"',
-        apName: 'إسم "AP"',
+        APCode: 'رمز "AP"',
+        APName: 'إسم "AP"',
+        LoginDate: "تاريخ الدخول",
+        ForumIPAddress: "عنوان الانترنت للمنتدى",
+        NIN: "رقم الهوية",
+        InvestorName: "إسم المستثمر",
+        LoginName: "إسم الدخول",
+        SubjectName: "إسم الموضوع",
+        SubjectLink: "رابط الموضوع",
+        violators: "المخالفين",
       },
 
       list9A: {
