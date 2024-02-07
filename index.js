@@ -16,6 +16,45 @@ import * as list10 from "./list10.js";
 import * as list11 from "./list11.js";
 import * as list8 from "./list8.js";
 import * as list3 from "./list3.js";
+
+const listName = location.pathname.split("/").pop().split(".")[0];
+
+const NavLinks = () => {
+  const links = [
+    { pageLink: "list1A.html", pageName: "تزامن المخالفات" },
+    { pageLink: "list1B.html", pageName: "تزامن عمليات التداول" },
+    { pageLink: "list1C.html", pageName: "نشاط التداول" },
+    { pageLink: "list2.html", pageName: "نسبة الملكية" },
+    { pageLink: "list4.html", pageName: "نسبة الأوامر" },
+    { pageLink: "list5.html", pageName: "عدد الأوامر" },
+    { pageLink: "list6.html", pageName: "قيمة المحفظة في اليوم" },
+    { pageLink: "list7.html", pageName: "مجموع التداولات" },
+    { pageLink: "list9A.html", pageName: "إجمالي ونسبة التداولات" },
+    { pageLink: "list9B.html", pageName: "متوسط سعر التنفيذ" },
+    { pageLink: "list9C.html", pageName: "الأسعار قبل، بعد و خلال المخالفة" },
+    { pageLink: "list9D.html", pageName: "عدد الصفقات المتقابلة" },
+    { pageLink: "list9E.html", pageName: "نسبة الأسهم المتبقية/المدخلة" },
+    { pageLink: "list9F.html", pageName: "نسبة الأوامر الملغاة/المنفذة" },
+    {
+      pageLink: "list10.html",
+      pageName: "المعدل التراكمي لحجم وقيمة الشراء/البيع",
+    },
+    { pageLink: "list11.html", pageName: "أداء السهم بحركة المؤشر" },
+    { pageLink: "list8.html", pageName: "التشابه في الIP address</address>" },
+    { pageLink: "list3.html", pageName: "العلاقات بين المشتبه بيهم" },
+  ];
+
+  return `${links
+    .map((navLink) => {
+      return ` <li class="nav-item">
+          <a class="nav-link" href=${navLink.pageLink}>
+            ${navLink.pageName}
+          </a>
+        </li>`;
+    })
+    .join("")}`;
+};
+
 const nav = `<div class="container-fluid">
 
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -24,63 +63,11 @@ const nav = `<div class="container-fluid">
 </button>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item">
-      <a class="nav-link" href="list1A.html">تزامن المخالفات</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list1B.html">تزامن عمليات التداول</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list1C.html">نشاط التداول</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list2.html">نسبة الملكية</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list4.html">نسبة الأوامر</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list5.html">عدد الأوامر</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list6.html">قيمة المحفظة في اليوم</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list7.html">مجموع التداولات</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9A.html">إجمالي ونسبة التداولات</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9B.html">متوسط سعر التنفيذ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9C.html">الأسعار قبل، بعد و خلال المخالفة</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9D.html">عدد الصفقات المتقابلة</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9E.html">نسبة الأسهم المتبقية/المدخلة</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list9F.html">نسبة الأوامر الملغاة/المنفذة</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list10.html">المعدل التراكمي لحجم وقيمة الشراء/البيع</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list11.html">أداء السهم بحركة المؤشر</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list8.html">التشابه في الIP address</address></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="list3.html">العلاقات بين المشتبه بيهم</a>
-    </li>
+  ${NavLinks()}
   </ul>
 </div>
 </div>`;
+
 let listFiles = {
   list1A: list1A,
   list1B: list1B,
@@ -135,84 +122,77 @@ let noDataMsg = {
     "<h3>هذه القضية لا تحتوي على الإحصائيات الخاصة بأداء السهم بحركة المؤشر</h3>",
 };
 
-let lists = [
-  "list1A",
-  "list1B",
-  "list1C",
-  "list2",
-  "list3",
-  "list4",
-  "list5",
-  "list6",
-  "list7",
-  "list8",
-  "list9A",
-  "list9B",
-  "list9C",
-  "list9D",
-  "list9E",
-  "list9F",
-  "list10",
-  "list11",
-];
-
 import { getLanguage } from "./lang.js";
-import { tableStructure } from "./tablesStructure.js";
+import tableStructures from "./tableStructures.js";
 import { constructDataTable } from "./helperFunctions.js";
 import * as fetchData from "./jsonData.js";
 
-const startProgram = async () => {
-  const listName = location.pathname.split("/").pop().split(".")[0];
-
-  //generate navbar
+const generateNavbar = () => {
   const navbar = document.getElementById("navbar");
   navbar.innerHTML = nav;
-  const arrayOfNavLinks = document.getElementsByClassName("nav-link");
-  for (let i = 0; i < arrayOfNavLinks.length; i++) {
-    let link = arrayOfNavLinks[i];
-    if (link.href.includes(listName + ".html")) {
-      link.classList.add("active");
-      link["aria-current"] = "page";
-    }
+
+  // highlighting the current page link
+  let arrayOfNavLinks = Array.from(document.getElementsByClassName("nav-link"));
+
+  let activeLink = arrayOfNavLinks.find((link) => {
+    return link.href.includes(listName + ".html");
+  });
+
+  if (activeLink) {
+    activeLink.classList.add("active");
+    activeLink["aria-current"] = "page";
   }
+
+  // adding case number to links so when you click on any link it navigates with the case number
   $(".nav-link").each(function (i, el) {
     let $this = $(this); // only need to create the object once
     $this.attr({
       href: $this.attr("href") + window.location.search,
     });
   });
+};
+
+const startProgram = async () => {
+  generateNavbar();
+
   const lang = getLanguage();
-  const datatableData = await fetchData.getDatatableData();
-  const chartsData = await fetchData.getChartsData();
+  const fetchedDatatableData = await fetchData.getDatatableData();
+  const fetchedChartsData = await fetchData.getChartsData();
+  console.log("fetchedChartsData are ", fetchedChartsData);
 
   const template = document.createElement("div");
   template.classList.add("container");
 
-  let isListFound = !(lists.indexOf(listName) === -1);
-  if (isListFound) {
+  const listNames = Object.keys(listFiles);
+  let isPageListExist = listNames.find((list) => list == listName);
+
+  if (isPageListExist) {
     //column array which used to initialize the datatabl in jquery
-    let columnArray = constructDataTable(tableStructure()[listName]);
-    if (!datatableData[0][listName] && !chartsData[0][listName]) {
-      document.querySelector(".search-container")?document.querySelector(".search-container").style.display = "none":'';
+    const currentTableStructure = tableStructures[listName];
+    let columnArray = constructDataTable(currentTableStructure);
+    if (!fetchedDatatableData[0][listName] && !fetchedChartsData[0][listName]) {
+      document.querySelector(".search-container")
+        ? (document.querySelector(".search-container").style.display = "none")
+        : "";
       template.innerHTML = noDataMsg[listName];
       document.body.appendChild(template);
     } else if (listName === "list11") {
       listFiles[listName].startTable(
-        datatableData[0][listName],
+        fetchedDatatableData[0][listName],
         {
-          securities: chartsData[0].list11Securities,
-          sectors: chartsData[0].list11Sectors,
+          securities: fetchedChartsData[0].list11Securities,
+          sectors: fetchedChartsData[0].list11Sectors,
         },
         lang,
-        datatableData[0].NINs,
+        fetchedDatatableData[0].NINs,
         columnArray
       );
     } else {
       listFiles[listName].startTable(
-        datatableData[0][listName],
-        chartsData[0][listName],
+        fetchedDatatableData[0][listName],
+        fetchedChartsData[0][listName],
         lang,
-        datatableData[0].NINs,
+        fetchedDatatableData[0].NINs,
         columnArray
       );
     }

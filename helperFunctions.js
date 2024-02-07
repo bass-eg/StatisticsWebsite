@@ -57,7 +57,6 @@ export function constructDataTable(structure) {
 
   let columnsArray = [];
   let tableRows = document.getElementById("tableRows");
-  console.log(tableRows);
   tableRows.innerHTML = ``;
 
   const relationsAttr = [
