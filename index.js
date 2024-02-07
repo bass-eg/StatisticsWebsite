@@ -16,7 +16,71 @@ import * as list10 from "./list10.js";
 import * as list11 from "./list11.js";
 import * as list8 from "./list8.js";
 import * as list3 from "./list3.js";
+const nav = `<div class="container-fluid">
 
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link" href="list1A.html">تزامن المخالفات</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list1B.html">تزامن عمليات التداول</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list1C.html">نشاط التداول</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list2.html">نسبة الملكية</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list4.html">نسبة الأوامر</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list5.html">عدد الأوامر</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list6.html">قيمة المحفظة في اليوم</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list7.html">مجموع التداولات</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9A.html">إجمالي ونسبة التداولات</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9B.html">متوسط سعر التنفيذ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9C.html">الأسعار قبل، بعد و خلال المخالفة</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9D.html">عدد الصفقات المتقابلة</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9E.html">نسبة الأسهم المتبقية/المدخلة</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list9F.html">نسبة الأوامر الملغاة/المنفذة</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list10.html">المعدل التراكمي لحجم وقيمة الشراء/البيع</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list11.html">أداء السهم بحركة المؤشر</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list8.html">التشابه في الIP address</address></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="list3.html">العلاقات بين المشتبه بيهم</a>
+    </li>
+  </ul>
+</div>
+</div>`;
 let listFiles = {
   list1A: list1A,
   list1B: list1B,
@@ -97,8 +161,20 @@ import { tableStructure } from "./tablesStructure.js";
 import { constructDataTable } from "./helperFunctions.js";
 import * as fetchData from "./jsonData.js";
 
-
 const startProgram = async () => {
+  const listName = location.pathname.split("/").pop().split(".")[0];
+
+  //generate navbar
+  const navbar = document.getElementById("navbar");
+  navbar.innerHTML = nav;
+  const arrayOfNavLinks = document.getElementsByClassName("nav-link");
+  for (let i = 0; i < arrayOfNavLinks.length; i++) {
+    let link = arrayOfNavLinks[i];
+    if (link.href.includes(listName + ".html")) {
+      link.classList.add("active");
+      link["aria-current"] = "page";
+    }
+  }
   $(".nav-link").each(function (i, el) {
     let $this = $(this); // only need to create the object once
     $this.attr({
@@ -112,18 +188,12 @@ const startProgram = async () => {
   const template = document.createElement("div");
   template.classList.add("container");
 
-  const listName = location.pathname.split("/").pop().split(".")[0];
-
   let isListFound = !(lists.indexOf(listName) === -1);
   if (isListFound) {
-    console.log(listName)
-    console.log(tableStructure())
-    console.log(tableStructure()[listName])
     //column array which used to initialize the datatabl in jquery
     let columnArray = constructDataTable(tableStructure()[listName]);
-    console.log(columnArray);
     if (!datatableData[0][listName] && !chartsData[0][listName]) {
-      document.querySelector(".search-container").style.display = "none";
+      document.querySelector(".search-container")?document.querySelector(".search-container").style.display = "none":'';
       template.innerHTML = noDataMsg[listName];
       document.body.appendChild(template);
     } else if (listName === "list11") {
