@@ -23,7 +23,6 @@ function prepareDataForCharts(Objects) {
 }
 
 function drawCharts(Objects, selectedItems) {
-  console.log('Objects are ' ,Objects)
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
     selectedType = "scatter";
@@ -76,11 +75,7 @@ function updateCharts(chartsData) {
         justifyContent: "center",
         display: "flex",
       });
-      console.log(
-        "selectedCompanyObj[0].details are ",
-        selectedCompanyObj[0].details
-      );
-      console.log("selectChartItemsValue are ", selectChartItemsValue);
+  
 
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
     }

@@ -7,7 +7,6 @@ function drawCharts(
   endDate = null,
   selectedType = ""
 ) {
-  console.log("selectedType is ", selectedType);
   const arabicTranslation = getArabicTranslation();
 
   let date = [],
@@ -38,10 +37,8 @@ function drawCharts(
   }
 
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
-  console.log("selectedType is ", selectedType);
 
   Objects.map((ob) => {
     ob.map((inner) => {

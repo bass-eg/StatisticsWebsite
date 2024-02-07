@@ -64,14 +64,12 @@ function prepareDataForCharts(Objects) {
 function drawCharts(Objects, selectedItems) {
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
-    console.log(el);
-    console.log(chartObjects[el]);
+
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];

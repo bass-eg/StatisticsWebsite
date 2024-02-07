@@ -66,7 +66,6 @@ function drawCharts(Objects, selectedItems) {
     tempZ.push(chartsDataArrays[selectedItems[i]]);
     tempName.push(name1[selectedItems[i]])
   }
-  console.log(tempZ);
   let data1 = [];
   var colorscaleValue = [[0, "white"], [1, "#50C878"]];
   data1.push({

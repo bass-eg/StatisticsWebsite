@@ -18,7 +18,6 @@ function prepareDataForCharts(Objects) {
       }
     }
   });
-  console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
 function drawCharts(Objects, selectedItems) {
