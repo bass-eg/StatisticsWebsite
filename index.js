@@ -158,7 +158,6 @@ const startProgram = async () => {
   const lang = getLanguage();
   const fetchedDatatableData = await fetchData.getDatatableData();
   const fetchedChartsData = await fetchData.getChartsData();
-  console.log("fetchedChartsData are ", fetchedChartsData);
 
   const template = document.createElement("div");
   template.classList.add("container");

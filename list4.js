@@ -1,97 +1,77 @@
 import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
-
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-
-  let securityName = [],
-    nbOfBuyEnter_fullydisclosed = [],
-    nbOfSellEnter_fullydisclosed = [],
-    valueOfBuyEnter_partiallydiscolsed = [],
-    valueOfSellEnter_partiallydiscolsed = [],
-    valueOfBuyAmend_partiallydiscolsed = [],
-    valueOfSellAmend_partiallydiscolsed = [];
-  let name1 = [
-     arabicTranslation.nbOfBuyEnter_fullydisclosed,
-     arabicTranslation.nbOfSellEnter_fullydisclosed,
-  ];
-  let name2 = [
-     arabicTranslation.valueOfBuyEnter_partiallydiscolsed,
-     arabicTranslation.valueOfSellEnter_partiallydiscolsed,
-  ];
-  let name3 = [
-     arabicTranslation.valueOfBuyAmend_partiallydiscolsed,
-     arabicTranslation.valueOfSellAmend_partiallydiscolsed,
-  ];
+const arabicTranslation = getArabicTranslation();
+let securityNames = [];
+let chartsDataArrays = {};
+const listNumber = "4";
+function prepareDataForCharts(Objects) {
+  securityNames = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
-    securityName.push(el.securityName);
-    nbOfBuyEnter_fullydisclosed.push(el.nbOfBuyEnter_fullydisclosed);
-    nbOfSellEnter_fullydisclosed.push(el.nbOfSellEnter_fullydisclosed);
-    valueOfBuyEnter_partiallydiscolsed.push(el.valueOfBuyEnter_partiallydiscolsed);
-    valueOfSellEnter_partiallydiscolsed.push(el.valueOfSellEnter_partiallydiscolsed);
-    valueOfBuyAmend_partiallydiscolsed.push(el.valueOfBuyAmend_partiallydiscolsed);
-    valueOfSellAmend_partiallydiscolsed.push(el.valueOfSellAmend_partiallydiscolsed);
+    securityNames.push(el.securityName);
+    for (let key in el) {
+      if (key !== "date" && key !== "securityName") {
+        chartsDataArrays[key].push(el[key]);
+      }
+    }
   });
-  let data1 = [];
-  let data2 = [];
-  let data3 = [];
-  data1.push(
-    {
-      x: securityName,
-      y: nbOfBuyEnter_fullydisclosed,
-      name: name1[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyOrg}<br>`,
-    },
-    {
-      x: securityName,
-      y: nbOfSellEnter_fullydisclosed,
-      name: name1[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.nbOfSellEnter_fullydisclosed}<br>`,
-    }
-  );
-  data2.push(
-    {
-      x: securityName,
-      y: valueOfBuyEnter_partiallydiscolsed,
-      name: name2[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfBuyEnter_partiallydiscolsed}<br>`,
-    },
-    {
-      x: securityName,
-      y: valueOfSellEnter_partiallydiscolsed,
-      name: name2[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfSellEnter_partiallydiscolsed}<br>`,
-    }
-  );
-  data3.push(
-    {
-      x: securityName,
-      y: valueOfBuyAmend_partiallydiscolsed,
-      name: name3[0],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfBuyAmend_partiallydiscolsed}<br>`,
-    },
-    {
-      x: securityName,
-      y: valueOfSellAmend_partiallydiscolsed,
-      name: name3[1],
-      type: "bar",
-      hovertemplate: `${arabicTranslation[0].list2.securityName}: %{x}<br>%{y} :${ arabicTranslation.valueOfSellAmend_partiallydiscolsed}<br>`,
-    }
-  );
-  let layout = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+
+  selectedItems.map((obj) => {
+    selectedItemsObjects.push({
+      x: securityNames,
+      y: chartsDataArrays[obj],
+      name: arabicTranslation[obj],
+      type: selectedType,
+      hovertemplate: `${
+        arabicTranslation.securityName
+      }: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
+    });
+  });
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", selectedItemsObjects, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      securityName: null,
+    },
+  ];
+  if ($("#selectNin").val() && $("#selectChartItems").val()) {
+    let selectChartItemsValue = $("#selectChartItems").val();
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    if (selectChartItemsValue.length === 0 || selectChartItemsValue === null) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedNinObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -153,8 +133,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -166,28 +145,13 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "securityName",
+            "date",
+          ]);
         }
-        const emptyObj = [
-          {
-            securityName: null,
-            buyPercentageDiscolsed: null,
-            sellPercentageDiscolsed: null,
-          },
-        ];
-        let selectedNinObj;
-        $("#selectNin").on("change", function () {
-          if ($("#selectNin").val()) {
-            console.log(selectedNinObj);
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            if (selectedNinObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedNinObj[0].details);
-            }
-          }
+        $("#selectChartItems,#selectedType").on("change", function () {
+          updateCharts(chartsData);
         });
         var api = this.api();
 

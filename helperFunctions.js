@@ -1,4 +1,5 @@
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
 export function getMinMax(...arr) {
   const newArray = arr.flat().filter(Boolean);
@@ -53,8 +54,6 @@ export function fillNinDropdownList(ninData) {
 }
 
 export function constructDataTable(structure) {
-  const arabicTranslation = getArabicTranslation();
-
   let columnsArray = [];
   let tableRows = document.getElementById("tableRows");
   tableRows.innerHTML = ``;
@@ -94,9 +93,9 @@ export function constructDataTable(structure) {
         data: `` + key + ``,
         render: function (data, type, row, meta) {
           if (data != null) {
-            if(data){
+            if (data) {
               return "متطابق";
-            }else{
+            } else {
               return "غير متطابق";
             }
           } else {
@@ -118,3 +117,21 @@ export function constructDataTable(structure) {
 
   return columnsArray;
 }
+
+export const createChartSelectOptions = (
+  chartsData,
+  listNumber,
+  keysToIgnore
+) => {
+  for (let key in chartsData[0].details[0]) {
+    if (!keysToIgnore.includes(key)) {
+      var option = document.createElement("option");
+      option.value = key;
+      option.innerHTML = arabicTranslation[key];
+      selectChartItems.appendChild(option);
+    }
+  }
+  dselect(selectChartItems, {
+    search: true,
+  });
+};

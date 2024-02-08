@@ -1,80 +1,94 @@
 ﻿import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-
-  let date = [],
-  totalVolume = [],
-    fullyExecutedBuyOrderTotalValue = [],
-    partiallyExecutedBuyOrderTotalValue = [],
-    fullyExecutedSellOrderTotalValue = [],
-    partiallyExecutedSellOrderTotalValue = [];
-  let name1 = [
-     arabicTranslation.totalVolume,
-  ];
-  let name2 = [
-     arabicTranslation.fullyExecutedBuyOrderTotalValue,
-     arabicTranslation.partiallyExecutedBuyOrderTotalValue,
-     arabicTranslation.fullyExecutedSellOrderTotalValue,
-     arabicTranslation.partiallyExecutedSellOrderTotalValue,
-  ];
+let date = [];
+let chartsDataArrays = {};
+const listNumber = 5;
+function prepareDataForCharts(Objects) {
+  date = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
     date.push(el.date);
-    totalVolume.push(el.totalVolume);
-    fullyExecutedBuyOrderTotalValue.push(el.fullyExecutedBuyOrderTotalValue);
-    partiallyExecutedBuyOrderTotalValue.push(el.partiallyExecutedBuyOrderTotalValue);
-    fullyExecutedSellOrderTotalValue.push(el.fullyExecutedSellOrderTotalValue);
-    partiallyExecutedSellOrderTotalValue.push(el.partiallyExecutedSellOrderTotalValue);
-  });
-  let data1 = [],
-    data2 = [];
-  data1.push(
-    {
-      x: date,
-      y: totalVolume,
-      name: name1[0],
-      type: "bar",
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalVolume}<br>`,
-    },
-  );
-  data2.push(
-    {
-      x: date,
-      y: fullyExecutedBuyOrderTotalValue,
-      name: name2[0],
-      type: "bar",
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.fullyExecutedBuyOrderTotalValue}<br>`,
-    },
-    {
-      x: date,
-      y: partiallyExecutedBuyOrderTotalValue,
-      name: name2[1],
-      type: "bar",
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.partiallyExecutedBuyOrderTotalValue}<br>`,
-    },
-    {
-      x: date,
-      y: fullyExecutedSellOrderTotalValue,
-      name: name2[2],
-      type: "bar",
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.fullyExecutedSellOrderTotalValue}<br>`,
-    },
-    {
-      x: date,
-      y: partiallyExecutedSellOrderTotalValue,
-      name: name2[3],
-      type: "bar",
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.partiallyExecutedSellOrderTotalValue}<br>`,
+    for (let key in el) {
+      if (key !== "date") {
+        chartsDataArrays[key].push(el[key]);
+      }
     }
-  );
-  let layout = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
+  });
 }
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation.date
+      }<br>%{y} :${arabicTranslation[el]}<br>`,
+    });
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
+  if (
+    $("#selectCompany").val() &&
+    $("#selectNin").val() &&
+    $("#selectChartItems").val()
+  ) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedNinObj,
+      $("#selectCompany").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
+    ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -136,8 +150,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -149,38 +162,22 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "date",
+          ]);
         }
-        const emptyObj = [
-          {
-            date: null,
-            countOfPartiallyExecutedTrades: null,
-            countOfFullyExecutedTrades: null,
-          },
-        ];
-        let selectedCompanyObj;
-        let selectedNinObj;
-        $("#selectCompany").on("change", function () {
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
+
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
           }
-        });
+        );
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");
 
-            selectedNinObj = customFilter.filterByNin(
+            let selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
             );
@@ -193,17 +190,6 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             dselect(selectBoxElement, {
               search: true,
             });
-          }
-          if ($("#selectCompany").val() && $("#selectNin").val()) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
           }
         });
         var api = this.api();

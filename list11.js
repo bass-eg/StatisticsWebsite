@@ -1,132 +1,94 @@
 import * as customFilter from "./filters.js";
+import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
-function drawCharts(
-  Objects,
-  startDate = null,
-  endDate = null,
-  selectedType = ""
-) {
-  console.log("selectedType is ", selectedType);
-  const arabicTranslation = getArabicTranslation();
-
-  let date = [],
-    // securityClosingPrice = [],
-    // sectorClosingPrice = [],
-    // sectorHigh = [],
-    // sectorLow = []
-    closingPrice = [],
-    volumeTraded = [],
-    valueTraded = [],
-    numberOfTrades = [];
-  let data1 = [],
-    data2 = [],
-    data3 = [],
-    data4 = [];
-
-  startDate = startDate ? new Date(startDate) : null;
-  endDate = endDate ? new Date(endDate) : null;
-
-  if (startDate && isNaN(startDate.getTime())) {
-    console.error("Invalid startDate");
-    return;
+let date = [];
+let chartsDataArrays = {};
+const listNumber = "11";
+function prepareDataForCharts(Objects) {
+  date = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
   }
-
-  if (endDate && isNaN(endDate.getTime())) {
-    console.error("Invalid endDate");
-    return;
-  }
-
-  if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
-    selectedType = "scatter";
-  }
-  console.log("selectedType is ", selectedType);
-
-  Objects.map((ob) => {
-    ob.map((inner) => {
-      inner.details
-        .filter((a) => {
-          var date = new Date(a.date);
-          return (
-            (!startDate || date >= startDate) && (!endDate || date <= endDate)
-          );
-        })
-        .sort(
-          (objA, objB) =>
-            Number(new Date(objA.date)) - Number(new Date(objB.date))
-        )
-        .map((el) => {
-          date.push(el.date);
-          closingPrice.push(inner.securityCode ? el.securityClosingPrice : el.sectorClosingPrice);
-          volumeTraded.push(inner.securityCode ? el.securityVolumeTraded : el.sectorVolumeTraded);
-          valueTraded.push(inner.securityCode ? el.securityValueTraded : el.sectorValueTraded);
-          numberOfTrades.push(inner.securityCode ? el.securityNumberOfTrades : el.sectorNumberOfTrades);
-        });
-      data1.push({
-        x: date,
-        y: closingPrice,
-        name: inner.securityCode ?
-           arabicTranslation.ClosingPrice + " " + inner.securityName :
-           arabicTranslation.ClosingPrice + " " + inner.sector,
-        type: selectedType,
-        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
-           arabicTranslation.ClosingPrice + " " + inner.securityName :
-           arabicTranslation.ClosingPrice + " " + inner.sector
-          }<br>`,
-      });
-      data2.push({
-        x: date,
-        y: volumeTraded,
-        name: inner.securityCode ?
-           arabicTranslation.VolumeTraded + " " + inner.securityName :
-           arabicTranslation.VolumeTraded + " " + inner.sector,
-        type: selectedType,
-        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
-           arabicTranslation.VolumeTraded + " " + inner.securityName :
-           arabicTranslation.VolumeTraded + " " + inner.sector
-          }<br>`,
-      });
-      data3.push({
-        x: date,
-        y: valueTraded,
-        name: inner.securityCode ?
-           arabicTranslation.ValueTraded + " " + inner.securityName :
-           arabicTranslation.ValueTraded + " " + inner.sector,
-        type: selectedType,
-        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
-           arabicTranslation.ValueTraded + " " + inner.securityName :
-           arabicTranslation.ValueTraded + " " + inner.sector
-          }<br>`,
-      });
-      data4.push({
-        x: date,
-        y: numberOfTrades,
-        name: inner.securityCode ?
-           arabicTranslation.NumberOfTrades + " " + inner.securityName :
-           arabicTranslation.NumberOfTrades + " " + inner.sector,
-        type: selectedType,
-        hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${inner.securityCode ?
-           arabicTranslation.NumberOfTrades + " " + inner.securityName :
-           arabicTranslation.NumberOfTrades + " " + inner.sector
-          }<br>`,
-      });
-      date = [];
-      closingPrice = [];
-      volumeTraded = [];
-      valueTraded = [];
-      numberOfTrades = [];
-    });
+  Objects.map((el) => {
+    date.push(el.date);
+    for (let key in el) {
+      if (key !== "date") {
+        chartsDataArrays[key].push(el[key]);
+      }
+    }
   });
-  let layout1 = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout1, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout1, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout1, { responsive: true });
-  Plotly.newPlot("chart4", data4, layout1, { responsive: true });
 }
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[el],
+      type: selectedType,
+      hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
+    });
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function updateCharts(chartsData, startDate = null, endDate = null) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
+  if (
+    $("#selectSector").val() &&
+    $("#selectCompany").val() &&
+    $("#selectChartItems").val()
+  ) {
+    selectedCompanyObj = customFilter.filterBySecurityCode(
+      chartsData,
+      $("#selectCompany").val()
+    );
+
+    selectedSectors = customFilter.filterBySecurityCode(
+      chartsData,
+      $("#selectCompany").val()
+    );
+
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
+    ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -188,8 +150,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -228,24 +189,35 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
         dselect(selectCompanyElement, {
           search: true,
         });
-
-        if (chartsData.securities) {
-          chartsData.securities.forEach(function (item) {
-            let obj = {
-              name: item.securityName,
-              code: item.securityCode,
-            };
-            if (!allSecurities.includes(obj)) {
-              allSecurities.push(obj);
-            }
-          });
-        }
-        if (chartsData.sectors) {
-          chartsData.sectors.forEach(function (item) {
-            if (!allSectors.includes(item.sector)) {
-              allSectors.push(item.sector);
-            }
-          });
+        if (chartsData) {
+          if (chartsData.securities) {
+            helperFunctions.createChartSelectOptions(
+              [...chartsData.securities],
+              listNumber,
+              ["date"]
+            );
+            chartsData.securities.forEach(function (item) {
+              let obj = {
+                name: item.securityName,
+                code: item.securityCode,
+              };
+              if (!allSecurities.includes(obj)) {
+                allSecurities.push(obj);
+              }
+            });
+          }
+          if (chartsData.sectors) {
+            helperFunctions.createChartSelectOptions(
+              [...chartsData.sectors],
+              listNumber,
+              ["date"]
+            );
+            chartsData.sectors.forEach(function (item) {
+              if (!allSectors.includes(item.sector)) {
+                allSectors.push(item.sector);
+              }
+            });
+          }
         }
 
         if (allSecurities) {
@@ -266,60 +238,44 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
           });
         }
 
-        // $("#selectSector").on("change", function () {
-        //   selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
-
-        //   chartsData.forEach((item) => {
-        //     if (item.sector == $("#selectSector").val()) {
-        //       selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
-        //     }
-        //   });
-        //   if ($("#selectCompany").val()) {
-        //     $("#shape-selection").css({
-        //       display: "none",
-        //     });
-        //     drawCharts(emptyObj);
-        //   }
-        //   dselect(selectCompanyElement, {
-        //     search: true,
-        //   });
-        // });
-
         $(
-          "#selectSector,#selectedType,#selectCompany, #startDate, #endDate"
+          "#selectSector,#selectedType,#selectCompany, #startDate, #endDate ,#selectChartItems"
         ).on("change", function () {
           selectedCompanyObj = [];
-          if ($("#selectCompany").val()) {
-            let result = customFilter.filterByMultiSecurityCode(
-              chartsData.securities,
-              $("#selectCompany").val()
-            );
-            selectedCompanyObj.push(...result);
-          }
           if ($("#selectSector").val()) {
             let result = customFilter.filterByMultiSector(
               chartsData.sectors,
               $("#selectSector").val()
             );
-            selectedCompanyObj.push(...result);
+            if (result) {
+              console.log("result[0] is ", result[0]);
+              selectedCompanyObj.push(result[0]);
+            }
+            console.log("selectedCompanyObj is ", [...selectedCompanyObj]);
           }
+          if ($("#selectCompany").val()) {
+            let result = customFilter.filterByMultiSecurityCode(
+              chartsData.securities,
+              $("#selectCompany").val()
+              );
+              if (result) {
+              console.log("result[0] is ", result[0]);
+              selectedCompanyObj.push(result[0]);
+            }
+            console.log("selectedCompanyObj is ", [...selectedCompanyObj]);
+          }
+          // problem in selectedCompanyObj here
           if (selectedCompanyObj.length === 0) {
             $("#shape-selection").css({
               display: "none",
             });
-            drawCharts(emptyObj);
+            updateCharts(emptyObj);
           } else {
             $("#shape-selection").css({
               justifyContent: "center",
               display: "flex",
             });
-
-            drawCharts(
-              selectedCompanyObj,
-              $("#startDate").val(),
-              $("#endDate").val(),
-              $("#selectedType").val()
-            );
+            updateCharts(...selectedCompanyObj);
           }
         });
 

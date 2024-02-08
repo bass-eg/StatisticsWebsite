@@ -1,170 +1,100 @@
 import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  let date = [],
-    // buyVolume = [],
-    // secondViolatorBuyVolume = [],
-    // totalBuyVolume = [],
-    // percentageBuyVolume = [],
-    // percentageBuyVolumesecondV = [],
-    // sellVolume = [],
-    // secondViolatorSellVolume = [],
-    // totalSellVolume = [],
-    // percentageSellVolume = [],
-    // percentageSellVolumesecondV = [],
-    // buyValue = [],
-    // secondViolatorBuyValue = [],
-    // totalBuyValue = [],
-    // percentageBuyValue = [],
-    // percentageBuyValuesecondV = [],
-    // sellValue = [],
-    // secondViolatorSellValue = [],
-    // totalSellValue = [],
-    // percentageSellValue = [],
-    // percentageSellValuesecondV = [],
-
-
-    buyVolume= [],
-    buyValue=[],
-    sellVolume=[],
-    sellValue=[],
-    numoftrades_buy=[],
-    numoftrades_sell=[],
-    percentageamountbuy=[],
-    percentagevaluebuy=[],
-    percentageamountsell=[],
-    percentagevaluesell=[],
-    countMatching=[],
-    totalViolation=[],
-    percentage=[];
-
+let date = [];
+let chartsDataArrays = {};
+const listNumber = "1B";
+function prepareDataForCharts(Objects) {
+  date = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
-    date.push(new Date());
-    buyVolume.push(el.buyVolume);
-    buyValue.push(el.buyValue);
-    sellVolume.push(el.sellVolume);
-    sellValue.push(el.sellValue);
-    numoftrades_buy.push(el.numoftrades_buy);
-    numoftrades_sell.push(el.numoftrades_sell);
-    percentageamountbuy.push(el.percentageamountbuy);
-    percentagevaluebuy.push(el.percentagevaluebuy);
-    percentageamountsell.push(el.percentageamountsell);
-    percentagevaluesell.push(el.percentagevaluesell);
-    countMatching.push(el.countMatching);
-    totalViolation.push(el.totalViolation);
-    percentage.push(el.percentage);
-  });
-
-  // const colors = [
-  //   "#1f77b4", //blue
-  //   "#17becf", //aqua
-  //   "#ff7f0e", //orange
-  //   "#d62728", //red
-  //   "#228B22", //green
-  //   "#2F4F4F", //lawn-green
-  //   "#9467bd", //violet
-  //   "#e377c2", //pink
-  //   "#8c564b", //brown
-  //   "#7f7f7f", //grey
-  // ];
-  let data1 = [],
-    data2 = [],
-    data3 = [],
-    data4 = [];
-  data1.push(
-    {
-      x: [
-        "الشراء"
-      ],
-      y: buyVolume,
-      name:  arabicTranslation.buyVolume,
-      type: "bar",
-      customdata: percentageamountbuy,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyVolume}<br>%{customdata}% :${ arabicTranslation.percentageamountbuy}`,
-    },
-    {
-      x: [
-        "الشراء"
-      ],
-      y: buyValue,
-      name:  arabicTranslation.buyValue,
-      type: "bar",
-      customdata: percentagevaluebuy,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyValue}<br>%{customdata}% :${ arabicTranslation.percentagevaluebuy}`,
-    },
-  );
-
-  data2.push(
-    {
-      x: ["البيع"],
-      y: sellVolume,
-      name:  arabicTranslation.sellVolume,
-      type: "bar",
-      customdata: percentageamountsell,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellVolume}<br>%{customdata}% :${ arabicTranslation.percentageamountsell}`,
-    },
-    {
-      x: ["البيع"],
-      y: sellValue,
-      name:  arabicTranslation.sellValue,
-      type: "bar",
-      customdata: percentagevaluesell,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellValue}<br>%{customdata}% :${ arabicTranslation.percentagevaluesell}`,
-    },
-  );
-  data3.push(
-    {
-      x: ["الاوامر"],
-      y: numoftrades_buy,
-      name:  arabicTranslation.numoftrades_buy,
-      type: "bar",
-      // customdata: percentageBuyValue,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_buy}<br>`
-      // +`%{customdata}% :${ arabicTranslation.percentageBuyValue}`,
-    },
-    {
-      x: ["الاوامر"],
-      y: numoftrades_sell,
-      name:  arabicTranslation.numoftrades_sell,
-      type: "bar",
-      // customdata: percentageBuyValuesecondV,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_sell}<br>`
-      // +`%{customdata}% :${ arabicTranslation.percentageBuyValuesecondV}`,
+    date.push(el.date);
+    for (let key in el) {
+      if (key !== "date") {
+        chartsDataArrays[key].push(el[key]);
+      }
     }
-  );
-
-  data4.push(
-    {
-      x: ["المخالفات"],
-      y: countMatching,
-      name:  arabicTranslation.countMatching,
-      type: "bar",
-      // customdata: percentageSellValue,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.countMatching}<br>`
-      // +`%{customdata}% :${ arabicTranslation.percentageSellValue}`,
-    },
-    {
-      x: ["المخالفات"],
-      y: totalViolation,
-      name:  arabicTranslation.totalViolation,
-      type: "bar",
-      // customdata: percentageSellValuesecondV,
-      hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalViolation}<br>`
-      // +`%{customdata}% :${ arabicTranslation.percentageSellValuesecondV}`,
-    },
-  );
-  let layout = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout, { responsive: true });
-  Plotly.newPlot("chart3", data3, layout, { responsive: true });
-  Plotly.newPlot("chart4", data4, layout, { responsive: true });
+  });
 }
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation.date
+      }<br>%{y} :${arabicTranslation[el]}<br>`,
+    });
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
+  if (
+    $("#selectCompany").val() &&
+    $("#selectNin").val() &&
+    $("#selectChartItems").val()
+  ) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    let selectedSecondNinObj = customFilter.filterBySecondNin(
+      selectedNinObj,
+      $("#selectNin2").val()
+    );
+    selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedSecondNinObj,
+      $("#selectCompany").val()
+    );
+
+    let selectChartItemsValue = $("#selectChartItems").val();
+
+    if (
+      selectedCompanyObj.length === 0 ||
+      selectChartItemsValue.length === 0 ||
+      selectChartItemsValue === null
+    ) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -226,8 +156,10 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
+      columns: columnArray,
+  
       orderCellsTop: true,
+
       language: lang,
       rowReorder: {
         selector: "td:nth-child(2)",
@@ -237,6 +169,9 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+           helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+             "date",
+           ]);
         }
         const emptyObj = [
           {
@@ -253,31 +188,12 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
         let selectedNinObj;
         let selectedSecondNinObj;
 
-        $("#selectCompany").on("change", function () {
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectNin2").val()
-          ) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-            selectedSecondNinObj = customFilter.filterBySecondNin(
-              selectedNinObj,
-              $("#selectNin2").val()
-            );
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedSecondNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
           }
-        });
+        );
 
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
@@ -355,22 +271,6 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             dselect(selectBoxElement, {
               search: true,
             });
-          }
-
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectNin2").val()
-          ) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedSecondNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
           }
         });
 

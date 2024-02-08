@@ -5,12 +5,10 @@ const arabicTranslation = getArabicTranslation();
 
 let date = [];
 let chartsDataArrays = {};
-let name1 = [];
-let chartObjects = {};
-
+const listNumber = "7";
 function prepareDataForCharts(Objects) {
   date = [];
-  for (let key in Objects) {
+  for (let key in Objects[0]) {
     chartsDataArrays[key] = [];
   }
   Objects.map((el) => {
@@ -26,19 +24,21 @@ function prepareDataForCharts(Objects) {
 function drawCharts(Objects, selectedItems) {
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
-    let temp = chartObjects[el];
-    temp.x = date;
-    temp.y = chartsDataArrays[el];
-    temp.type = selectedType;
-    selectedItemsObjects.push(temp);
+    selectedItemsObjects.push({
+      x: date,
+      y: chartsDataArrays[el],
+      name: arabicTranslation[el],
+      type: selectedType,
+      hovertemplate: `%{x} :${
+        arabicTranslation.date
+      }<br>%{y} :${arabicTranslation[el]}<br>`,
+    });
   });
-  console.log(selectedItemsObjects);
   let data1 = [];
   data1.push(...selectedItemsObjects);
   let layout = { barmode: "group", showlegend: true };
@@ -46,6 +46,14 @@ function drawCharts(Objects, selectedItems) {
 }
 
 function updateCharts(chartsData) {
+  const emptyObj = [
+    {
+      date: null,
+      totalValue: null,
+      beforeTotalValue: null,
+      afterTotalValue: null,
+    },
+  ];
   if (
     $("#selectCompany").val() &&
     $("#selectNin").val() &&
@@ -55,6 +63,7 @@ function updateCharts(chartsData) {
       chartsData,
       $("#selectNin").val()
     );
+
     let selectedCompanyObj = customFilter.filterBySecurityCode(
       selectedNinObj,
       $("#selectCompany").val()
@@ -80,7 +89,10 @@ function updateCharts(chartsData) {
   }
 }
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
+  let columnsArray =
+    helperFunctions.generateColumnsArrayWithPercentageFormatting(tableData);
+
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -154,37 +166,11 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
-          for (let key in chartsData[0].details[0]) {
-            if (key !== "date") {
-              name1.push( arabicTranslation[key]);
-              chartsDataArrays[key] = [];
-              chartObjects[key] = {
-                x: [],
-                y: [],
-                name:  arabicTranslation[key],
-                type: "bar",
-                hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation[key]}<br>`,
-              };
-              var option = document.createElement("option");
-              option.value = key;
-              option.innerHTML =  arabicTranslation[key];
-              selectChartItems.appendChild(option);
-            }
-          }
-          var selectBoxElement = document.querySelector("#selectChartItems");
-          dselect(selectBoxElement, {
-            search: true,
-          });
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "date",
+          ]);
         }
 
-        const emptyObj = [
-          {
-            date: null,
-            totalValue: null,
-            beforeTotalValue: null,
-            afterTotalValue: null,
-          },
-        ];
         $("#selectCompany,#selectChartItems,#selectedType").on(
           "change",
           function () {

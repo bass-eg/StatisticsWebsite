@@ -1,311 +1,74 @@
 import * as customFilter from "./filters.js";
 import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
+const arabicTranslation = getArabicTranslation();
 
-function drawCharts(Objects) {
-  const arabicTranslation = getArabicTranslation();
-  // nbOfDeletedTrades: "عدد الأوامر الملغاة",
-  // nbOfExecutedTrades: "عدد الأوامر المنفذة",
-  // total: "الاجمالي", // need to be camel case
-  // percentageOfDeletedTrades: "نسبة الأوامر الملغاة",
-  // percentageOfExecutedTrades: "نسبة الأوامر المنفذة",
-  let securityName = [],
-    date = [],
-    buyBeforeCountTrades = [],
-    buyBeforeCountDelete = [],
-    buyBeforePercentage = [],
-    buyDuringCountTrades = [],
-    buyDuringCountDelete = [],
-    buyDuringPercentage = [],
-    buyAfterCountTrades = [],
-    buyAfterCountDelete = [],
-    buyAfterPercentage = [],
-    sellBeforeCountTrades = [],
-    sellBeforeCountDelete = [],
-    sellBeforePercentage = [],
-    sellDuringCountTrades = [],
-    sellDuringCountDelete = [],
-    sellDuringPercentage = [],
-    sellAfterCountTrades = [],
-    sellAfterCountDelete = [],
-    sellAfterPercentage = [];
-  let name1 = [
-     arabicTranslation.nbOfDeletedTrades,
-     arabicTranslation.nbOfExecutedTrades,
-     arabicTranslation.percentageOfDeletedTrades,
-     arabicTranslation.percentageOfExecutedTrades,
-     arabicTranslation.buyBeforeCountTrades,
-     arabicTranslation.buyBeforeCountDelete,
-     arabicTranslation.buyBeforePercentage,
-     arabicTranslation.buyDuringCountTrades,
-     arabicTranslation.buyDuringCountDelete,
-     arabicTranslation.buyDuringPercentage,
-     arabicTranslation.buyAfterCountTrades,
-     arabicTranslation.buyAfterCountDelete,
-     arabicTranslation.buyAfterPercentage,
-     arabicTranslation.sellBeforeCountTrades,
-     arabicTranslation.sellBeforeCountDelete,
-     arabicTranslation.sellBeforePercentage,
-     arabicTranslation.sellDuringCountTrades,
-     arabicTranslation.sellDuringCountDelete,
-     arabicTranslation.sellDuringPercentage,
-     arabicTranslation.sellAfterCountTrades,
-     arabicTranslation.sellAfterCountDelete,
-     arabicTranslation.sellAfterPercentage,
-  ];
-  let name2 = [
-     arabicTranslation.total,
-  ];
+let securityNames = [];
+let chartsDataArrays = {};
+const listNumber = "9F";
+
+function prepareDataForCharts(Objects) {
+  securityNames = [];
+  for (let key in Objects[0]) {
+    chartsDataArrays[key] = [];
+  }
   Objects.map((el) => {
-    securityName.push(el.securityName);
-    date.push(el.date);
-    buyBeforeCountTrades.push(el.buyBeforeCountTrades);
-    buyBeforeCountDelete.push(el.buyBeforeCountDelete);
-    buyBeforePercentage.push(el.buyBeforePercentage);
-    buyDuringCountTrades.push(el.buyDuringCountTrades);
-    buyDuringCountDelete.push(el.buyDuringCountDelete);
-    buyDuringPercentage.push(el.buyDuringPercentage);
-    buyAfterCountTrades.push(el.buyAfterCountTrades);
-    buyAfterCountDelete.push(el.buyAfterCountDelete);
-    buyAfterPercentage.push(el.buyAfterPercentage);
-    sellBeforeCountTrades.push(el.sellBeforeCountTrades);
-    sellBeforeCountDelete.push(el.sellBeforeCountDelete);
-    sellBeforePercentage.push(el.sellBeforePercentage);
-    sellDuringCountTrades.push(el.sellDuringCountTrades);
-    sellDuringCountDelete.push(el.sellDuringCountDelete);
-    sellDuringPercentage.push(el.sellDuringPercentage);
-    sellAfterCountTrades.push(el.sellAfterCountTrades);
-    sellAfterCountDelete.push(el.sellAfterCountDelete);
-    sellAfterPercentage.push(el.sellAfterPercentage);
+    securityNames.push(el.securityName);
+    for (let key in el) {
+      if (key !== "date" && key !== "securityName") {
+        chartsDataArrays[key].push(el[key]);
+      }
+    }
   });
-  let data1 = [],
-    data2 = [];
-  data1.push(
-    {
-      x: securityName,
-      y: buyBeforeCountTrades,
-      name: name1[0],
-      type: "bar",
-      customdata: buyBeforePercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
-    },
-    {
-      x: securityName,
-      y: buyBeforeCountDelete,
-      name: name1[1],
-      type: "bar",
-      customdata: buyBeforePercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
-    },
-    {
-      x: securityName,
-      y: buyDuringCountTrades,
-      name: name1[2],
-      type: "bar",
-      customdata: buyDuringPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
-    },
-    {
-      x: securityName,
-      y: buyDuringCountDelete,
-      name: name1[3],
-      type: "bar",
-      customdata: buyDuringPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
-    },
-    {
-      x: securityName,
-      y: buyAfterCountTrades,
-      name: name1[4],
-      type: "bar",
-      customdata: buyAfterPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
-    },
-    {
-      x: securityName,
-      y: buyAfterCountDelete,
-      name: name1[5],
-      type: "bar",
-      customdata: buyAfterPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellBeforeCountTrades,
-      name: name1[6],
-      type: "bar",
-      customdata: sellBeforePercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellBeforeCountDelete,
-      name: name1[7],
-      type: "bar",
-      customdata: sellBeforePercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellDuringCountTrades,
-      name: name1[8],
-      type: "bar",
-      customdata: sellDuringPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellDuringCountDelete,
-      name: name1[9],
-      type: "bar",
-      customdata: sellDuringPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellAfterCountTrades,
-      name: name1[10],
-      type: "bar",
-      customdata: sellAfterPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
-    },
-    {
-      x: securityName,
-      y: sellAfterCountDelete,
-      name: name1[11],
-      type: "bar",
-      customdata: sellAfterPercentage,
-      hovertemplate: `${ arabicTranslation.securityName}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
-    },
-  );
-  data2.push(
-    {
-      x: date,
-      y: buyBeforeCountTrades,
-      name: name1[0],
-      type: "bar",
-      customdata: buyBeforePercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
-    },
-    {
-      x: date,
-      y: buyBeforeCountDelete,
-      name: name1[1],
-      type: "bar",
-      customdata: buyBeforePercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyBeforeCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyBeforePercentage}`,
-    },
-    {
-      x: date,
-      y: buyDuringCountTrades,
-      name: name1[2],
-      type: "bar",
-      customdata: buyDuringPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
-    },
-    {
-      x: date,
-      y: buyDuringCountDelete,
-      name: name1[3],
-      type: "bar",
-      customdata: buyDuringPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyDuringCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyDuringPercentage}`,
-    },
-    {
-      x: date,
-      y: buyAfterCountTrades,
-      name: name1[4],
-      type: "bar",
-      customdata: buyAfterPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
-    },
-    {
-      x: date,
-      y: buyAfterCountDelete,
-      name: name1[5],
-      type: "bar",
-      customdata: buyAfterPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.buyAfterCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.buyAfterPercentage}`,
-    },
-    {
-      x: date,
-      y: sellBeforeCountTrades,
-      name: name1[6],
-      type: "bar",
-      customdata: sellBeforePercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
-    },
-    {
-      x: date,
-      y: sellBeforeCountDelete,
-      name: name1[7],
-      type: "bar",
-      customdata: sellBeforePercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellBeforeCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellBeforePercentage}`,
-    },
-    {
-      x: date,
-      y: sellDuringCountTrades,
-      name: name1[8],
-      type: "bar",
-      customdata: sellDuringPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
-    },
-    {
-      x: date,
-      y: sellDuringCountDelete,
-      name: name1[9],
-      type: "bar",
-      customdata: sellDuringPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellDuringCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellDuringPercentage}`,
-    },
-    {
-      x: date,
-      y: sellAfterCountTrades,
-      name: name1[10],
-      type: "bar",
-      customdata: sellAfterPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountTrades}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
-    },
-    {
-      x: date,
-      y: sellAfterCountDelete,
-      name: name1[11],
-      type: "bar",
-      customdata: sellAfterPercentage,
-      hovertemplate: `${ arabicTranslation.date}: %{x}<br>%{y} :${ arabicTranslation.sellAfterCountDelete}<br>`
-      +`%{customdata}% :${ arabicTranslation.sellAfterPercentage}`,
-    },
-  );
-  let layout1 = { barmode: "group", showlegend: true };
-
-  Plotly.newPlot("chart1", data1, layout1, { responsive: true });
-  Plotly.newPlot("chart2", data2, layout1, { responsive: true });
 }
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+
+  selectedItems.map((obj) => {
+    selectedItemsObjects.push({
+      x: securityNames,
+      y: chartsDataArrays[obj],
+      name: arabicTranslation[obj],
+      type: selectedType,
+      hovertemplate: `${
+        arabicTranslation.securityName
+      }: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
+    });
+  });
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", selectedItemsObjects, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [{}];
+  if ($("#selectNin").val() && $("#selectChartItems").val()) {
+    let selectChartItemsValue = $("#selectChartItems").val();
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+
+    if (selectChartItemsValue.length === 0 || selectChartItemsValue === null) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      drawCharts(selectedNinObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -367,8 +130,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -380,35 +142,13 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "securityName",
+            "date",
+          ]);
         }
-        const emptyObj = [
-          {
-            date: null,
-            countOfMatchingDays: null,
-            nbOfDeletedTrades: null,
-            nbOfExecutedTrades: null,
-            totalSellVolume: null,
-            totalSellValue: null,
-            avgBuyVolume: null,
-            avgBuyValue: null,
-            avgSellVolume: null,
-            avgSellValue: null,
-          },
-        ];
-        let selectedNinObj;
-        $("#selectNin").on("change", function () {
-          if ($("#selectNin").val()) {
-            selectedNinObj = customFilter.filterByNin(
-              chartsData,
-              $("#selectNin").val()
-            );
-
-            if (selectedNinObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedNinObj[0].details);
-            }
-          }
+        $("#selectChartItems,#selectedType").on("change", function () {
+          updateCharts(chartsData);
         });
         var api = this.api();
 

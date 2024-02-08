@@ -15,14 +15,14 @@ let chartsDataArrays = {
   avgSell: [],
 };
 let name1 = [
-   arabicTranslation.buyVolume,
-   arabicTranslation.sellVolume,
-   arabicTranslation.buyValue,
-   arabicTranslation.sellValue,
-   arabicTranslation.numoftrades_buy,
-   arabicTranslation.numoftrades_sell,
-   arabicTranslation.avgBuy,
-   arabicTranslation.avgSell,
+  arabicTranslation.buyVolume,
+  arabicTranslation.sellVolume,
+  arabicTranslation.buyValue,
+  arabicTranslation.sellValue,
+  arabicTranslation.numoftrades_buy,
+  arabicTranslation.numoftrades_sell,
+  arabicTranslation.avgBuy,
+  arabicTranslation.avgSell,
 ];
 let chartObjects = {
   buyVolume: {
@@ -30,56 +30,56 @@ let chartObjects = {
     y: [],
     name: name1[0],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyVolume}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.buyVolume}<br>`,
   },
   sellVolume: {
     x: date,
     y: [],
     name: name1[1],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellVolume}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.sellVolume}<br>`,
   },
   buyValue: {
     x: date,
     y: [],
     name: name1[2],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.buyValue}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.buyValue}<br>`,
   },
   sellValue: {
     x: date,
     y: [],
     name: name1[3],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.sellValue}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.sellValue}<br>`,
   },
   numoftrades_buy: {
     x: date,
     y: [],
     name: name1[4],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_buy}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.numoftrades_buy}<br>`,
   },
   numoftrades_sell: {
     x: date,
     y: [],
     name: name1[5],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.numoftrades_sell}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.numoftrades_sell}<br>`,
   },
   avgBuy: {
     x: date,
     y: [],
     name: name1[6],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.avgBuy}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.avgBuy}<br>`,
   },
   avgSell: {
     x: date,
     y: [],
     name: name1[7],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.avgSell}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.avgSell}<br>`,
   },
 };
 
@@ -108,7 +108,6 @@ function prepareDataForCharts(Objects) {
 function drawCharts(Objects, selectedItems) {
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
@@ -139,6 +138,7 @@ function drawCharts(Objects, selectedItems) {
 }
 
 function updateCharts(chartsData) {
+  const emptyObj = [{}];
   if ($("#selectCompany").val() && $("#selectNin").val()) {
     let selectedNinObj = customFilter.filterByNin(
       chartsData,
@@ -164,7 +164,7 @@ function updateCharts(chartsData) {
     }
   }
 }
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -226,8 +226,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -243,7 +242,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             if (key !== "date") {
               var option = document.createElement("option");
               option.value = key;
-              option.innerHTML =  arabicTranslation[key];
+              option.innerHTML = arabicTranslation[key];
               selectChartItems.appendChild(option);
             }
           }
@@ -265,9 +264,12 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             cumulativeAvgSellValue: null,
           },
         ];
-        $("#selectCompany,#selectedType,#selectChartItems").on("change", function () {
-          updateCharts(chartsData);
-        });
+        $("#selectCompany,#selectedType,#selectChartItems").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
+          }
+        );
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");

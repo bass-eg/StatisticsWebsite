@@ -9,12 +9,12 @@ let chartsDataArrays = {
   balanceValue: [],
   percentageOwnership: [],
   totalBalanceByDay: [],
-}
+};
 let name1 = [
-   arabicTranslation.balance,
-   arabicTranslation.balanceValue,
-   arabicTranslation.percentageOwnership,
-   arabicTranslation.totalBalanceByDay,
+  arabicTranslation.balance,
+  arabicTranslation.balanceValue,
+  arabicTranslation.percentageOwnership,
+  arabicTranslation.totalBalanceByDay,
 ];
 let chartObjects = {
   balance: {
@@ -22,30 +22,30 @@ let chartObjects = {
     y: [],
     name: name1[0],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.balance}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.balance}<br>`,
   },
   balanceValue: {
     x: date,
     y: [],
     name: name1[1],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.balanceValue}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.balanceValue}<br>`,
   },
   percentageOwnership: {
     x: date,
     y: [],
     name: name1[2],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.percentageOwnership}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.percentageOwnership}<br>`,
   },
   totalBalanceByDay: {
     x: date,
     y: [],
     name: name1[3],
     type: "bar",
-    hovertemplate: `%{x} :${ arabicTranslation.date}<br>%{y} :${ arabicTranslation.totalBalanceByDay}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.totalBalanceByDay}<br>`,
   },
-}
+};
 
 function prepareDataForCharts(Objects) {
   date = [];
@@ -64,14 +64,11 @@ function prepareDataForCharts(Objects) {
 function drawCharts(Objects, selectedItems) {
   let selectedType = $("#selectedType").val();
   if (selectedType != "scatter" && selectedType != "bar") {
-    console.log("inside selectedType = ''");
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
-    console.log(el);
-    console.log(chartObjects[el]);
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];
@@ -133,7 +130,7 @@ function updateCharts(chartsData) {
   }
 }
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -195,8 +192,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -212,7 +208,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             if (key !== "date") {
               var option = document.createElement("option");
               option.value = key;
-              option.innerHTML =  arabicTranslation[key];
+              option.innerHTML = arabicTranslation[key];
               selectChartItems.appendChild(option);
             }
           }
@@ -228,9 +224,12 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
             totalValue: null,
           },
         ];
-        $("#selectCompany,#selectChartItems,#selectedType").on("change", function () {
-          updateCharts(chartsData);
-        });
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
+          }
+        );
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
             let selectCompanyElement = document.getElementById("selectCompany");

@@ -15,45 +15,57 @@ let chartsDataArrays = {
   phone_calls: [],
   verification_number: [],
   wallet_opening_date: [],
-  other: []
-}
+  other: [],
+};
 let name1 = {
-  family_relation:  arabicTranslation.family_relation,
-  address_relation:  arabicTranslation.address_relation,
-  job_relation:  arabicTranslation.job_relation,
-  wallets_relation:  arabicTranslation.wallets_relation,
-  ip_matching:  arabicTranslation.ip_matching,
-  bank_statement:  arabicTranslation.bank_statement,
-  agency_relation:  arabicTranslation.agency_relation,
-  phone_calls:  arabicTranslation.phone_calls,
-  verification_number:  arabicTranslation.verification_number,
-  wallet_opening_date:  arabicTranslation.wallet_opening_date,
-  other:  arabicTranslation.other,
+  family_relation: arabicTranslation.family_relation,
+  address_relation: arabicTranslation.address_relation,
+  job_relation: arabicTranslation.job_relation,
+  wallets_relation: arabicTranslation.wallets_relation,
+  ip_matching: arabicTranslation.ip_matching,
+  bank_statement: arabicTranslation.bank_statement,
+  agency_relation: arabicTranslation.agency_relation,
+  phone_calls: arabicTranslation.phone_calls,
+  verification_number: arabicTranslation.verification_number,
+  wallet_opening_date: arabicTranslation.wallet_opening_date,
+  other: arabicTranslation.other,
 };
 function prepareDataForCharts(Objects) {
-  chartsDataArrays.securityName = [],
-    chartsDataArrays.family_relation = [],
-    chartsDataArrays.address_relation = [],
-    chartsDataArrays.job_relation = [],
-    chartsDataArrays.wallets_relation = [],
-    chartsDataArrays.ip_matching = [],
-    chartsDataArrays.bank_statement = [],
-    chartsDataArrays.agency_relation = [],
-    chartsDataArrays.phone_calls = [],
-    chartsDataArrays.verification_number = [],
-    chartsDataArrays.wallet_opening_date = [],
-    chartsDataArrays.other = [];
+  (chartsDataArrays.securityName = []),
+    (chartsDataArrays.family_relation = []),
+    (chartsDataArrays.address_relation = []),
+    (chartsDataArrays.job_relation = []),
+    (chartsDataArrays.wallets_relation = []),
+    (chartsDataArrays.ip_matching = []),
+    (chartsDataArrays.bank_statement = []),
+    (chartsDataArrays.agency_relation = []),
+    (chartsDataArrays.phone_calls = []),
+    (chartsDataArrays.verification_number = []),
+    (chartsDataArrays.wallet_opening_date = []),
+    (chartsDataArrays.other = []);
   Objects.map((el) => {
-    chartsDataArrays.family_relation.push(el.details[0].family_relation ? 1 : 0);
-    chartsDataArrays.address_relation.push(el.details[0].address_relation ? 1 : 0);
+    chartsDataArrays.family_relation.push(
+      el.details[0].family_relation ? 1 : 0
+    );
+    chartsDataArrays.address_relation.push(
+      el.details[0].address_relation ? 1 : 0
+    );
     chartsDataArrays.job_relation.push(el.details[0].job_relation ? 1 : 0);
-    chartsDataArrays.wallets_relation.push(el.details[0].wallets_relation ? 1 : 0);
+    chartsDataArrays.wallets_relation.push(
+      el.details[0].wallets_relation ? 1 : 0
+    );
     chartsDataArrays.ip_matching.push(el.details[0].ip_matching ? 1 : 0);
     chartsDataArrays.bank_statement.push(el.details[0].bank_statement ? 1 : 0);
-    chartsDataArrays.agency_relation.push(el.details[0].agency_relation ? 1 : 0);
+    chartsDataArrays.agency_relation.push(
+      el.details[0].agency_relation ? 1 : 0
+    );
     chartsDataArrays.phone_calls.push(el.details[0].phone_calls ? 1 : 0);
-    chartsDataArrays.verification_number.push(el.details[0].verification_number ? 1 : 0);
-    chartsDataArrays.wallet_opening_date.push(el.details[0].wallet_opening_date ? 1 : 0);
+    chartsDataArrays.verification_number.push(
+      el.details[0].verification_number ? 1 : 0
+    );
+    chartsDataArrays.wallet_opening_date.push(
+      el.details[0].wallet_opening_date ? 1 : 0
+    );
     chartsDataArrays.other.push(el.details[0].other ? 1 : 0);
     chartsDataArrays.securityName.push(el.otherNinName);
   });
@@ -64,16 +76,18 @@ function drawCharts(Objects, selectedItems) {
   let tempName = [];
   for (let i = 0; i < selectedItems.length; i++) {
     tempZ.push(chartsDataArrays[selectedItems[i]]);
-    tempName.push(name1[selectedItems[i]])
+    tempName.push(name1[selectedItems[i]]);
   }
-  console.log(tempZ);
   let data1 = [];
-  var colorscaleValue = [[0, "white"], [1, "#50C878"]];
+  var colorscaleValue = [
+    [0, "white"],
+    [1, "#50C878"],
+  ];
   data1.push({
     z: tempZ,
     x: chartsDataArrays.securityName,
     y: tempName,
-    zmin: 0,  // Set the minimum value for the color scale
+    zmin: 0, // Set the minimum value for the color scale
     zmax: 1,
     type: "heatmap",
     colorscale: colorscaleValue,
@@ -98,9 +112,9 @@ function updateCharts(chartsData) {
       drawCharts(selectedNinObj, selectChartItemsValue);
     }
   }
-};
+}
 
-export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {
@@ -162,8 +176,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
       ],
       snapshot: null,
       data: tableData,
-      columns: columnsArray,
-
+      columns: columnArray,
       orderCellsTop: true,
 
       language: lang,
@@ -178,27 +191,27 @@ export function startTable(tableData, chartsData, lang, ninData, columnsArray) {
           // for (let key in chartsData[0].details[0]) {
           //   var option = document.createElement("option");
           //   option.value = key;
-          //   option.innerHTML =  arabicTranslation[key];
+          //   option.innerHTML = arabicTranslation[key];
           //   selectChartItems.appendChild(option);
           // }
           var option = document.createElement("option");
           option.value = "family_relation";
-          option.innerHTML =  arabicTranslation["family_relation"];
+          option.innerHTML = arabicTranslation["family_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "address_relation";
-          option.innerHTML =  arabicTranslation["address_relation"];
+          option.innerHTML = arabicTranslation["address_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "job_relation";
-          option.innerHTML =  arabicTranslation["job_relation"];
+          option.innerHTML = arabicTranslation["job_relation"];
           selectChartItems.appendChild(option);
 
           option = document.createElement("option");
           option.value = "wallets_relation";
-          option.innerHTML =  arabicTranslation["wallets_relation"];
+          option.innerHTML = arabicTranslation["wallets_relation"];
           selectChartItems.appendChild(option);
 
           var selectBoxElement = document.querySelector("#selectChartItems");
