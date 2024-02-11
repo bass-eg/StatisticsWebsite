@@ -11,64 +11,89 @@ function prepareDataForCharts(Objects) {
   for (let key in Objects[0]) {
     chartsDataArrays[key] = [];
   }
+  let startDate = $("#startDate").val();
+  let endDate = $("#endDate").val();
   Objects.map((el) => {
-    date.push(el.date);
-    for (let key in el) {
-      if (key !== "date") {
-        chartsDataArrays[key].push(el[key]);
+    console.log("el is ", el);
+    el.map((inner) => {
+      console.log("inner is ", inner);
+      inner.details
+        .filter((a) => {
+          var date = new Date(a.date);
+          return (
+            (!startDate || date >= startDate) && (!endDate || date <= endDate)
+          );
+        })
+        .sort(
+          (objA, objB) =>
+            Number(new Date(objA.date)) - Number(new Date(objB.date))
+        );
+
+      date.push(inner.date);
+      for (let key in inner) {
+        if (key !== "date") {
+          chartsDataArrays[key].push(inner[key]);
+        }
       }
-    }
+    });
   });
+  console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
 function drawCharts(Objects, selectedItems) {
-  let selectedType = $("#selectedType").val();
-  if (selectedType != "scatter" && selectedType != "bar") {
-    selectedType = "scatter";
-  }
-  prepareDataForCharts(Objects);
-  let selectedItemsObjects = [];
-  selectedItems.map((el) => {
-    selectedItemsObjects.push({
-      x: date,
-      y: chartsDataArrays[el],
-      name: arabicTranslation[el],
-      type: selectedType,
-      hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
+  console.log("Objects are ", Objects);
+  if (Object.keys(Objects).length !== 1) {
+    let selectedType = $("#selectedType").val();
+    if (selectedType != "scatter" && selectedType != "bar") {
+      selectedType = "scatter";
+    }
+    prepareDataForCharts(Objects);
+    let selectedItemsObjects = [];
+    selectedItems.map((el) => {
+      selectedItemsObjects.push({
+        x: date,
+        y: chartsDataArrays[el],
+        name: arabicTranslation[el],
+        type: selectedType,
+        hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
+      });
     });
-  });
-  let data1 = [];
-  data1.push(...selectedItemsObjects);
-  let layout = { barmode: "group", showlegend: true };
-  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+    let data1 = [];
+    data1.push(...selectedItemsObjects);
+    let layout = { barmode: "group", showlegend: true };
+    Plotly.newPlot("chart1", data1, layout, { responsive: true });
+  }
 }
 
-function updateCharts(chartsData, startDate = null, endDate = null) {
-  const emptyObj = [
-    {
-      date: null,
-      totalValue: null,
-      beforeTotalValue: null,
-      afterTotalValue: null,
-    },
-  ];
+function updateCharts(chartsData) {
+  const emptyObj = [{}];
+
+  let selectedCompanyObj = [];
+
   if (
     $("#selectSector").val() &&
     $("#selectCompany").val() &&
     $("#selectChartItems").val()
   ) {
-    selectedCompanyObj = customFilter.filterBySecurityCode(
-      chartsData,
+    let securitiesFilter = customFilter.filterByMultiSecurityCode(
+      chartsData.securities,
       $("#selectCompany").val()
     );
 
-    selectedSectors = customFilter.filterBySecurityCode(
-      chartsData,
-      $("#selectCompany").val()
+    if (securitiesFilter) {
+      selectedCompanyObj.push(...securitiesFilter);
+    }
+
+    let sectorsFilter = customFilter.filterByMultiSector(
+      chartsData.sectors,
+      $("#selectSector").val()
     );
+
+    if (sectorsFilter) {
+      selectedCompanyObj.push(...sectorsFilter);
+    }
 
     let selectChartItemsValue = $("#selectChartItems").val();
-
     if (
       selectedCompanyObj.length === 0 ||
       selectChartItemsValue.length === 0 ||
@@ -83,7 +108,8 @@ function updateCharts(chartsData, startDate = null, endDate = null) {
         justifyContent: "center",
         display: "flex",
       });
-      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+      console.log("selectedCompanyObj is ", selectedCompanyObj);
+      drawCharts(selectedCompanyObj, selectChartItemsValue);
     }
   }
 }
@@ -241,42 +267,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
         $(
           "#selectSector,#selectedType,#selectCompany, #startDate, #endDate ,#selectChartItems"
         ).on("change", function () {
-          selectedCompanyObj = [];
-          if ($("#selectSector").val()) {
-            let result = customFilter.filterByMultiSector(
-              chartsData.sectors,
-              $("#selectSector").val()
-            );
-            if (result) {
-              console.log("result[0] is ", result[0]);
-              selectedCompanyObj.push(result[0]);
-            }
-            console.log("selectedCompanyObj is ", [...selectedCompanyObj]);
-          }
-          if ($("#selectCompany").val()) {
-            let result = customFilter.filterByMultiSecurityCode(
-              chartsData.securities,
-              $("#selectCompany").val()
-              );
-              if (result) {
-              console.log("result[0] is ", result[0]);
-              selectedCompanyObj.push(result[0]);
-            }
-            console.log("selectedCompanyObj is ", [...selectedCompanyObj]);
-          }
-          // problem in selectedCompanyObj here
-          if (selectedCompanyObj.length === 0) {
-            $("#shape-selection").css({
-              display: "none",
-            });
-            updateCharts(emptyObj);
-          } else {
-            $("#shape-selection").css({
-              justifyContent: "center",
-              display: "flex",
-            });
-            updateCharts(...selectedCompanyObj);
-          }
+          updateCharts(chartsData);
         });
 
         // Columns Filters

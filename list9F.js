@@ -36,9 +36,7 @@ function drawCharts(Objects, selectedItems) {
       y: chartsDataArrays[obj],
       name: arabicTranslation[obj],
       type: selectedType,
-      hovertemplate: `${
-        arabicTranslation.securityName
-      }: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
+      hovertemplate: `${arabicTranslation.securityName}: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
     });
   });
   let layout = { barmode: "group", showlegend: true };
@@ -64,6 +62,7 @@ function updateCharts(chartsData) {
         justifyContent: "center",
         display: "flex",
       });
+      console.log("selectedNinObj is ", selectedNinObj);
       drawCharts(selectedNinObj[0].details, selectChartItemsValue);
     }
   }
