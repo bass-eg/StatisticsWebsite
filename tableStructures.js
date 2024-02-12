@@ -422,18 +422,19 @@ const tablesStructures = {
     "avgSell",
   ],
   list11: [
+    "securityCode",
+
+    "securityName",
+    "sector",
     "date",
     "securityClosingPrice",
     "securityVolumeTraded",
     "securityValueTraded",
     "securityNumberOfTrades",
-    "securityCode",
     "sectorClosingPrice",
     "sectorVolumeTraded",
     "sectorValueTraded",
     "sectorNumberOfTrades",
-    "sector",
-    "securityName",
   ],
 };
 export default tablesStructures;

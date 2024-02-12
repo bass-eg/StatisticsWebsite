@@ -7,10 +7,16 @@ let date = [];
 let chartsDataArrays = {};
 const listNumber = "11";
 function prepareDataForCharts(Objects) {
+  console.log("Objects are ", Objects);
   date = [];
-  for (let key in Objects[0]) {
-    chartsDataArrays[key] = [];
+  for (let i = 0; i < Objects.length; i++) {
+    for (let key in Objects[i][0].details[0]) {
+      chartsDataArrays[key] = [];
+    }
   }
+  // for (let key in Objects[0].details[0]) {
+  //   chartsDataArrays[key] = [];
+  // }
   let startDate = $("#startDate").val();
   let endDate = $("#endDate").val();
   Objects.map((el) => {
@@ -29,19 +35,21 @@ function prepareDataForCharts(Objects) {
             Number(new Date(objA.date)) - Number(new Date(objB.date))
         );
 
-      date.push(inner.date);
-      for (let key in inner) {
-        if (key !== "date") {
-          chartsDataArrays[key].push(inner[key]);
+      for (let j = 0; j < inner.details.length; j++) {
+        date.push(inner.details[j].date);
+        for (let key in chartsDataArrays) {
+          if (key !== "date") {
+            chartsDataArrays[key].push(inner.details[j][key]);
+          }
         }
       }
     });
   });
+  console.log("Date are ", date);
   console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
 function drawCharts(Objects, selectedItems) {
-  console.log("Objects are ", Objects);
   if (Object.keys(Objects).length !== 1) {
     let selectedType = $("#selectedType").val();
     if (selectedType != "scatter" && selectedType != "bar") {
@@ -108,7 +116,7 @@ function updateCharts(chartsData) {
         justifyContent: "center",
         display: "flex",
       });
-      console.log("selectedCompanyObj is ", selectedCompanyObj);
+      // console.log("selectedCompanyObj is ", selectedCompanyObj);
       drawCharts(selectedCompanyObj, selectChartItemsValue);
     }
   }
