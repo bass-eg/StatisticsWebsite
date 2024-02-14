@@ -107,15 +107,15 @@ function updateCharts(chartsData) {
       });
       console.log("empty object");
       drawCharts(emptyObj, selectChartItemsValue);
-      $("#globalDownload").removeClass("btn-active");
+      helperFunctions.hidePrintContainer();
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
       console.log("data");
+      helperFunctions.showPrintContainer();
       drawCharts(selectedCompanyObj, selectChartItemsValue);
-      $("#globalDownload").addClass("btn-active");
     }
   }
 }

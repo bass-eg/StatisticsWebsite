@@ -108,10 +108,10 @@ function updateCharts(chartsData) {
 
     if (selectChartItemsValue.length === 0 || selectChartItemsValue === null) {
       drawCharts(emptyObj, selectChartItemsValue);
-      $("#globalDownload").removeClass("btn-active");
+      helperFunctions.hidePrintContainer();
     } else {
+      helperFunctions.showPrintContainer();
       drawCharts(selectedNinObj, selectChartItemsValue);
-      $("#globalDownload").addClass("btn-active");
     }
   }
 }

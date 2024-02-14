@@ -69,14 +69,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
-      $("#globalDownload").removeClass("btn-active");
+      helperFunctions.hidePrintContainer();
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
+      helperFunctions.showPrintContainer();
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
-      $("#globalDownload").addClass("btn-active");
     }
   }
 }

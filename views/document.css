@@ -93,7 +93,7 @@ thead input {
 }
 .search-container {
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .grid-container {
@@ -174,6 +174,12 @@ thead input {
 #print-container .container {
   width: 100%;
 }
+
+#no-content-container{
+  display: none;
+  justify-content: center;
+  color: red;
+} 
 /* 
 #loading {
   padding-top: 20px;

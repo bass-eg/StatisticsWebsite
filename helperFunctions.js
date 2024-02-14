@@ -135,3 +135,16 @@ export const createChartSelectOptions = (
     search: true,
   });
 };
+
+
+export const showPrintContainer = () => {
+  $("#no-content-container").css({ display: "none" });
+  $("#print-container").css({ display: "block" });
+  $("#globalDownload").addClass("btn-active");
+};
+
+export const hidePrintContainer = () => {
+  $("#print-container").css({ display: "none" });
+  $("#no-content-container").css({ display: "flex" });
+  $("#globalDownload").removeClass("btn-active");
+};
