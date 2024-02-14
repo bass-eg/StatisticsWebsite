@@ -57,13 +57,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
-      console.log("selectedNinObj is ", selectedNinObj);
       drawCharts(selectedNinObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

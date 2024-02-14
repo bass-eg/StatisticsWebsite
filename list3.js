@@ -106,10 +106,12 @@ function updateCharts(chartsData) {
     );
     let selectChartItemsValue = $("#selectChartItems").val();
 
-    if (selectedNinObj.length === 0) {
+    if (selectChartItemsValue.length === 0 || selectChartItemsValue === null) {
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       drawCharts(selectedNinObj, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

@@ -35,9 +35,7 @@ function drawCharts(Objects, selectedItems) {
       y: chartsDataArrays[el],
       name: arabicTranslation[el],
       type: selectedType,
-      hovertemplate: `%{x} :${
-        arabicTranslation.date
-      }<br>%{y} :${arabicTranslation[el]}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
     });
   });
   let data1 = [];
@@ -71,12 +69,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

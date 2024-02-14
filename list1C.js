@@ -70,6 +70,7 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
@@ -77,6 +78,7 @@ function updateCharts(chartsData) {
       });
 
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

@@ -36,9 +36,7 @@ function drawCharts(Objects, selectedItems) {
       y: chartsDataArrays[obj],
       name: arabicTranslation[obj],
       type: selectedType,
-      hovertemplate: `${
-        arabicTranslation.securityName
-      }: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
+      hovertemplate: `${arabicTranslation.securityName}: %{x}<br>%{y} :${arabicTranslation[obj]}<br>`,
     });
   });
   let layout = { barmode: "group", showlegend: true };
@@ -59,12 +57,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
       drawCharts(selectedNinObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

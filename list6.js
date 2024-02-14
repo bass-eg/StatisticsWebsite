@@ -105,6 +105,7 @@ function drawCharts(Objects, selectedItems) {
 }
 
 function updateCharts(chartsData) {
+  const emptyObj = [{}];
   if ($("#selectCompany").val() && $("#selectNin").val()) {
     let selectedNinObj = customFilter.filterByNin(
       chartsData,
@@ -120,12 +121,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }

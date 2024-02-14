@@ -34,9 +34,7 @@ function drawCharts(Objects, selectedItems) {
       y: chartsDataArrays[el],
       name: arabicTranslation[el],
       type: selectedType,
-      hovertemplate: `%{x} :${
-        arabicTranslation.date
-      }<br>%{y} :${arabicTranslation[el]}<br>`,
+      hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
     });
   });
   let data1 = [];
@@ -84,12 +82,14 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }
@@ -157,7 +157,7 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
       snapshot: null,
       data: tableData,
       columns: columnArray,
-  
+
       orderCellsTop: true,
 
       language: lang,
@@ -169,9 +169,9 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
       initComplete: function () {
         if (chartsData) {
           helperFunctions.fillNinDropdownList(ninData);
-           helperFunctions.createChartSelectOptions(chartsData, listNumber, [
-             "date",
-           ]);
+          helperFunctions.createChartSelectOptions(chartsData, listNumber, [
+            "date",
+          ]);
         }
         const emptyObj = [
           {
@@ -231,22 +231,6 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             dselect(selectBoxElement, {
               search: true,
             });
-          }
-
-          if (
-            $("#selectCompany").val() &&
-            $("#selectNin").val() &&
-            $("#selectNin2").val()
-          ) {
-            selectedCompanyObj = customFilter.filterBySecurityCode(
-              selectedSecondNinObj,
-              $("#selectCompany").val()
-            );
-            if (selectedCompanyObj.length === 0) {
-              drawCharts(emptyObj);
-            } else {
-              drawCharts(selectedCompanyObj[0].details);
-            }
           }
         });
 

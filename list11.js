@@ -3,26 +3,18 @@ import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 const arabicTranslation = getArabicTranslation();
 
-let date = [];
 let chartsDataArrays = {};
 const listNumber = "11";
 function prepareDataForCharts(Objects) {
-  console.log("Objects are ", Objects);
-  date = [];
   for (let i = 0; i < Objects.length; i++) {
     for (let key in Objects[i][0].details[0]) {
       chartsDataArrays[key] = [];
     }
   }
-  // for (let key in Objects[0].details[0]) {
-  //   chartsDataArrays[key] = [];
-  // }
   let startDate = $("#startDate").val();
   let endDate = $("#endDate").val();
   Objects.map((el) => {
-    console.log("el is ", el);
     el.map((inner) => {
-      console.log("inner is ", inner);
       inner.details
         .filter((a) => {
           var date = new Date(a.date);
@@ -35,18 +27,21 @@ function prepareDataForCharts(Objects) {
             Number(new Date(objA.date)) - Number(new Date(objB.date))
         );
 
+      console.log("el is ", el);
+      console.log("inner is ", inner);
+      console.log("inner.details are ", inner.details);
       for (let j = 0; j < inner.details.length; j++) {
-        date.push(inner.details[j].date);
+        console.log(
+          "-------------------------------------------------------------"
+        );
         for (let key in chartsDataArrays) {
-          if (key !== "date") {
-            chartsDataArrays[key].push(inner.details[j][key]);
-          }
+          console.log("chartsDataArrays[key] is ", chartsDataArrays[key]);
+          console.log("inner.details[j][key] are ", inner.details[j][key]);
+          chartsDataArrays[key].push(inner.details[j][key]);
         }
       }
     });
   });
-  console.log("Date are ", date);
-  console.log("chartsDataArrays are ", chartsDataArrays);
 }
 
 function drawCharts(Objects, selectedItems) {
@@ -59,7 +54,7 @@ function drawCharts(Objects, selectedItems) {
     let selectedItemsObjects = [];
     selectedItems.map((el) => {
       selectedItemsObjects.push({
-        x: date,
+        x: chartsDataArrays.date,
         y: chartsDataArrays[el],
         name: arabicTranslation[el],
         type: selectedType,
@@ -110,14 +105,17 @@ function updateCharts(chartsData) {
       $("#shape-selection").css({
         display: "none",
       });
+      console.log("empty object");
       drawCharts(emptyObj, selectChartItemsValue);
+      $("#globalDownload").removeClass("btn-active");
     } else {
       $("#shape-selection").css({
         justifyContent: "center",
         display: "flex",
       });
-      // console.log("selectedCompanyObj is ", selectedCompanyObj);
+      console.log("data");
       drawCharts(selectedCompanyObj, selectChartItemsValue);
+      $("#globalDownload").addClass("btn-active");
     }
   }
 }
