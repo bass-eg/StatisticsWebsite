@@ -15,11 +15,11 @@ function prepareDataForCharts(Objects) {
   let endDate = $("#endDate").val();
   Objects.map((el) => {
     el.map((inner) => {
-      inner.details
+      const details = inner.details
         .filter((a) => {
-          var date = new Date(a.date);
           return (
-            (!startDate || date >= startDate) && (!endDate || date <= endDate)
+            (!startDate || a.date >= startDate) &&
+            (!endDate || a.date <= endDate)
           );
         })
         .sort(
@@ -27,17 +27,9 @@ function prepareDataForCharts(Objects) {
             Number(new Date(objA.date)) - Number(new Date(objB.date))
         );
 
-      console.log("el is ", el);
-      console.log("inner is ", inner);
-      console.log("inner.details are ", inner.details);
-      for (let j = 0; j < inner.details.length; j++) {
-        console.log(
-          "-------------------------------------------------------------"
-        );
+      for (let j = 0; j < details.length; j++) {
         for (let key in chartsDataArrays) {
-          console.log("chartsDataArrays[key] is ", chartsDataArrays[key]);
-          console.log("inner.details[j][key] are ", inner.details[j][key]);
-          chartsDataArrays[key].push(inner.details[j][key]);
+          chartsDataArrays[key].push(details[j][key]);
         }
       }
     });
@@ -105,7 +97,6 @@ function updateCharts(chartsData) {
       $("#shape-selection").css({
         display: "none",
       });
-      console.log("empty object");
       drawCharts(emptyObj, selectChartItemsValue);
       helperFunctions.hidePrintContainer();
     } else {
@@ -113,7 +104,6 @@ function updateCharts(chartsData) {
         justifyContent: "center",
         display: "flex",
       });
-      console.log("data");
       helperFunctions.showPrintContainer();
       drawCharts(selectedCompanyObj, selectChartItemsValue);
     }
