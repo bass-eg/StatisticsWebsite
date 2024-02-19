@@ -87,7 +87,7 @@ function drawCharts(Objects, selectedItems) {
     z: tempZ,
     x: chartsDataArrays.securityName,
     y: tempName,
-    zmin: 0, // Set the minimum value for the color scale
+    zmin: 0,
     zmax: 1,
     type: "heatmap",
     colorscale: colorscaleValue,
@@ -95,7 +95,6 @@ function drawCharts(Objects, selectedItems) {
     hoverongaps: false,
   });
   Plotly.newPlot("chart1", data1);
-  // Plotly.redraw("chart1",layout);
 }
 
 function updateCharts(chartsData) {

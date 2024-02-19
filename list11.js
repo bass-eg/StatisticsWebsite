@@ -6,6 +6,7 @@ const arabicTranslation = getArabicTranslation();
 let chartsDataArrays = {};
 const listNumber = "11";
 function prepareDataForCharts(Objects) {
+  chartsDataArrays = {};
   for (let i = 0; i < Objects.length; i++) {
     for (let key in Objects[i][0].details[0]) {
       chartsDataArrays[key] = [];
@@ -37,14 +38,14 @@ function prepareDataForCharts(Objects) {
 }
 
 function drawCharts(Objects, selectedItems) {
-  if (Object.keys(Objects).length !== 1) {
-    let selectedType = $("#selectedType").val();
-    if (selectedType != "scatter" && selectedType != "bar") {
-      selectedType = "scatter";
-    }
-    prepareDataForCharts(Objects);
-    let selectedItemsObjects = [];
-    selectedItems.map((el) => {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    if (chartsDataArrays[el]) {
       selectedItemsObjects.push({
         x: chartsDataArrays.date,
         y: chartsDataArrays[el],
@@ -52,22 +53,32 @@ function drawCharts(Objects, selectedItems) {
         type: selectedType,
         hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
       });
-    });
-    let data1 = [];
-    data1.push(...selectedItemsObjects);
-    let layout = { barmode: "group", showlegend: true };
-    Plotly.newPlot("chart1", data1, layout, { responsive: true });
+    }
+  });
+  let data1 = [];
+
+  if (
+    selectedItemsObjects[0]?.x?.length < 1 &&
+    selectedItemsObjects[0]?.y?.length < 1
+  ) {
+    helperFunctions.hidePrintContainer();
   }
+  data1.push(...selectedItemsObjects);
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function drawEmptyCharts() {
+  let data1 = [];
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
 }
 
 function updateCharts(chartsData) {
-  const emptyObj = [{}];
-
-  let selectedCompanyObj = [];
+  let selectedSectorsCompaniesObjects = [];
 
   if (
-    $("#selectSector").val() &&
-    $("#selectCompany").val() &&
+    ($("#selectSector").val() || $("#selectCompany").val()) &&
     $("#selectChartItems").val()
   ) {
     let securitiesFilter = customFilter.filterByMultiSecurityCode(
@@ -76,7 +87,7 @@ function updateCharts(chartsData) {
     );
 
     if (securitiesFilter) {
-      selectedCompanyObj.push(...securitiesFilter);
+      selectedSectorsCompaniesObjects.push(...securitiesFilter);
     }
 
     let sectorsFilter = customFilter.filterByMultiSector(
@@ -85,19 +96,19 @@ function updateCharts(chartsData) {
     );
 
     if (sectorsFilter) {
-      selectedCompanyObj.push(...sectorsFilter);
+      selectedSectorsCompaniesObjects.push(...sectorsFilter);
     }
 
     let selectChartItemsValue = $("#selectChartItems").val();
     if (
-      selectedCompanyObj.length === 0 ||
+      selectedSectorsCompaniesObjects.length === 0 ||
       selectChartItemsValue.length === 0 ||
       selectChartItemsValue === null
     ) {
       $("#shape-selection").css({
         display: "none",
       });
-      drawCharts(emptyObj, selectChartItemsValue);
+      drawEmptyCharts();
       helperFunctions.hidePrintContainer();
     } else {
       $("#shape-selection").css({
@@ -105,7 +116,7 @@ function updateCharts(chartsData) {
         display: "flex",
       });
       helperFunctions.showPrintContainer();
-      drawCharts(selectedCompanyObj, selectChartItemsValue);
+      drawCharts(selectedSectorsCompaniesObjects, selectChartItemsValue);
     }
   }
 }
@@ -201,7 +212,6 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             },
           ],
         ];
-        let selectedCompanyObj;
         let allSectors = [];
         let allSecurities = [];
         let selectSectorElement = document.getElementById("selectSector");

@@ -80,28 +80,6 @@ function drawCharts(Objects, selectedItems) {
 
   let layout = { barmode: "group", showlegend: true };
   Plotly.newPlot("chart1", data1, layout, { responsive: true });
-  // Plotly.newPlot("chart3", data3, layout, { responsive: true });
-
-  // let values = [];
-  // let totalValue;
-  // arr.map((el) => {
-  //   values.push(el.position);
-  //   values.push(el.totalValue - el.position);
-  //   totalValue = el.totalValue;
-  // });
-  // const labels = ["المركز", "القيمة المتبقية"];
-  // const data = [
-  //   {
-  //     values: values,
-  //     labels: labels,
-  //     type: "pie",
-  //   },
-  // ];
-  // if (totalValue == null) totalValue = 0;
-  // var layout1 = {
-  //   title: `المجموع: ${totalValue}`,
-  // };
-  // Plotly.newPlot("chart1", data, layout1, { responsive: true });
 }
 
 function updateCharts(chartsData) {
