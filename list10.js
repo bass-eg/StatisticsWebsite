@@ -19,8 +19,7 @@ let name1 = [
   arabicTranslation.sellVolume,
   arabicTranslation.buyValue,
   arabicTranslation.sellValue,
-  arabicTranslation.numoftrades_buy,
-  arabicTranslation.numoftrades_sell,
+  arabicTranslation.balance,
   arabicTranslation.avgBuy,
   arabicTranslation.avgSell,
 ];
@@ -53,31 +52,24 @@ let chartObjects = {
     type: "bar",
     hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.sellValue}<br>`,
   },
-  numoftrades_buy: {
+  balance: {
     x: date,
     y: [],
     name: name1[4],
     type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.numoftrades_buy}<br>`,
-  },
-  numoftrades_sell: {
-    x: date,
-    y: [],
-    name: name1[5],
-    type: "bar",
-    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.numoftrades_sell}<br>`,
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.balance}<br>`,
   },
   avgBuy: {
     x: date,
     y: [],
-    name: name1[6],
+    name: name1[5],
     type: "bar",
     hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.avgBuy}<br>`,
   },
   avgSell: {
     x: date,
     y: [],
-    name: name1[7],
+    name: name1[6],
     type: "bar",
     hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.avgSell}<br>`,
   },
@@ -89,8 +81,7 @@ function prepareDataForCharts(Objects) {
   chartsDataArrays.sellVolume = [];
   chartsDataArrays.buyValue = [];
   chartsDataArrays.sellValue = [];
-  chartsDataArrays.numoftrades_buy = [];
-  chartsDataArrays.numoftrades_sell = [];
+  chartsDataArrays.balance = [];
   chartsDataArrays.avgBuy = [];
   chartsDataArrays.avgSell = [];
   Objects.map((el) => {
@@ -99,8 +90,7 @@ function prepareDataForCharts(Objects) {
     chartsDataArrays.sellVolume.push(el.sellVolume);
     chartsDataArrays.buyValue.push(el.buyValue);
     chartsDataArrays.sellValue.push(el.sellValue);
-    chartsDataArrays.numoftrades_buy.push(el.numoftrades_buy);
-    chartsDataArrays.numoftrades_sell.push(el.numoftrades_sell);
+    chartsDataArrays.balance.push(el.balance);
     chartsDataArrays.avgBuy.push(el.avgBuy);
     chartsDataArrays.avgSell.push(el.avgSell);
   });
@@ -111,20 +101,10 @@ function drawCharts(Objects, selectedItems) {
     selectedType = "scatter";
   }
   prepareDataForCharts(Objects);
-  // const colors = [
-  //   "#1f77b4", //blue
-  //   "#17becf", //aqua
-  //   "#ff7f0e", //orange
-  //   "#d62728", //red
-  //   "#228B22", //green
-  //   "#2F4F4F", //lawn-green
-  //   "#9467bd", //violet
-  //   "#e377c2", //pink
-  //   "#8c564b", //brown
-  //   "#7f7f7f", //grey
-  // ];
+
   let selectedItemsObjects = [];
   selectedItems.map((el) => {
+    console.log(el);
     let temp = chartObjects[el];
     temp.x = date;
     temp.y = chartsDataArrays[el];

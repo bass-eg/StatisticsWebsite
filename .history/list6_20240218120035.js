@@ -1,0 +1,281 @@
+import * as customFilter from "./filters.js";
+import * as helperFunctions from "./helperFunctions.js";
+import { getArabicTranslation } from "./arabicTranslation.js";
+
+const arabicTranslation = getArabicTranslation();
+let date = [];
+let chartsDataArrays = {
+  balance: [],
+  balanceValue: [],
+  percentageOwnership: [],
+  totalBalanceByDay: [],
+};
+let name1 = [
+  arabicTranslation.balance,
+  arabicTranslation.balanceValue,
+  arabicTranslation.percentageOwnership,
+  arabicTranslation.totalBalanceByDay,
+];
+let chartObjects = {
+  balance: {
+    x: date,
+    y: [],
+    name: name1[0],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.balance}<br>`,
+  },
+  balanceValue: {
+    x: date,
+    y: [],
+    name: name1[1],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.balanceValue}<br>`,
+  },
+  percentageOwnership: {
+    x: date,
+    y: [],
+    name: name1[2],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.percentageOwnership}<br>`,
+  },
+  totalBalanceByDay: {
+    x: date,
+    y: [],
+    name: name1[3],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.totalBalanceByDay}<br>`,
+  },
+};
+
+function prepareDataForCharts(Objects) {
+  date = [];
+  chartsDataArrays.balance = [];
+  chartsDataArrays.balanceValue = [];
+  chartsDataArrays.percentageOwnership = [];
+  chartsDataArrays.totalBalanceByDay = [];
+  Objects.map((el) => {
+    date.push(el.date);
+    chartsDataArrays.balance.push(el.balance);
+    chartsDataArrays.balanceValue.push(el.balanceValue);
+    chartsDataArrays.percentageOwnership.push(el.percentageOwnership);
+    chartsDataArrays.totalBalanceByDay.push(el.totalBalanceByDay);
+  });
+}
+function drawCharts(Objects, selectedItems) {
+  let selectedType = $("#selectedType").val();
+  if (selectedType != "scatter" && selectedType != "bar") {
+    selectedType = "scatter";
+  }
+  prepareDataForCharts(Objects);
+  let selectedItemsObjects = [];
+  selectedItems.map((el) => {
+    let temp = chartObjects[el];
+    temp.x = date;
+    temp.y = chartsDataArrays[el];
+    temp.type = selectedType;
+    selectedItemsObjects.push(temp);
+  });
+  let data1 = [];
+  data1.push(...selectedItemsObjects);
+
+  let layout = { barmode: "group", showlegend: true };
+  Plotly.newPlot("chart1", data1, layout, { responsive: true });
+}
+
+function updateCharts(chartsData) {
+  const emptyObj = [{}];
+  if ($("#selectCompany").val() && $("#selectNin").val()) {
+    let selectedNinObj = customFilter.filterByNin(
+      chartsData,
+      $("#selectNin").val()
+    );
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
+      selectedNinObj,
+      $("#selectCompany").val()
+    );
+    let selectChartItemsValue = $("#selectChartItems").val();
+    if (selectedCompanyObj.length === 0 || selectChartItemsValue.length === 0) {
+      $("#shape-selection").css({
+        display: "none",
+      });
+      drawCharts(emptyObj, selectChartItemsValue);
+      helperFunctions.hidePrintContainer();
+    } else {
+      $("#shape-selection").css({
+        justifyContent: "center",
+        display: "flex",
+      });
+      helperFunctions.showPrintContainer();
+      drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
+    }
+  }
+}
+
+export function startTable(tableData, chartsData, lang, ninData, columnArray) {
+  $(document).ready(function () {
+    function hideSearchInputs(columns) {
+      for (let i = 0; i < columns.length; i++) {
+        if (columns[i]) {
+          $(".filterhead:eq(" + i + ")").show();
+        } else {
+          $(".filterhead:eq(" + i + ")").hide();
+        }
+      }
+    }
+    // Setup - add a text input to each footer cell
+    $("#datatable7 thead tr")
+      .clone(true)
+      .addClass("filters")
+      .appendTo("#datatable7 thead");
+    var table = $("#datatable7").DataTable({
+      dom:
+        "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'il><'col-sm-12 col-md-7'p>>",
+      buttons: [
+        {
+          extend: "excel",
+          title: "Excel Report",
+          exportOptions: {
+            columns: function (idx, data, node) {
+              if ($(node).hasClass("noVis")) {
+                return false;
+              }
+
+              return $("#datatable7").DataTable().column(idx).visible();
+            },
+          },
+        },
+        {
+          extend: "print",
+          exportOptions: {
+            columns: function (idx, data, node) {
+              if ($(node).hasClass("noVis")) {
+                return false;
+              }
+
+              return $("#datatable7").DataTable().column(idx).visible();
+            },
+          },
+        },
+        {
+          extend: "copy",
+          exportOptions: {
+            columns: function (idx, data, node) {
+              if ($(node).hasClass("noVis")) {
+                return false;
+              }
+
+              return $("#datatable7").DataTable().column(idx).visible();
+            },
+          },
+        },
+      ],
+      snapshot: null,
+      data: tableData,
+      columns: columnArray,
+      orderCellsTop: true,
+
+      language: lang,
+      rowReorder: {
+        selector: "td:nth-child(2)",
+      },
+      responsive: true,
+      keys: true,
+      initComplete: function () {
+        if (chartsData) {
+          helperFunctions.fillNinDropdownList(ninData);
+          for (let key in chartsData[0].details[0]) {
+            if (key !== "date") {
+              var option = document.createElement("option");
+              option.value = key;
+              option.innerHTML = arabicTranslation[key];
+              selectChartItems.appendChild(option);
+            }
+          }
+          var selectBoxElement = document.querySelector("#selectChartItems");
+          dselect(selectBoxElement, {
+            search: true,
+          });
+        }
+        const emptyObj = [
+          {
+            date: null,
+            position: null,
+            totalValue: null,
+          },
+        ];
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
+          }
+        );
+        $("#selectNin").on("change", function () {
+          if ($("#selectNin").val()) {
+            let selectCompanyElement = document.getElementById("selectCompany");
+            let selectedNinObj = customFilter.filterByNin(
+              chartsData,
+              $("#selectNin").val()
+            );
+            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
+            selectedNinObj.forEach(function (item) {
+              selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
+            });
+            var selectBoxElement = document.querySelector("#selectCompany");
+            dselect(selectBoxElement, {
+              search: true,
+            });
+            updateCharts(updateCharts);
+          }
+        });
+        var api = this.api();
+
+        // For each column
+        api
+          .columns()
+          .eq(0)
+          .each(function (colIdx) {
+            // Set the header cell to contain the input element
+            var cell = $(".filters th")
+              .addClass("filterhead")
+              .eq($(api.column(colIdx).header()).index());
+            var title = $(cell).text();
+            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+            // On every keypress in this input
+            $(
+              "input",
+              $(".filters th").eq($(api.column(colIdx).header()).index())
+            )
+              .off("keyup change")
+              .on("keyup change", function (e) {
+                e.stopPropagation();
+                // Get the search value
+                $(this).attr("title", $(this).val());
+                var regexr = "({search})"; //$(this).parents('th').find('select').val();
+                var cursorPosition = this.selectionStart;
+                // Search the column for that value
+                api
+                  .column(colIdx)
+                  .search(
+                    this.value != ""
+                      ? regexr.replace("{search}", "(((" + this.value + ")))")
+                      : "",
+                    this.value != "",
+                    this.value == ""
+                  )
+                  .draw();
+                $(this)
+                  .focus()[0]
+                  .setSelectionRange(cursorPosition, cursorPosition);
+              });
+          });
+        hideSearchInputs(api.columns().responsiveHidden().toArray());
+      },
+    });
+    table.on("responsive-resize", function (e, datatable, columns) {
+      hideSearchInputs(columns);
+    });
+  });
+}

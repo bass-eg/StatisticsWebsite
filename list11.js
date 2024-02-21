@@ -28,6 +28,8 @@ function prepareDataForCharts(Objects) {
             Number(new Date(objA.date)) - Number(new Date(objB.date))
         );
 
+      console.log("details are ", details);
+
       for (let j = 0; j < details.length; j++) {
         for (let key in chartsDataArrays) {
           chartsDataArrays[key].push(details[j][key]);

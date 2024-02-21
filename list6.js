@@ -9,12 +9,16 @@ let chartsDataArrays = {
   balanceValue: [],
   percentageOwnership: [],
   totalBalanceByDay: [],
+  totalBalanceValueByDay: [],
+  allMrktAvgSellPrice: [],
 };
 let name1 = [
   arabicTranslation.balance,
   arabicTranslation.balanceValue,
   arabicTranslation.percentageOwnership,
   arabicTranslation.totalBalanceByDay,
+  arabicTranslation.totalBalanceValueByDay,
+  arabicTranslation.allMrktAvgSellPrice,
 ];
 let chartObjects = {
   balance: {
@@ -45,6 +49,21 @@ let chartObjects = {
     type: "bar",
     hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.totalBalanceByDay}<br>`,
   },
+  totalBalanceByDay: {
+    x: date,
+    y: [],
+    name: name1[4],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.totalBalanceValueByDay}<br>`,
+  },
+
+  allMrktAvgSellPrice: {
+    x: date,
+    y: [],
+    name: name1[5],
+    type: "bar",
+    hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation.allMrktAvgSellPrice}<br>`,
+  },
 };
 
 function prepareDataForCharts(Objects) {
@@ -53,12 +72,17 @@ function prepareDataForCharts(Objects) {
   chartsDataArrays.balanceValue = [];
   chartsDataArrays.percentageOwnership = [];
   chartsDataArrays.totalBalanceByDay = [];
+  chartsDataArrays.totalBalanceValueByDay = [];
+  chartsDataArrays.allMrktAvgSellPrice = [];
   Objects.map((el) => {
+    console.log("el is ", el);
     date.push(el.date);
     chartsDataArrays.balance.push(el.balance);
     chartsDataArrays.balanceValue.push(el.balanceValue);
     chartsDataArrays.percentageOwnership.push(el.percentageOwnership);
     chartsDataArrays.totalBalanceByDay.push(el.totalBalanceByDay);
+    chartsDataArrays.totalBalanceValueByDay.push(el.totalBalanceValueByDay);
+    chartsDataArrays.allMrktAvgSellPrice.push(el.allMrktAvgSellPrice);
   });
 }
 function drawCharts(Objects, selectedItems) {
@@ -112,6 +136,7 @@ function updateCharts(chartsData) {
 }
 
 export function startTable(tableData, chartsData, lang, ninData, columnArray) {
+  console.log("columnArray are ", columnArray);
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {

@@ -3,8 +3,8 @@ import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 const arabicTranslation = getArabicTranslation();
 
-let securityNames = [];
 let chartsDataArrays = {};
+let securityNames = [];
 const listNumber = "2";
 
 function prepareDataForCharts(Objects) {
@@ -27,6 +27,7 @@ function drawCharts(Objects, selectedItems) {
   if (selectedType != "scatter" && selectedType != "bar") {
     selectedType = "scatter";
   }
+
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
 
@@ -57,7 +58,6 @@ function updateCharts(chartsData) {
         display: "none",
       });
       drawCharts(emptyObj, selectChartItemsValue);
-      //log there is no data.
       helperFunctions.hidePrintContainer();
     } else {
       $("#shape-selection").css({

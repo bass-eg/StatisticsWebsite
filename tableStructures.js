@@ -59,6 +59,8 @@ const tablesStructures = {
     "percentageTradesSell",
   ],
   list2: [
+    "ninName",
+    "nin",
     "securityCode",
     "securityName",
     "date",
@@ -104,6 +106,8 @@ const tablesStructures = {
   list4: [
     "securityCode",
     "securityName",
+    "ninName",
+    "nin",
     "volumeOfBuyEnter_fullydisclosed",
     "valueOfBuyEnter_fullydisclosed",
     "nbOfBuyEnter_fullydisclosed",
@@ -168,6 +172,7 @@ const tablesStructures = {
     "balanceValue",
     "percentageOwnership",
     "totalBalanceByDay",
+    "totalBalanceValueByDay",
   ],
   list7: [
     "securityCode",
@@ -303,7 +308,7 @@ const tablesStructures = {
     "sellDuringPrice",
     "sellAfterPrice",
     "allMarketAvgBuyPrice",
-    "allMarketAvgSellPrice",
+    "allMrktAvgSellPrice",
   ],
   list9C: [
     "securityCode",
@@ -416,14 +421,12 @@ const tablesStructures = {
     "buyValue",
     "sellVolume",
     "sellValue",
-    "numoftrades_buy",
-    "numoftrades_sell",
+    "balance",
     "avgBuy",
     "avgSell",
   ],
   list11: [
     "securityCode",
-
     "securityName",
     "sector",
     "date",

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/bootstrap-rtl.min.css" />
+    <link rel="stylesheet" type="text/css" href="./DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="./document.css" />
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="./js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./DataTables/datatables.js"></script>
+
+
+    <script src="./js/plotly-2.14.0.min.js"></script>
+    <script src="./js/jspdf.min.js"></script>
+    <script src="./js/html2canvas.min.js"></script>
+    <script src="./js/dselect.js"></script>
+</head>
+
+<body class="preload">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    
+    </nav>
+  
+
+    <div class="container table-container">
+        <div class="row col-12 d-flex justify-content-center">
+            <table id="datatable3" class="table table-striped doc-table display" style="width:100%">
+                <thead class="doc-table-head" dir="rtl">
+                    <tr id="tableRows">
+                    </tr>
+                <tbody class="doc-table-body" dir="rtl">
+                </tbody>
+                </thead>
+            </table>
+            <br />
+        </div>
+    </div>
+
+    <div class="search-container" dir="rtl">
+        <div class="container">
+            <div class="ser form-outline">
+                <select id="selectNin" class="form-select">
+                    <option value="" selected disabled hidden>إختر المشتبه به</option>
+                </select>
+            </div>
+            <div class="ser form-outline">
+                <select id="selectCompany" class="form-select">
+                    <option value="" selected disabled hidden>إختر شركة</option>
+                </select>
+            </div>
+            <div class="ser form-outline">
+                <select id="selectChartItems" class="form-select" multiple="multiple">
+                    <option value="" selected disabled hidden>إختر البيانات</option>
+                </select>
+            </div>
+    
+            <div class="ser form-outline">
+                <button class="btn btn-disabled" type="button" id="globalDownload">
+                    إستخراج إلي PDF
+                </button>
+            </div>
+        </div>
+        <div class="container" id="shape-selection" style="display: none;">
+            <div class="ser form-outline" style="display: flex;">
+                <label for="selectedType">الرسم البياني</label>
+                <select id="selectedType" class="form-select">
+                    <option value="" selected disabled hidden>إختر شكل</option>
+                    <option value="scatter" selected>Timeline</option>
+                    <option value="bar">Bar Charts</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="print-container">
+        <div id="chart1" class="col-12">
+        </div>
+        <div id="chart2" class="col-12">
+        </div>
+    </div>
+    <div id="no-content-container">
+        <h4>
+            There Is No Data To Show ,
+        </h4>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+
+    <script src="./../index.js" type="module"></script>
+    <script src="./../pdfExport.js" type="module"></script>
+</body>
+
+</html>

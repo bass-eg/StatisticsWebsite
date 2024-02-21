@@ -123,7 +123,7 @@ export const createChartSelectOptions = (
   listNumber,
   keysToIgnore
 ) => {
-  for (let key in chartsData[0].details[0]) {
+  for (let key in chartsData[0]?.details[0]) {
     if (!keysToIgnore.includes(key)) {
       var option = document.createElement("option");
       option.value = key;

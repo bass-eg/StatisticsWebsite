@@ -3,18 +3,18 @@ import * as helperFunctions from "./helperFunctions.js";
 import { getArabicTranslation } from "./arabicTranslation.js";
 const arabicTranslation = getArabicTranslation();
 
-let date = [];
+let securityNames = [];
 let chartsDataArrays = {};
 const listNumber = "1B";
 function prepareDataForCharts(Objects) {
-  date = [];
+  securityNames = [];
   for (let key in Objects[0]) {
     chartsDataArrays[key] = [];
   }
   Objects.map((el) => {
-    date.push(el.date);
+    securityNames.push(el.securityName);
     for (let key in el) {
-      if (key !== "date") {
+      if (key !== "date" && key !== "securityName") {
         chartsDataArrays[key].push(el[key]);
       }
     }
@@ -28,15 +28,17 @@ function drawCharts(Objects, selectedItems) {
   }
   prepareDataForCharts(Objects);
   let selectedItemsObjects = [];
+  console.log("chartsDataArrays are ", chartsDataArrays);
   selectedItems.map((el) => {
     selectedItemsObjects.push({
-      x: date,
+      x: securityNames,
       y: chartsDataArrays[el],
       name: arabicTranslation[el],
       type: selectedType,
-      hovertemplate: `%{x} :${arabicTranslation.date}<br>%{y} :${arabicTranslation[el]}<br>`,
+      hovertemplate: `${arabicTranslation.securityName} :%{x}<br>%{y} :${arabicTranslation[el]}<br>`,
     });
   });
+  console.log("selectedItemsObjects are ", selectedItemsObjects);
   let data1 = [];
   data1.push(...selectedItemsObjects);
   let layout = { barmode: "group", showlegend: true };
@@ -66,7 +68,7 @@ function updateCharts(chartsData) {
       selectedNinObj,
       $("#selectNin2").val()
     );
-    selectedCompanyObj = customFilter.filterBySecurityCode(
+    let selectedCompanyObj = customFilter.filterBySecurityCode(
       selectedSecondNinObj,
       $("#selectCompany").val()
     );
@@ -89,6 +91,9 @@ function updateCharts(chartsData) {
         display: "flex",
       });
       helperFunctions.showPrintContainer();
+      console.log("selectedCompanyObj are ", selectedCompanyObj);
+      selectedCompanyObj[0].details[0]["securityName"] =
+        selectedCompanyObj[0].securityName;
       drawCharts(selectedCompanyObj[0].details, selectChartItemsValue);
     }
   }
@@ -184,16 +189,8 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             nbOfSellTrades: null,
           },
         ];
-        let selectedCompanyObj;
         let selectedNinObj;
         let selectedSecondNinObj;
-
-        $("#selectCompany,#selectChartItems,#selectedType").on(
-          "change",
-          function () {
-            updateCharts(chartsData);
-          }
-        );
 
         $("#selectNin").on("change", function () {
           if ($("#selectNin").val()) {
@@ -211,9 +208,9 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             });
           }
 
+          let selectCompanyElement = document.getElementById("selectCompany");
+          var selectBoxElement = document.querySelector("#selectCompany");
           if ($("#selectNin").val() && $("#selectNin2").val()) {
-            let selectCompanyElement = document.getElementById("selectCompany");
-
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
@@ -226,18 +223,18 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             selectedSecondNinObj.forEach(function (item) {
               selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
             });
-
-            var selectBoxElement = document.querySelector("#selectCompany");
-            dselect(selectBoxElement, {
-              search: true,
-            });
+          } else {
+            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
           }
+          dselect(selectBoxElement, {
+            search: true,
+          });
         });
 
         $("#selectNin2").on("change", function () {
+          let selectCompanyElement = document.getElementById("selectCompany");
+          var selectBoxElement = document.querySelector("#selectCompany");
           if ($("#selectNin").val() && $("#selectNin2").val()) {
-            let selectCompanyElement = document.getElementById("selectCompany");
-
             selectedNinObj = customFilter.filterByNin(
               chartsData,
               $("#selectNin").val()
@@ -250,14 +247,20 @@ export function startTable(tableData, chartsData, lang, ninData, columnArray) {
             selectedSecondNinObj.forEach(function (item) {
               selectCompanyElement.innerHTML += `<option value="${item.securityCode}">${item.securityCode} - ${item.securityName}</option>`;
             });
-
-            var selectBoxElement = document.querySelector("#selectCompany");
-            dselect(selectBoxElement, {
-              search: true,
-            });
+          } else {
+            selectCompanyElement.innerHTML = `<option value="" selected disabled hidden>إختر شركة</option>`;
           }
+          dselect(selectBoxElement, {
+            search: true,
+          });
         });
 
+        $("#selectCompany,#selectChartItems,#selectedType").on(
+          "change",
+          function () {
+            updateCharts(chartsData);
+          }
+        );
         var api = this.api();
 
         // For each column

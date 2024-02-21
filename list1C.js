@@ -59,6 +59,7 @@ function updateCharts(chartsData) {
       selectedNinObj,
       $("#selectCompany").val()
     );
+
     let selectChartItemsValue = $("#selectChartItems").val();
 
     if (
