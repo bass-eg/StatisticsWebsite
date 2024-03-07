@@ -386,6 +386,8 @@ export function getArabicTranslation() {
     source: "المصدر ",
     SubjectLink: "رابط الموضوع ",
     SubjectName: "إسم الموضوع ",
+    Subjectlink: "رابط الموضوع ",
+    Subjectname: "إسم الموضوع ",
     sumOfBuyOrgVolumeOfTheDay: "مجموع كميات أوامر الشراء المدخلة في اليوم ",
     sumOfBuyOrgVolumeOfTheVioTime:
       "مجموع كمية أوامر الشراء المدخلة في وقت المخالفة ",

@@ -1,4 +1,5 @@
 export function startTable(tableData, chartsData, lang, ninData, columnArray) {
+  console.log("tableData are ", tableData);
   $(document).ready(function () {
     function hideSearchInputs(columns) {
       for (let i = 0; i < columns.length; i++) {

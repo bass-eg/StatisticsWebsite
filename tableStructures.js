@@ -232,8 +232,8 @@ const tablesStructures = {
     "NIN",
     "InvestorName",
     "LoginName",
-    "SubjectName",
-    "SubjectLink",
+    "Subjectname",
+    "Subjectlink",
     "violators",
   ],
   list9A: [
